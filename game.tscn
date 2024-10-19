@@ -1,3 +1,8 @@
-[gd_scene format=3 uid="uid://bsho3man5rnyv"]
+[gd_scene load_steps=2 format=3 uid="uid://bsho3man5rnyv"]
+
+[ext_resource type="PackedScene" uid="uid://bvhhta3af1hts" path="res://scenes/product.tscn" id="1_wf504"]
 
 [node name="Game" type="Node2D"]
+
+[node name="Product" parent="." instance=ExtResource("1_wf504")]
+is_automated = null
