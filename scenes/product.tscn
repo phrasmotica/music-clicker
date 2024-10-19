@@ -6,7 +6,6 @@
 offset_right = 120.0
 offset_bottom = 23.0
 script = ExtResource("1_ynjkp")
-is_automated = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -40,6 +39,7 @@ theme_override_font_sizes/font_size = 24
 text = "x1"
 
 [node name="MakeButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
@@ -49,9 +49,9 @@ text = "Make"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 38)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 24
-value = 50.0
 show_percentage = false
 
 [node name="RewardLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]

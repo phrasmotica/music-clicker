@@ -1,8 +1,42 @@
-[gd_scene load_steps=2 format=3 uid="uid://bsho3man5rnyv"]
+[gd_scene load_steps=4 format=3 uid="uid://bsho3man5rnyv"]
 
+[ext_resource type="PackedScene" uid="uid://c1e4wtqckp844" path="res://scenes/score_manager.tscn" id="1_2j3m2"]
 [ext_resource type="PackedScene" uid="uid://bvhhta3af1hts" path="res://scenes/product.tscn" id="1_wf504"]
+[ext_resource type="Script" path="res://scripts/ui_manager.gd" id="2_4huk1"]
 
 [node name="Game" type="Node2D"]
 
-[node name="Product" parent="." instance=ExtResource("1_wf504")]
-is_automated = null
+[node name="ScoreManager" parent="." instance=ExtResource("1_2j3m2")]
+
+[node name="UIManager" type="Node" parent="."]
+script = ExtResource("2_4huk1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 64
+text = "Music Clicker"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
+text = "£0"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="Product0" parent="VBoxContainer/GridContainer" instance=ExtResource("1_wf504")]
+layout_mode = 2
+size_flags_horizontal = 3
+is_automated = false
+
+[connection signal="score_changed" from="ScoreManager" to="UIManager" method="_on_score_manager_score_changed"]
+[connection signal="made_product" from="VBoxContainer/GridContainer/Product0" to="ScoreManager" method="_on_product_0_made_product"]
