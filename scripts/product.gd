@@ -5,7 +5,18 @@ class_name Product extends PanelContainer
 var base_time_seconds: float = 3.0
 
 @export_range(1, 100)
-var base_reward: int = 1
+var base_reward: int = 1:
+	set(value):
+		base_reward = value
+
+		update_reward_label()
+
+@export_range(1, 100)
+var base_cost: int = 1:
+	set(value):
+		base_cost = value
+
+		update_buy_button()
 
 @export
 var is_automated := false
@@ -22,15 +33,15 @@ var progress_bar: ProgressBar = %ProgressBar
 @onready
 var reward_label: Label = %RewardLabel
 
+@onready
+var buy_button: Button = %BuyButton
+
 var _amount: int = 1:
 	set(value):
 		_amount = value
 
-		if amount_label:
-			amount_label.text = "x" + str(_amount)
-
-		if reward_label:
-			reward_label.text = "£" + str(_amount * base_reward)
+		update_amount_label()
+		update_reward_label()
 
 var _is_making := false
 
@@ -63,6 +74,18 @@ func make() -> void:
 
 func reset_progress() -> void:
 	progress_bar.value = 0
+
+func update_amount_label():
+	if amount_label:
+		amount_label.text = "x" + str(_amount)
+
+func update_reward_label():
+	if reward_label:
+		reward_label.text = "£" + str(_amount * base_reward)
+
+func update_buy_button():
+	if buy_button:
+		buy_button.text = "Buy £" + str(base_cost)
 
 func _on_buy_button_pressed() -> void:
 	print("Buying a product...")
