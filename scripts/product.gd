@@ -55,7 +55,7 @@ var _amount: int = 1:
 
 var _is_making := false
 
-signal bought_product(amount: int)
+signal bought_product(amount: int, cost: int)
 signal made_product(reward: int)
 
 func _ready():
@@ -78,7 +78,7 @@ func _process(delta: float) -> void:
 func buy() -> void:
 	_amount += 1
 
-	bought_product.emit(_amount)
+	bought_product.emit(_amount, base_cost)
 
 func make() -> void:
 	reset_progress()
