@@ -36,6 +36,7 @@ columns = 2
 [node name="Product0" parent="VBoxContainer/GridContainer" instance=ExtResource("1_wf504")]
 layout_mode = 2
 size_flags_horizontal = 3
+product_name = "Doom Metal"
 
 [connection signal="score_changed" from="ScoreManager" to="UIManager" method="_on_score_manager_score_changed"]
 [connection signal="made_product" from="VBoxContainer/GridContainer/Product0" to="ScoreManager" method="_on_product_0_made_product"]

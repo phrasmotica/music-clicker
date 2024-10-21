@@ -1,6 +1,13 @@
 @tool
 class_name Product extends PanelContainer
 
+@export_placeholder("Name")
+var product_name := "":
+	set(value):
+		product_name = value
+
+		update_name_label()
+
 @export_range(1.0, 10.0)
 var base_time_seconds: float = 3.0
 
@@ -20,6 +27,9 @@ var base_cost: int = 1:
 
 @export
 var is_automated := false
+
+@onready
+var name_label: Label = %NameLabel
 
 @onready
 var amount_label: Label = %AmountLabel
@@ -49,6 +59,8 @@ signal bought_product(amount: int)
 signal made_product(reward: int)
 
 func _ready():
+	update_name_label()
+
 	reset_progress()
 
 func _process(delta: float) -> void:
@@ -74,6 +86,10 @@ func make() -> void:
 
 func reset_progress() -> void:
 	progress_bar.value = 0
+
+func update_name_label():
+	if name_label:
+		name_label.text = product_name if product_name.length() > 0 else "<product_name>"
 
 func update_amount_label():
 	if amount_label:
