@@ -39,6 +39,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 product = ExtResource("4_2c385")
 
+[connection signal="product_bought" from="ScoreManager" to="VBoxContainer/GridContainer/ProductMeter0" method="_on_score_manager_product_bought"]
 [connection signal="score_changed" from="ScoreManager" to="UIManager" method="_on_score_manager_score_changed"]
 [connection signal="buy_product" from="VBoxContainer/GridContainer/ProductMeter0" to="ScoreManager" method="_on_product_buy_product"]
 [connection signal="made_product" from="VBoxContainer/GridContainer/ProductMeter0" to="ScoreManager" method="_on_product_0_made_product"]

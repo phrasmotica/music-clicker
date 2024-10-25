@@ -102,3 +102,7 @@ func _on_make_button_pressed() -> void:
 	make_button.disabled = true
 
 	make()
+
+func _on_score_manager_product_bought(p: Product) -> void:
+	if product == p:
+		_amount += 1
