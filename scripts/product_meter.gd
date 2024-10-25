@@ -103,6 +103,5 @@ func _on_make_button_pressed() -> void:
 
 	make()
 
-func _on_score_manager_product_bought(p: Product) -> void:
-	if product == p:
-		_amount += 1
+func receive_product(x: int) -> void:
+	_amount += x
