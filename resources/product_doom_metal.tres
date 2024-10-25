@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_v32x2")
+id = 0
 product_name = "Doom Metal"
 base_time_seconds = 3.0
 base_reward = 1

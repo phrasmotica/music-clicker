@@ -1,5 +1,8 @@
 class_name Product extends Resource
 
+@export
+var id: int = 0
+
 @export_placeholder("Name")
 var product_name := ""
 
