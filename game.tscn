@@ -9,6 +9,7 @@
 [node name="Game" type="Node2D"]
 
 [node name="ScoreManager" parent="." instance=ExtResource("1_2j3m2")]
+starting_score = 50
 
 [node name="ProductRouter" type="Node" parent="." node_paths=PackedStringArray("product_meters")]
 script = ExtResource("3_khcq3")
@@ -38,7 +39,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "£0"
+text = "£50"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="UIManager/VBoxContainer"]

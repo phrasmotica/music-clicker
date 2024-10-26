@@ -1,4 +1,8 @@
+@tool
 extends Node
+
+@export
+var starting_score: int = 0
 
 var _score: int = 0
 
