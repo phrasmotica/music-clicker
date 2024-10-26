@@ -5,6 +5,7 @@
 [node name="ProductMeter" type="PanelContainer"]
 offset_right = 120.0
 offset_bottom = 23.0
+size_flags_horizontal = 3
 script = ExtResource("1_ynjkp")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

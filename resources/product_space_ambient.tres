@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Product" load_steps=2 format=3 uid="uid://c6t4cqq3uv8oq"]
+
+[ext_resource type="Script" path="res://scripts/product.gd" id="1_sl1ie"]
+
+[resource]
+script = ExtResource("1_sl1ie")
+id = 2
+product_name = "Space Ambient"
+base_reward = 4
+base_cost = 5

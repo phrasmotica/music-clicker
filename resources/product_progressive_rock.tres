@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Product" load_steps=2 format=3 uid="uid://fas0axhy8l1j"]
+
+[ext_resource type="Script" path="res://scripts/product.gd" id="1_ju1qr"]
+
+[resource]
+script = ExtResource("1_ju1qr")
+id = 3
+product_name = "Progressive Rock"
+base_reward = 10
+base_cost = 4

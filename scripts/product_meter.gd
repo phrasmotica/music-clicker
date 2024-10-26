@@ -12,7 +12,7 @@ var product: Product:
 		update_reward_label()
 		update_buy_button()
 
-@export_range(1.0, 10.0)
+@export_range(1.0, 30.0)
 var base_time_seconds: float = 3.0
 
 @export
@@ -47,6 +47,9 @@ signal made_product(reward: int)
 
 func _ready():
 	update_name_label()
+	update_amount_label()
+	update_reward_label()
+	update_buy_button()
 
 	reset_progress()
 

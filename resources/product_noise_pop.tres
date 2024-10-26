@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Product" load_steps=2 format=3 uid="uid://ceris41rue5kw"]
+
+[ext_resource type="Script" path="res://scripts/product.gd" id="1_wls8x"]
+
+[resource]
+script = ExtResource("1_wls8x")
+id = 1
+product_name = "Noise Pop"
+base_reward = 2
+base_cost = 3
