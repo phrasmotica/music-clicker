@@ -9,11 +9,11 @@ func _on_product_0_made_product(reward: int) -> void:
 	_score += reward
 	score_changed.emit(_score)
 
-func _on_product_buy_product(product: Product) -> void:
-	if _score < product.base_cost:
+func _on_product_buy_product(product: Product, cost: int) -> void:
+	if _score < cost:
 		return
 
-	_score -= product.base_cost
+	_score -= cost
 
 	score_changed.emit(_score)
 	product_bought.emit(product)

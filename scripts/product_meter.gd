@@ -1,6 +1,8 @@
 @tool
 class_name ProductMeter extends PanelContainer
 
+enum CurveType { LINEAR, LOGARITHMIC, EXPONENTIAL }
+
 @export
 var product: Product:
 	set(value):
@@ -9,6 +11,9 @@ var product: Product:
 		update_name_label()
 		update_reward_label()
 		update_buy_button()
+
+@export
+var cost_curve: CurveType
 
 @export
 var is_automated := false
@@ -37,10 +42,11 @@ var _amount: int = 1:
 
 		update_amount_label()
 		update_reward_label()
+		update_buy_button()
 
 var _is_making := false
 
-signal buy_product(product: Product)
+signal buy_product(product: Product, cost: int)
 signal made_product(reward: int)
 
 func _ready():
@@ -61,7 +67,25 @@ func _process(delta: float) -> void:
 			made_product.emit(_amount * product.base_reward)
 
 func buy() -> void:
-	buy_product.emit(product)
+	var cost := get_cost()
+	buy_product.emit(product, cost)
+
+func get_cost() -> int:
+	if not product:
+		return 1
+
+	# https://www.desmos.com/calculator/w1vzpghz7i
+	match cost_curve:
+		CurveType.LINEAR:
+			return int(product.base_cost * _amount)
+
+		CurveType.LOGARITHMIC:
+			return int(product.base_cost * pow(_amount, 0.7))
+
+		CurveType.EXPONENTIAL:
+			return int(product.base_cost * pow(_amount, 1.2))
+
+	return int(product.base_cost * _amount)
 
 func make() -> void:
 	reset_progress()
@@ -88,7 +112,7 @@ func update_reward_label():
 
 func update_buy_button():
 	if buy_button:
-		var c = product.base_cost if product and product.base_cost > 0 else 1
+		var c := get_cost()
 		buy_button.text = "Buy £" + str(c)
 
 func _on_buy_button_pressed() -> void:
