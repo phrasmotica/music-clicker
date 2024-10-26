@@ -74,6 +74,7 @@ base_time_seconds = 15.0
 cost_curve = 2
 
 [connection signal="product_bought" from="ScoreManager" to="ProductRouter" method="_on_score_manager_product_bought"]
+[connection signal="score_changed" from="ScoreManager" to="ProductRouter" method="_on_score_manager_score_changed"]
 [connection signal="score_changed" from="ScoreManager" to="UIManager" method="_on_score_manager_score_changed"]
 [connection signal="buy_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_buy_product"]
 [connection signal="made_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_made_product"]

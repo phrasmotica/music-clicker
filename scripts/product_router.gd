@@ -35,3 +35,7 @@ func _on_score_manager_product_bought(product: Product) -> void:
 	for pm in product_meters:
 		var amount := get_amount(pm.product.id)
 		pm.set_amount(amount)
+
+func _on_score_manager_score_changed(score: int) -> void:
+	for pm in product_meters:
+		pm.refresh_buttons(score)

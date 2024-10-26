@@ -121,6 +121,10 @@ func update_buy_button():
 		var c := get_cost()
 		buy_button.text = "Buy £" + str(c)
 
+func refresh_buttons(score: int):
+	if buy_button:
+		buy_button.disabled = score < get_cost()
+
 func _on_buy_button_pressed() -> void:
 	print("Buying a product...")
 
