@@ -15,6 +15,10 @@ func _ready():
 		var screen_size := DisplayServer.screen_get_size()
 		var small_window_size := screen_size * 2 / 3
 
+		# display at 16:9 regardless of screen's aspect ratio
+		var small_window_height := small_window_size.x * 9.0 / 16
+		small_window_size.y = int(small_window_height)
+
 		var window := get_window()
 
 		window.size = small_window_size
