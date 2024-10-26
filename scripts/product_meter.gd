@@ -39,14 +39,7 @@ var reward_label: Label = %RewardLabel
 @onready
 var buy_button: Button = %BuyButton
 
-var _amount: int = 1:
-	set(value):
-		_amount = value
-
-		update_amount_label()
-		update_reward_label()
-		update_buy_button()
-
+var _amount: int = 1
 var _is_making := false
 
 signal buy_product(product: Product, cost: int)
@@ -97,6 +90,13 @@ func make() -> void:
 func reset_progress() -> void:
 	progress_bar.value = 0
 
+func set_amount(x: int) -> void:
+	_amount = x
+
+	update_amount_label()
+	update_reward_label()
+	update_buy_button()
+
 func update_name_label():
 	if name_label:
 		if product and product.product_name.length() > 0:
@@ -129,6 +129,3 @@ func _on_make_button_pressed() -> void:
 	make_button.disabled = true
 
 	make()
-
-func receive_product(x: int) -> void:
-	_amount += x

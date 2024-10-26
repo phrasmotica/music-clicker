@@ -10,41 +10,48 @@
 
 [node name="ScoreManager" parent="." instance=ExtResource("1_2j3m2")]
 
-[node name="UIManager" type="Node" parent="."]
-script = ExtResource("2_4huk1")
-
 [node name="ProductRouter" type="Node" parent="." node_paths=PackedStringArray("product_meters")]
 script = ExtResource("3_khcq3")
-product_meters = [NodePath("../VBoxContainer/GridContainer/ProductMeter0")]
+product_meters = [NodePath("../UIManager/VBoxContainer/GridContainer/ProductMeter0")]
+amounts = {
+0: 1
+}
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="UIManager" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_4huk1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UIManager"]
 custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="UIManager/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Music Clicker"
 horizontal_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="VBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="UIManager/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "£0"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="UIManager/VBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="ProductMeter0" parent="VBoxContainer/GridContainer" instance=ExtResource("1_wf504")]
+[node name="ProductMeter0" parent="UIManager/VBoxContainer/GridContainer" instance=ExtResource("1_wf504")]
 layout_mode = 2
 size_flags_horizontal = 3
 product = ExtResource("4_2c385")
 
 [connection signal="product_bought" from="ScoreManager" to="ProductRouter" method="_on_score_manager_product_bought"]
 [connection signal="score_changed" from="ScoreManager" to="UIManager" method="_on_score_manager_score_changed"]
-[connection signal="buy_product" from="VBoxContainer/GridContainer/ProductMeter0" to="ScoreManager" method="_on_product_buy_product"]
-[connection signal="made_product" from="VBoxContainer/GridContainer/ProductMeter0" to="ScoreManager" method="_on_product_0_made_product"]
+[connection signal="ui_ready" from="UIManager" to="ScoreManager" method="_on_ui_manager_ui_ready"]
+[connection signal="buy_product" from="UIManager/VBoxContainer/GridContainer/ProductMeter0" to="ScoreManager" method="_on_product_buy_product"]
+[connection signal="made_product" from="UIManager/VBoxContainer/GridContainer/ProductMeter0" to="ScoreManager" method="_on_product_0_made_product"]
