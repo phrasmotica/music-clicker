@@ -21,3 +21,8 @@ func _on_product_buy_product(product: Product, cost: int) -> void:
 
 	score_changed.emit(_score)
 	product_bought.emit(product)
+
+func _on_ui_manager_ui_ready() -> void:
+	_score = starting_score
+
+	score_changed.emit(_score)
