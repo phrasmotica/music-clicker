@@ -12,6 +12,9 @@ var product: Product:
 		update_reward_label()
 		update_buy_button()
 
+@export_range(1.0, 10.0)
+var base_time_seconds: float = 3.0
+
 @export
 var cost_curve: CurveType
 
@@ -56,7 +59,7 @@ func _ready():
 
 func _process(delta: float) -> void:
 	if _is_making:
-		progress_bar.value += 100 * delta / product.base_time_seconds
+		progress_bar.value += 100 * delta / base_time_seconds
 
 		if progress_bar.value >= 100:
 			reset_progress()
