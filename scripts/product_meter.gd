@@ -18,6 +18,13 @@ var base_time_seconds: float = 3.0
 @export
 var cost_curve: CurveType
 
+@export_range(100, 5000)
+var automate_cost: int = 100:
+	set(value):
+		automate_cost = value
+
+		update_automate_button()
+
 @export
 var is_automated := false
 
@@ -39,11 +46,15 @@ var reward_label: Label = %RewardLabel
 @onready
 var buy_button: Button = %BuyButton
 
+@onready
+var automate_button: Button = %AutomateButton
+
 var _amount: int = 1
 var _is_making := false
 
 signal buy_product(product: Product, cost: int)
 signal made_product(reward: int)
+signal automate_product(product: Product, automate_cost: int)
 
 func _ready():
 	update_name_label()
@@ -54,7 +65,7 @@ func _ready():
 	reset_progress()
 
 func _process(delta: float) -> void:
-	if _is_making:
+	if is_automated or _is_making:
 		progress_bar.value += 100 * delta / base_time_seconds
 
 		if progress_bar.value >= 100:
@@ -90,6 +101,9 @@ func make() -> void:
 	reset_progress()
 	_is_making = true
 
+func automate() -> void:
+	automate_product.emit(product, automate_cost)
+
 func reset_progress() -> void:
 	progress_bar.value = 0
 
@@ -121,9 +135,22 @@ func update_buy_button():
 		var c := get_cost()
 		buy_button.text = "Buy £" + str(c)
 
+func update_automate_button():
+	if automate_button:
+		automate_button.text = "Automate £" + str(automate_cost)
+
 func refresh_buttons(score: int):
 	if buy_button:
 		buy_button.disabled = score < get_cost()
+
+	if automate_button:
+		automate_button.disabled = is_automated or score < automate_cost
+
+func set_automated() -> void:
+	is_automated = true
+
+	if make_button:
+		make_button.disabled = true
 
 func _on_buy_button_pressed() -> void:
 	print("Buying a product...")
@@ -136,3 +163,14 @@ func _on_make_button_pressed() -> void:
 	make_button.disabled = true
 
 	make()
+
+func _on_automate_button_pressed() -> void:
+	if is_automated:
+		return
+
+	print("Automating " + product.product_name + "...")
+
+	automate_button.disabled = true
+	automate_button.text = "Automated!"
+
+	automate()

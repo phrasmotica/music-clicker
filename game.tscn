@@ -12,7 +12,7 @@
 [node name="Game" type="Node2D"]
 
 [node name="ScoreManager" parent="." instance=ExtResource("1_2j3m2")]
-starting_score = 50
+starting_score = 100
 
 [node name="ProductRouter" type="Node" parent="." node_paths=PackedStringArray("product_meters")]
 script = ExtResource("3_khcq3")
@@ -45,7 +45,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
-text = "£50"
+text = "£100"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="UIManager/VBoxContainer"]
@@ -63,21 +63,26 @@ cost_curve = 1
 layout_mode = 2
 product = ExtResource("6_cfiti")
 base_time_seconds = 6.0
+automate_cost = 200
 
 [node name="ProductMeter2" parent="UIManager/VBoxContainer/GridContainer" instance=ExtResource("1_wf504")]
 layout_mode = 2
 product = ExtResource("7_g6ou6")
 base_time_seconds = 9.0
+automate_cost = 300
 
 [node name="ProductMeter3" parent="UIManager/VBoxContainer/GridContainer" instance=ExtResource("1_wf504")]
 layout_mode = 2
 product = ExtResource("8_0lh3h")
 base_time_seconds = 15.0
 cost_curve = 2
+automate_cost = 500
 
+[connection signal="product_automated" from="ScoreManager" to="ProductRouter" method="_on_score_manager_product_automated"]
 [connection signal="product_bought" from="ScoreManager" to="ProductRouter" method="_on_score_manager_product_bought"]
 [connection signal="score_changed" from="ScoreManager" to="ProductRouter" method="_on_score_manager_score_changed"]
 [connection signal="score_changed" from="ScoreManager" to="UIManager" method="_on_score_manager_score_changed"]
+[connection signal="automate_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_automate_product"]
 [connection signal="buy_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_buy_product"]
 [connection signal="made_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_made_product"]
 [connection signal="ui_ready" from="UIManager" to="ScoreManager" method="_on_ui_manager_ui_ready"]
