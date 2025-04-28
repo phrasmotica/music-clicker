@@ -17,7 +17,7 @@ signal score_changed(score: int)
 signal product_bought(product: Product)
 signal product_automated(product: Product)
 
-func _on_ui_manager_ready() -> void:
+func _on_game_ready() -> void:
 	_score = starting_score
 
 	score_changed.emit(_score)

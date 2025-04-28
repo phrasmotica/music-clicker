@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bsho3man5rnyv"]
+[gd_scene load_steps=10 format=3 uid="uid://bsho3man5rnyv"]
 
 [ext_resource type="PackedScene" uid="uid://c1e4wtqckp844" path="res://scenes/score_manager.tscn" id="1_2j3m2"]
+[ext_resource type="Script" uid="uid://cn0snp6hbku0f" path="res://scripts/game.gd" id="1_vef74"]
 [ext_resource type="PackedScene" uid="uid://bvhhta3af1hts" path="res://scenes/product_meter.tscn" id="1_wf504"]
 [ext_resource type="Script" uid="uid://blxqq5715fx2x" path="res://scripts/ui_manager.gd" id="2_4huk1"]
 [ext_resource type="Script" uid="uid://dk7g2nn2chkel" path="res://scripts/product_router.gd" id="3_khcq3"]
@@ -10,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://fas0axhy8l1j" path="res://resources/product_progressive_rock.tres" id="8_0lh3h"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_vef74")
 
 [node name="ScoreManager" parent="." instance=ExtResource("1_2j3m2")]
 starting_score = 100
@@ -78,6 +80,7 @@ base_time_seconds = 15.0
 cost_curve = 2
 automate_cost = 500
 
+[connection signal="ready" from="." to="ScoreManager" method="_on_game_ready"]
 [connection signal="product_automated" from="ScoreManager" to="ProductRouter" method="_on_score_manager_product_automated"]
 [connection signal="product_bought" from="ScoreManager" to="ProductRouter" method="_on_score_manager_product_bought"]
 [connection signal="score_changed" from="ScoreManager" to="ProductRouter" method="_on_score_manager_score_changed"]
@@ -85,4 +88,3 @@ automate_cost = 500
 [connection signal="automate_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_automate_product"]
 [connection signal="buy_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_buy_product"]
 [connection signal="made_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_made_product"]
-[connection signal="ready" from="UIManager" to="ScoreManager" method="_on_ui_manager_ready"]
