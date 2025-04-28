@@ -68,13 +68,15 @@ func _process(delta: float) -> void:
 	if is_automated or _is_making:
 		progress_bar.value += 100 * delta / base_time_seconds
 
-		if progress_bar.value >= 100:
-			reset_progress()
+	if progress_bar.value >= 100:
+		reset_progress()
 
-			_is_making = false
+		_is_making = false
+
+		if not is_automated:
 			make_button.disabled = false
 
-			made_product.emit(_amount * product.base_reward)
+		made_product.emit(_amount * product.base_reward)
 
 func buy() -> void:
 	var cost := get_cost()
