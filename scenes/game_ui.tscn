@@ -7,11 +7,10 @@
 [ext_resource type="Resource" uid="uid://c6t4cqq3uv8oq" path="res://resources/product_space_ambient.tres" id="5_sjwyb"]
 [ext_resource type="Resource" uid="uid://fas0axhy8l1j" path="res://resources/product_progressive_rock.tres" id="6_5kh4o"]
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("product_meters")]
+[node name="GameUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_djwj0")
-product_meters = [NodePath("VBoxContainer/GridContainer/ProductMeter0"), NodePath("VBoxContainer/GridContainer/ProductMeter1"), NodePath("VBoxContainer/GridContainer/ProductMeter2"), NodePath("VBoxContainer/GridContainer/ProductMeter3")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 custom_minimum_size = Vector2(1920, 1080)
@@ -32,30 +31,31 @@ theme_override_font_sizes/font_size = 48
 text = "£100"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer"]
+[node name="ProductMeterParent" type="GridContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 10
 theme_override_constants/v_separation = 10
 columns = 2
 
-[node name="ProductMeter0" parent="VBoxContainer/GridContainer" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter0" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 product = ExtResource("3_o3bws")
 cost_curve = 1
 
-[node name="ProductMeter1" parent="VBoxContainer/GridContainer" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter1" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 product = ExtResource("4_3huio")
 base_time_seconds = 6.0
 automate_cost = 200
 
-[node name="ProductMeter2" parent="VBoxContainer/GridContainer" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter2" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 product = ExtResource("5_sjwyb")
 base_time_seconds = 9.0
 automate_cost = 300
 
-[node name="ProductMeter3" parent="VBoxContainer/GridContainer" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter3" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 product = ExtResource("6_5kh4o")
 base_time_seconds = 15.0
