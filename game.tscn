@@ -85,4 +85,4 @@ automate_cost = 500
 [connection signal="automate_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_automate_product"]
 [connection signal="buy_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_buy_product"]
 [connection signal="made_product" from="ProductRouter" to="ScoreManager" method="_on_product_router_made_product"]
-[connection signal="ui_ready" from="UIManager" to="ScoreManager" method="_on_ui_manager_ui_ready"]
+[connection signal="ready" from="UIManager" to="ScoreManager" method="_on_ui_manager_ready"]

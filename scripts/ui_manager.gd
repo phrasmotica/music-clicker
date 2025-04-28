@@ -4,8 +4,6 @@ extends Node
 @onready
 var score_label: Label = %ScoreLabel
 
-signal ui_ready
-
 func _on_score_manager_score_changed(score: int) -> void:
 	if score_label:
 		score_label.text = "£" + str(score)
@@ -23,5 +21,3 @@ func _ready():
 
 		window.size = small_window_size
 		window.move_to_center()
-
-	ui_ready.emit()
