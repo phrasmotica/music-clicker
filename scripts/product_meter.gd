@@ -8,9 +8,7 @@ var product: Product:
 	set(value):
 		product = value
 
-		update_name_label()
-		update_reward_label()
-		update_buy_button()
+		_refresh()
 
 @export_range(1.0, 30.0)
 var base_time_seconds: float = 3.0
@@ -23,7 +21,7 @@ var automate_cost: int = 100:
 	set(value):
 		automate_cost = value
 
-		update_automate_button()
+		_refresh()
 
 @export
 var is_automated := false
@@ -49,7 +47,9 @@ var buy_button: Button = %BuyButton
 @onready
 var automate_button: Button = %AutomateButton
 
+# MEDIUM: turn this into an exported property with a setter
 var _amount: int = 1
+
 var _is_making := false
 
 signal buy_product(product: Product, cost: int)
@@ -57,10 +57,7 @@ signal made_product(reward: int)
 signal automate_product(product: Product, automate_cost: int)
 
 func _ready():
-	update_name_label()
-	update_amount_label()
-	update_reward_label()
-	update_buy_button()
+	_refresh()
 
 	reset_progress()
 
@@ -112,32 +109,26 @@ func reset_progress() -> void:
 func set_amount(x: int) -> void:
 	_amount = x
 
-	update_amount_label()
-	update_reward_label()
-	update_buy_button()
+	_refresh()
 
-func update_name_label():
+func _refresh() -> void:
 	if name_label:
 		if product and product.product_name.length() > 0:
 			name_label.text = product.product_name
 		else:
 			name_label.text = "<product_name>"
 
-func update_amount_label():
 	if amount_label:
 		amount_label.text = "x" + str(_amount)
 
-func update_reward_label():
 	if reward_label:
 		var r = product.base_reward if product and product.base_reward > 0 else 1
 		reward_label.text = "£" + str(_amount * r)
 
-func update_buy_button():
 	if buy_button:
 		var c := get_cost()
 		buy_button.text = "Buy £" + str(c)
 
-func update_automate_button():
 	if automate_button:
 		automate_button.text = "Automate £" + str(automate_cost)
 
