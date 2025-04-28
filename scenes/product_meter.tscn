@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bvhhta3af1hts"]
 
-[ext_resource type="Script" path="res://scripts/product_meter.gd" id="1_ynjkp"]
+[ext_resource type="Script" uid="uid://bi4d6ylh4sgrp" path="res://scripts/product_meter.gd" id="1_ynjkp"]
 
 [node name="ProductMeter" type="PanelContainer"]
 offset_right = 120.0

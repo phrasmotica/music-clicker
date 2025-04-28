@@ -1,11 +1,10 @@
 [gd_resource type="Resource" script_class="Product" load_steps=2 format=3 uid="uid://cr3tni3ss8vvs"]
 
-[ext_resource type="Script" path="res://scripts/product.gd" id="1_v32x2"]
+[ext_resource type="Script" uid="uid://0mt732luhuce" path="res://scripts/product.gd" id="1_v32x2"]
 
 [resource]
 script = ExtResource("1_v32x2")
 id = 0
 product_name = "Doom Metal"
-base_time_seconds = 3.0
 base_reward = 1
 base_cost = 1

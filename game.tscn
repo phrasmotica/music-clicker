@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://c1e4wtqckp844" path="res://scenes/score_manager.tscn" id="1_2j3m2"]
 [ext_resource type="PackedScene" uid="uid://bvhhta3af1hts" path="res://scenes/product_meter.tscn" id="1_wf504"]
-[ext_resource type="Script" path="res://scripts/ui_manager.gd" id="2_4huk1"]
-[ext_resource type="Script" path="res://scripts/product_router.gd" id="3_khcq3"]
+[ext_resource type="Script" uid="uid://blxqq5715fx2x" path="res://scripts/ui_manager.gd" id="2_4huk1"]
+[ext_resource type="Script" uid="uid://dk7g2nn2chkel" path="res://scripts/product_router.gd" id="3_khcq3"]
 [ext_resource type="Resource" uid="uid://cr3tni3ss8vvs" path="res://resources/product_doom_metal.tres" id="4_2c385"]
 [ext_resource type="Resource" uid="uid://ceris41rue5kw" path="res://resources/product_noise_pop.tres" id="6_cfiti"]
 [ext_resource type="Resource" uid="uid://c6t4cqq3uv8oq" path="res://resources/product_space_ambient.tres" id="7_g6ou6"]
