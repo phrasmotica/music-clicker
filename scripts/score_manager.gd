@@ -1,5 +1,5 @@
 @tool
-extends Node
+class_name ScoreManager extends Node
 
 @export
 var starting_score: int = 0:
@@ -11,18 +11,29 @@ var starting_score: int = 0:
 
 			score_changed.emit(_score)
 
+@export_group("Dependencies")
+
+@export
+var game_ui: GameUI
+
 var _score: int = 0
 
 signal score_changed(score: int)
 signal product_bought(product: Product)
 signal product_automated(product: Product)
 
+func _ready() -> void:
+	if game_ui:
+		game_ui.buy_product.connect(_handle_buy_product)
+		game_ui.made_product.connect(_handle_made_product)
+		game_ui.automate_product.connect(_handle_automate_product)
+
 func _on_game_ready() -> void:
 	_score = starting_score
 
 	score_changed.emit(_score)
 
-func _on_game_ui_buy_product(product:Product, cost:int) -> void:
+func _handle_buy_product(product: Product, cost: int) -> void:
 	if _score < cost:
 		return
 
@@ -31,11 +42,11 @@ func _on_game_ui_buy_product(product:Product, cost:int) -> void:
 	score_changed.emit(_score)
 	product_bought.emit(product)
 
-func _on_game_ui_made_product(reward:int) -> void:
+func _handle_made_product(reward:int) -> void:
 	_score += reward
 	score_changed.emit(_score)
 
-func _on_game_ui_automate_product(product:Product, automate_cost:int) -> void:
+func _handle_automate_product(product:Product, automate_cost:int) -> void:
 	if _score < automate_cost:
 		return
 
