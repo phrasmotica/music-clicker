@@ -8,3 +8,8 @@ id = 0
 product_name = "Doom Metal"
 base_reward = 1
 base_cost = 1
+multipliers = Dictionary[int, float]({
+10: 2.0,
+20: 2.0,
+30: 5.0
+})

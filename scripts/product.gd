@@ -11,3 +11,6 @@ var base_reward: int = 1
 
 @export_range(1, 100)
 var base_cost: int = 1
+
+@export
+var multipliers: Dictionary[int, float] = {}

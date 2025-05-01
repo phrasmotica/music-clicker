@@ -9,7 +9,7 @@ var amounts: Dictionary[int, int] = {}
 @export
 var score_manager: ScoreManager
 
-signal bought_product(product: Product, cost: int)
+signal bought_product(product: Product, amount: int, mult: float)
 
 func _ready() -> void:
 	if score_manager:
@@ -26,4 +26,16 @@ func add_product(id: int, amount: int) -> int:
 func _handle_product_bought(product: Product) -> void:
 	var new_amount := add_product(product.id, 1)
 
-	bought_product.emit(product, new_amount)
+	# TODO: we should keep track of the product's current multiplier,
+	# and only recompute it when necessary
+	var mult := 1.0
+
+	for k in product.multipliers.keys():
+		var m := product.multipliers[k]
+
+		if k <= new_amount:
+			mult *= m
+		else:
+			break
+
+	bought_product.emit(product, new_amount, mult)

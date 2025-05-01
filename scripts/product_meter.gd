@@ -47,8 +47,9 @@ var buy_button: Button = %BuyButton
 @onready
 var automate_button: Button = %AutomateButton
 
-# MEDIUM: turn this into an exported property with a setter
+# MEDIUM: turn these into exported properties with setters
 var _amount: int = 1
+var _mult: float = 1.0
 
 var _is_making := false
 
@@ -73,7 +74,7 @@ func _process(delta: float) -> void:
 		if not is_automated:
 			make_button.disabled = false
 
-		made_product.emit(_amount * product.base_reward)
+		made_product.emit(_get_reward())
 
 func buy() -> void:
 	var cost := get_cost()
@@ -106,8 +107,11 @@ func automate() -> void:
 func reset_progress() -> void:
 	progress_bar.value = 0
 
-func set_amount(x: int) -> void:
-	_amount = x
+func set_amount_and_mult(amount: int, mult: float) -> void:
+	_amount = amount
+	_mult = mult
+
+	print("%s amount=%d mult=%.1f" % [product.product_name, _amount, _mult])
 
 	_refresh()
 
@@ -119,18 +123,17 @@ func _refresh() -> void:
 			name_label.text = "<product_name>"
 
 	if amount_label:
-		amount_label.text = "x" + str(_amount)
+		amount_label.text = "x%d" % _amount
 
 	if reward_label:
-		var r = product.base_reward if product and product.base_reward > 0 else 1
-		reward_label.text = "£" + str(_amount * r)
+		reward_label.text = "£%d" % _get_reward()
 
 	if buy_button:
 		var c := get_cost()
-		buy_button.text = "Buy £" + str(c)
+		buy_button.text = "Buy £%d" % c
 
 	if automate_button:
-		automate_button.text = "Automate £" + str(automate_cost)
+		automate_button.text = "Automate £%d" % automate_cost
 
 func refresh_buttons(score: int):
 	if buy_button:
@@ -147,6 +150,9 @@ func set_automated() -> void:
 
 	if automate_button:
 		automate_button.disabled = true
+
+func _get_reward() -> int:
+	return int(_mult * _amount * maxi(product.base_reward, 1))
 
 func _on_buy_button_pressed() -> void:
 	print("Buying a product...")

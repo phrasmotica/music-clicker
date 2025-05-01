@@ -38,10 +38,10 @@ func _ready() -> void:
 		pm.made_product.connect(made_product.emit)
 		pm.automate_product.connect(automate_product.emit)
 
-func _handle_bought_product(product: Product, amount: int) -> void:
+func _handle_bought_product(product: Product, amount: int, mult: float) -> void:
 	for pm in _product_meters:
 		if pm.product == product:
-			pm.set_amount(amount)
+			pm.set_amount_and_mult(amount, mult)
 
 func _handle_score_changed(score: int) -> void:
 	if score_label:
