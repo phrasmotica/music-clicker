@@ -145,6 +145,9 @@ func set_automated() -> void:
 	if make_button:
 		make_button.disabled = true
 
+	if automate_button:
+		automate_button.disabled = true
+
 func _on_buy_button_pressed() -> void:
 	print("Buying a product...")
 
