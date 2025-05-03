@@ -12,6 +12,20 @@ var product: Product:
 		_refresh()
 
 @export
+var amount: int = 1:
+	set(value):
+		amount = maxi(value, 0)
+
+		_refresh()
+
+@export
+var mult: float = 1.0:
+	set(value):
+		mult = maxf(value, 0.0)
+
+		_refresh()
+
+@export
 var is_automated := false
 
 @onready
@@ -34,10 +48,6 @@ var buy_button: Button = %BuyButton
 
 @onready
 var automate_button: Button = %AutomateButton
-
-# MEDIUM: turn these into exported properties with setters
-var _amount: int = 1
-var _mult: float = 1.0
 
 var _is_making := false
 
@@ -78,15 +88,15 @@ func _get_cost() -> int:
 	# https://www.desmos.com/calculator/w1vzpghz7i
 	match product.cost_curve:
 		Product.CurveType.LINEAR:
-			return int(product.base_cost * _amount)
+			return int(product.base_cost * amount)
 
 		Product.CurveType.LOGARITHMIC:
-			return int(product.base_cost * pow(_amount, 0.7))
+			return int(product.base_cost * pow(amount, 0.7))
 
 		Product.CurveType.EXPONENTIAL:
-			return int(product.base_cost * pow(_amount, 1.2))
+			return int(product.base_cost * pow(amount, 1.2))
 
-	return int(product.base_cost * _amount)
+	return int(product.base_cost * amount)
 
 func _get_automate_cost() -> int:
 	return product.automate_cost if product else 0
@@ -107,14 +117,6 @@ func automate() -> void:
 func reset_progress() -> void:
 	progress_bar.value = 0
 
-func set_amount_and_mult(amount: int, mult: float) -> void:
-	_amount = amount
-	_mult = mult
-
-	print("%s amount=%d mult=%.1f" % [product.product_name, _amount, _mult])
-
-	_refresh()
-
 func _refresh() -> void:
 	if name_label:
 		if product and product.product_name.length() > 0:
@@ -123,7 +125,7 @@ func _refresh() -> void:
 			name_label.text = "<product_name>"
 
 	if amount_label:
-		amount_label.text = "x%d" % (_amount if product else 0)
+		amount_label.text = "x%d" % (amount if product else 0)
 
 	if reward_label:
 		reward_label.text = "£%d" % _get_reward()
@@ -160,7 +162,7 @@ func _get_reward() -> int:
 	if not product:
 		return 0
 
-	return int(_mult * _amount * maxi(product.base_reward, 1))
+	return int(mult * amount * maxi(product.base_reward, 1))
 
 func _on_buy_button_pressed() -> void:
 	print("Buying a product...")

@@ -58,7 +58,10 @@ func _inject_products(products: Array[Product]) -> void:
 func _handle_bought_product(product: Product, amount: int, mult: float) -> void:
 	for pm in _product_meters:
 		if pm.product == product:
-			pm.set_amount_and_mult(amount, mult)
+			print("%s amount=%d mult=%.1f" % [product.product_name, amount, mult])
+
+			pm.amount = amount
+			pm.mult = mult
 
 func _handle_score_changed(score: int) -> void:
 	if score_label:
