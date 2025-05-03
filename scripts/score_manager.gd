@@ -39,8 +39,8 @@ func _handle_buy_product(product: Product, cost: int) -> void:
 
 	_score -= cost
 
-	score_changed.emit(_score)
 	product_bought.emit(product)
+	score_changed.emit(_score)
 
 func _handle_made_product(reward:int) -> void:
 	_score += reward
