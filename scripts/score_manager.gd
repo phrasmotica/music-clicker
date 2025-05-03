@@ -4,7 +4,7 @@ class_name ScoreManager extends Node
 @export
 var starting_score: int = 0:
 	set(value):
-		starting_score = value
+		starting_score = maxi(value, 0)
 
 		if Engine.is_editor_hint():
 			_score = starting_score
