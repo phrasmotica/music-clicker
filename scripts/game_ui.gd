@@ -26,9 +26,6 @@ func _ready() -> void:
 		score_manager.score_changed.connect(_handle_score_changed)
 		score_manager.product_automated.connect(_handle_product_automated)
 
-	if product_router:
-		product_router.bought_product.connect(_handle_bought_product)
-
 	for i in product_meter_parent.get_child_count():
 		var meter: ProductMeter = product_meter_parent.get_child(i)
 		_product_meters.append(meter)
@@ -37,6 +34,26 @@ func _ready() -> void:
 		pm.buy_product.connect(buy_product.emit)
 		pm.made_product.connect(made_product.emit)
 		pm.automate_product.connect(automate_product.emit)
+
+	if product_router:
+		product_router.products_changed.connect(_inject_products)
+		product_router.bought_product.connect(_handle_bought_product)
+
+		_inject_products(product_router.products)
+
+func _inject_products(products: Array[Product]) -> void:
+	var product_count := products.size()
+	var meter_count := _product_meters.size()
+
+	for i in meter_count:
+		var meter := _product_meters[i]
+
+		if product_count > i:
+			meter.product = products[i]
+			meter.show()
+		else:
+			meter.product = null
+			meter.hide()
 
 func _handle_bought_product(product: Product, amount: int, mult: float) -> void:
 	for pm in _product_meters:

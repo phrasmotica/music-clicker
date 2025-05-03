@@ -1,12 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyoqo21jvvf6k"]
+[gd_scene load_steps=4 format=3 uid="uid://cyoqo21jvvf6k"]
 
 [ext_resource type="Script" uid="uid://blxqq5715fx2x" path="res://scripts/game_ui.gd" id="1_djwj0"]
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://ui_theme.tres" id="1_e0pfi"]
 [ext_resource type="PackedScene" uid="uid://bvhhta3af1hts" path="res://scenes/product_meter.tscn" id="2_e0pfi"]
-[ext_resource type="Resource" uid="uid://cr3tni3ss8vvs" path="res://resources/product_doom_metal.tres" id="3_o3bws"]
-[ext_resource type="Resource" uid="uid://ceris41rue5kw" path="res://resources/product_noise_pop.tres" id="4_3huio"]
-[ext_resource type="Resource" uid="uid://c6t4cqq3uv8oq" path="res://resources/product_space_ambient.tres" id="5_sjwyb"]
-[ext_resource type="Resource" uid="uid://fas0axhy8l1j" path="res://resources/product_progressive_rock.tres" id="6_5kh4o"]
 
 [node name="GameUI" type="MarginContainer"]
 custom_minimum_size = Vector2(1920, 1080)
@@ -48,24 +44,56 @@ columns = 2
 
 [node name="ProductMeter0" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-product = ExtResource("3_o3bws")
 cost_curve = 1
 
 [node name="ProductMeter1" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-product = ExtResource("4_3huio")
 base_time_seconds = 6.0
 automate_cost = 200
 
 [node name="ProductMeter2" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-product = ExtResource("5_sjwyb")
 base_time_seconds = 9.0
 automate_cost = 300
 
 [node name="ProductMeter3" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-product = ExtResource("6_5kh4o")
+base_time_seconds = 15.0
+cost_curve = 2
+automate_cost = 500
+
+[node name="ProductMeter4" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+layout_mode = 2
+base_time_seconds = 15.0
+cost_curve = 2
+automate_cost = 500
+
+[node name="ProductMeter5" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+layout_mode = 2
+base_time_seconds = 15.0
+cost_curve = 2
+automate_cost = 500
+
+[node name="ProductMeter6" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+layout_mode = 2
+base_time_seconds = 15.0
+cost_curve = 2
+automate_cost = 500
+
+[node name="ProductMeter7" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+layout_mode = 2
+base_time_seconds = 15.0
+cost_curve = 2
+automate_cost = 500
+
+[node name="ProductMeter8" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+layout_mode = 2
+base_time_seconds = 15.0
+cost_curve = 2
+automate_cost = 500
+
+[node name="ProductMeter9" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+layout_mode = 2
 base_time_seconds = 15.0
 cost_curve = 2
 automate_cost = 500
