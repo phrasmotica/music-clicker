@@ -46,11 +46,11 @@ func _handle_made_product(reward:int) -> void:
 	_score += reward
 	score_changed.emit(_score)
 
-func _handle_automate_product(product:Product, automate_cost:int) -> void:
-	if _score < automate_cost:
+func _handle_automate_product(product: Product) -> void:
+	if not product or _score < product.automate_cost:
 		return
 
-	_score -= automate_cost
+	_score -= product.automate_cost
 
 	score_changed.emit(_score)
 	product_automated.emit(product)
