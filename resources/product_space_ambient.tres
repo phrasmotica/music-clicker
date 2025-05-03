@@ -8,3 +8,7 @@ id = 2
 product_name = "Space Ambient"
 base_reward = 4
 base_cost = 5
+multipliers = Dictionary[int, float]({})
+base_time_seconds = 9.0
+cost_curve = 0
+automate_cost = 300

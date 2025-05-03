@@ -13,3 +13,6 @@ multipliers = Dictionary[int, float]({
 20: 2.0,
 30: 5.0
 })
+base_time_seconds = 3.0
+cost_curve = 1
+automate_cost = 100

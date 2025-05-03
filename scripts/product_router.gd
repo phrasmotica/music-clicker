@@ -6,7 +6,11 @@ var products: Array[Product] = []:
 	set(value):
 		products = value
 
-		products_changed.emit(products)
+		for p in products:
+			if p and not p.changed.is_connected(_emit_changed):
+				p.changed.connect(_emit_changed)
+
+		_emit_changed()
 
 @export
 var amounts: Dictionary[Product, int] = {}
@@ -23,7 +27,7 @@ func _ready() -> void:
 	if score_manager:
 		score_manager.product_bought.connect(_handle_product_bought)
 
-	products_changed.emit(products)
+	_emit_changed()
 
 func add_product(product: Product, amount: int) -> int:
 	if amounts.has(product):
@@ -49,3 +53,6 @@ func _handle_product_bought(product: Product) -> void:
 			break
 
 	bought_product.emit(product, new_amount, mult)
+
+func _emit_changed() -> void:
+	products_changed.emit(products)

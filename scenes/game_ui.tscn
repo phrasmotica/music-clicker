@@ -44,56 +44,30 @@ columns = 2
 
 [node name="ProductMeter0" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-cost_curve = 1
 
 [node name="ProductMeter1" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 6.0
-automate_cost = 200
 
 [node name="ProductMeter2" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 9.0
-automate_cost = 300
 
 [node name="ProductMeter3" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 15.0
-cost_curve = 2
-automate_cost = 500
 
 [node name="ProductMeter4" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 15.0
-cost_curve = 2
-automate_cost = 500
 
 [node name="ProductMeter5" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 15.0
-cost_curve = 2
-automate_cost = 500
 
 [node name="ProductMeter6" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 15.0
-cost_curve = 2
-automate_cost = 500
 
 [node name="ProductMeter7" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 15.0
-cost_curve = 2
-automate_cost = 500
 
 [node name="ProductMeter8" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 15.0
-cost_curve = 2
-automate_cost = 500
 
 [node name="ProductMeter9" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
-base_time_seconds = 15.0
-cost_curve = 2
-automate_cost = 500

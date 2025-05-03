@@ -1,25 +1,13 @@
 @tool
 class_name ProductMeter extends PanelContainer
 
-enum CurveType { LINEAR, LOGARITHMIC, EXPONENTIAL }
-
 @export
 var product: Product:
 	set(value):
 		product = value
 
-		_refresh()
-
-@export_range(1.0, 30.0)
-var base_time_seconds: float = 3.0
-
-@export
-var cost_curve: CurveType
-
-@export_range(100, 5000)
-var automate_cost: int = 100:
-	set(value):
-		automate_cost = value
+		if product and not product.changed.is_connected(_refresh):
+			product.changed.connect(_refresh)
 
 		_refresh()
 
@@ -55,7 +43,7 @@ var _is_making := false
 
 signal buy_product(product: Product, cost: int)
 signal made_product(reward: int)
-signal automate_product(product: Product, automate_cost: int)
+signal automate_product(product: Product)
 
 func _ready():
 	_refresh()
@@ -63,8 +51,8 @@ func _ready():
 	reset_progress()
 
 func _process(delta: float) -> void:
-	if is_automated or _is_making:
-		progress_bar.value += 100 * delta / base_time_seconds
+	if product and (is_automated or _is_making):
+		progress_bar.value += 100 * delta / product.base_time_seconds
 
 	if progress_bar.value >= 100:
 		reset_progress()
@@ -80,25 +68,28 @@ func buy() -> void:
 	if not product:
 		return
 
-	var cost := get_cost()
+	var cost := _get_cost()
 	buy_product.emit(product, cost)
 
-func get_cost() -> int:
+func _get_cost() -> int:
 	if not product:
 		return 0
 
 	# https://www.desmos.com/calculator/w1vzpghz7i
-	match cost_curve:
-		CurveType.LINEAR:
+	match product.cost_curve:
+		Product.CurveType.LINEAR:
 			return int(product.base_cost * _amount)
 
-		CurveType.LOGARITHMIC:
+		Product.CurveType.LOGARITHMIC:
 			return int(product.base_cost * pow(_amount, 0.7))
 
-		CurveType.EXPONENTIAL:
+		Product.CurveType.EXPONENTIAL:
 			return int(product.base_cost * pow(_amount, 1.2))
 
 	return int(product.base_cost * _amount)
+
+func _get_automate_cost() -> int:
+	return product.automate_cost if product else 0
 
 func make() -> void:
 	if not product:
@@ -111,7 +102,7 @@ func automate() -> void:
 	if not product:
 		return
 
-	automate_product.emit(product, automate_cost)
+	automate_product.emit(product)
 
 func reset_progress() -> void:
 	progress_bar.value = 0
@@ -141,20 +132,20 @@ func _refresh() -> void:
 		make_button.disabled = product == null
 
 	if buy_button:
-		var c := get_cost()
+		var c := _get_cost()
 		buy_button.text = "Buy £%d" % c
 		buy_button.disabled = product == null
 
 	if automate_button:
-		automate_button.text = "Automate £%d" % (automate_cost if product else 0)
+		automate_button.text = "Automate £%d" % _get_automate_cost()
 		automate_button.disabled = product == null
 
 func refresh_buttons(score: int):
 	if buy_button:
-		buy_button.disabled = score < get_cost()
+		buy_button.disabled = score < _get_cost()
 
 	if automate_button:
-		automate_button.disabled = is_automated or score < automate_cost
+		automate_button.disabled = is_automated or score < _get_automate_cost()
 
 func set_automated() -> void:
 	is_automated = true

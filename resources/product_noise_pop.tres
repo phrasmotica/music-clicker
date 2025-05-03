@@ -8,3 +8,7 @@ id = 1
 product_name = "Noise Pop"
 base_reward = 2
 base_cost = 3
+multipliers = Dictionary[int, float]({})
+base_time_seconds = 6.0
+cost_curve = 0
+automate_cost = 200
