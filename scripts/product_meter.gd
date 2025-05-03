@@ -152,6 +152,9 @@ func set_automated() -> void:
 		automate_button.disabled = true
 
 func _get_reward() -> int:
+	if not product:
+		return 0
+
 	return int(_mult * _amount * maxi(product.base_reward, 1))
 
 func _on_buy_button_pressed() -> void:

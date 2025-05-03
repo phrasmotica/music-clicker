@@ -65,7 +65,7 @@ custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 48
-text = "£1"
+text = "£0"
 horizontal_alignment = 2
 
 [node name="UpgradeButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
