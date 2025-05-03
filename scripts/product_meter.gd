@@ -77,12 +77,15 @@ func _process(delta: float) -> void:
 		made_product.emit(_get_reward())
 
 func buy() -> void:
+	if not product:
+		return
+
 	var cost := get_cost()
 	buy_product.emit(product, cost)
 
 func get_cost() -> int:
 	if not product:
-		return 1
+		return 0
 
 	# https://www.desmos.com/calculator/w1vzpghz7i
 	match cost_curve:
@@ -98,10 +101,16 @@ func get_cost() -> int:
 	return int(product.base_cost * _amount)
 
 func make() -> void:
+	if not product:
+		return
+
 	reset_progress()
 	_is_making = true
 
 func automate() -> void:
+	if not product:
+		return
+
 	automate_product.emit(product, automate_cost)
 
 func reset_progress() -> void:
@@ -123,17 +132,22 @@ func _refresh() -> void:
 			name_label.text = "<product_name>"
 
 	if amount_label:
-		amount_label.text = "x%d" % _amount
+		amount_label.text = "x%d" % (_amount if product else 0)
 
 	if reward_label:
 		reward_label.text = "£%d" % _get_reward()
 
+	if make_button:
+		make_button.disabled = product == null
+
 	if buy_button:
 		var c := get_cost()
 		buy_button.text = "Buy £%d" % c
+		buy_button.disabled = product == null
 
 	if automate_button:
-		automate_button.text = "Automate £%d" % automate_cost
+		automate_button.text = "Automate £%d" % (automate_cost if product else 0)
+		automate_button.disabled = product == null
 
 func refresh_buttons(score: int):
 	if buy_button:
