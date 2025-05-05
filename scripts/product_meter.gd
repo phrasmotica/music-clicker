@@ -39,7 +39,11 @@ var is_unlocked := false:
 		_refresh()
 
 @export
-var is_automated := false
+var is_automated := false:
+	set(value):
+		is_automated = value
+
+		_refresh()
 
 @export
 var locked_colour: Color:
@@ -57,8 +61,8 @@ signal automate_product(product: Product)
 
 func _ready() -> void:
 	if ui_updater:
-		ui_updater.buy_triggered.connect(buy)
-		ui_updater.automate_triggered.connect(automate)
+		ui_updater.buy_triggered.connect(_buy)
+		ui_updater.automate_triggered.connect(_automate)
 
 	_refresh()
 
@@ -74,14 +78,27 @@ func _process(delta: float) -> void:
 		if did_make:
 			made_product.emit(get_reward())
 
-func buy() -> void:
+func _buy() -> void:
 	if not product:
 		return
 
-	# BUG: buying a product while it's being made causes the Make button to
-	# be re-enabled and the product to be un-automated
 	var cost := get_cost()
 	buy_product.emit(product, cost)
+
+func _automate() -> void:
+	if not product:
+		return
+
+	automate_product.emit(product)
+
+func get_amount() -> int:
+	return amount if product else 0
+
+func get_reward() -> int:
+	if not product:
+		return 0
+
+	return int(mult * amount * maxi(product.base_reward, 1))
 
 func get_cost() -> int:
 	if not product:
@@ -100,11 +117,8 @@ func get_cost() -> int:
 
 	return int(product.base_cost * amount)
 
-func automate() -> void:
-	if not product:
-		return
-
-	automate_product.emit(product)
+func get_automate_cost() -> int:
+	return product.automate_cost if product else 0
 
 func reset_progress() -> void:
 	if ui_updater:
@@ -114,18 +128,6 @@ func _refresh() -> void:
 	if ui_updater:
 		ui_updater.update()
 
-func refresh_buttons(score: int) -> void:
+func update_score(score: int) -> void:
 	if ui_updater:
-		ui_updater.update_buttons(score)
-
-func set_automated() -> void:
-	is_automated = true
-
-	if ui_updater:
-		ui_updater.set_automated()
-
-func get_reward() -> int:
-	if not product:
-		return 0
-
-	return int(mult * amount * maxi(product.base_reward, 1))
+		ui_updater.update_score(score)

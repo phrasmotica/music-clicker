@@ -37,6 +37,7 @@ var panel_style_box: StyleBoxFlat
 var _local_panel_style_box: StyleBoxFlat
 
 var _is_making := false
+var _current_score := 0
 
 signal buy_triggered
 signal automate_triggered
@@ -92,35 +93,29 @@ func update() -> void:
 		_local_panel_style_box.bg_color = _get_bg_colour()
 
 	if name_label:
-		if meter.product and meter.product.product_name.length() > 0:
-			name_label.text = meter.product.product_name
-		else:
-			name_label.text = "<product_name>"
+		name_label.text = _get_name_text()
 
 	if amount_label:
-		amount_label.text = "x%d" % (meter.amount if meter.product else 0)
+		amount_label.text = _get_amount_text()
 
 	if reward_label:
-		reward_label.text = "£%d" % meter.get_reward()
+		reward_label.text = _get_reward_text()
 
 	if make_button:
-		make_button.disabled = meter.product == null
+		make_button.disabled = not _can_make()
 
 	if buy_button:
-		var c := meter.get_cost()
-		buy_button.text = "Buy £%d" % c
-		buy_button.disabled = meter.product == null
+		buy_button.text = _get_buy_text()
+		buy_button.disabled = not _can_buy()
 
 	if automate_button:
-		automate_button.text = "Automate £%d" % _get_automate_cost()
-		automate_button.disabled = meter.product == null
+		automate_button.text = _get_automate_text()
+		automate_button.disabled = not _can_automate()
 
-func update_buttons(score: int) -> void:
-	if buy_button:
-		buy_button.disabled = score < meter.get_cost()
+func update_score(score: int) -> void:
+	_current_score = score
 
-	if automate_button:
-		automate_button.disabled = meter.is_automated or score < _get_automate_cost()
+	update()
 
 func _get_bg_colour() -> Color:
 	if not meter.is_unlocked:
@@ -128,20 +123,46 @@ func _get_bg_colour() -> Color:
 
 	return meter.product.colour if meter.product else panel_style_box.bg_color
 
-func _get_automate_cost() -> int:
-	return meter.product.automate_cost if meter.product else 0
+func _get_name_text() -> String:
+	if meter.product and meter.product.product_name.length() > 0:
+		return meter.product.product_name
+
+	return "<product_name>"
+
+func _get_amount_text() -> String:
+	return "x%d" % meter.get_amount()
+
+func _get_reward_text() -> String:
+	return "£%d" % meter.get_reward()
+
+func _get_buy_text() -> String:
+	return "Buy £%d" % meter.get_cost()
+
+func _get_automate_text() -> String:
+	return "Automated!" if meter.is_automated else "Automate £%d" % meter.get_automate_cost()
+
+func _can_make() -> bool:
+	return meter.product != null and not (_is_making or meter.is_automated)
+
+func _can_buy() -> bool:
+	return meter.product != null and _current_score >= meter.get_cost()
+
+func _can_automate() -> bool:
+	return meter.product != null and _current_score >= meter.get_automate_cost() and not meter.is_automated
 
 func _on_make_button_pressed() -> void:
-	print("Making a product...")
+	if _is_making:
+		return
 
-	if make_button:
-		make_button.disabled = true
+	print("Making a %s..." % meter.product.product_name)
 
-	reset_progress()
 	_is_making = true
 
+	reset_progress()
+	update()
+
 func _on_buy_button_pressed() -> void:
-	print("Buying a product...")
+	print("Buying a %s..." % meter.product.product_name)
 
 	buy_triggered.emit()
 
@@ -149,10 +170,6 @@ func _on_automate_button_pressed() -> void:
 	if meter.is_automated:
 		return
 
-	print("Automating " + meter.product.product_name + "...")
-
-	if automate_button:
-		automate_button.disabled = true
-		automate_button.text = "Automated!"
+	print("Automating production of %s..." % meter.product.product_name)
 
 	automate_triggered.emit()
