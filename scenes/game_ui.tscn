@@ -1,8 +1,98 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyoqo21jvvf6k"]
+[gd_scene load_steps=14 format=3 uid="uid://cyoqo21jvvf6k"]
 
 [ext_resource type="Script" uid="uid://blxqq5715fx2x" path="res://scripts/game_ui.gd" id="1_djwj0"]
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://ui_theme.tres" id="1_e0pfi"]
 [ext_resource type="PackedScene" uid="uid://bvhhta3af1hts" path="res://scenes/product_meter.tscn" id="2_e0pfi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u001w"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u2dgd"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bt76a"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_djwj0"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e0pfi"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o3bws"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3huio"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sjwyb"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kh4o"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s2npe"]
+resource_local_to_scene = true
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+skew = Vector2(0.3, 0)
+corner_radius_top_left = 30
+corner_radius_top_right = 5
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 5
 
 [node name="GameUI" type="MarginContainer"]
 custom_minimum_size = Vector2(1920, 1080)
@@ -44,30 +134,40 @@ columns = 2
 
 [node name="ProductMeter0" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u001w")
 
 [node name="ProductMeter1" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_u2dgd")
 
 [node name="ProductMeter2" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bt76a")
 
 [node name="ProductMeter3" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_djwj0")
 
 [node name="ProductMeter4" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e0pfi")
 
 [node name="ProductMeter5" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_o3bws")
 
 [node name="ProductMeter6" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3huio")
 
 [node name="ProductMeter7" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sjwyb")
 
 [node name="ProductMeter8" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5kh4o")
 
 [node name="ProductMeter9" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_s2npe")

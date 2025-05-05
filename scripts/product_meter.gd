@@ -55,13 +55,22 @@ var buy_button: Button = %BuyButton
 @onready
 var automate_button: Button = %AutomateButton
 
+@onready
+var panel_style_box: StyleBoxFlat = preload("res://theme/panel_product_meter_panel.tres")
+
 var _is_making := false
+var _local_panel_style_box: StyleBoxFlat
 
 signal buy_product(product: Product, cost: int)
 signal made_product(reward: int)
 signal automate_product(product: Product)
 
-func _ready():
+func _ready() -> void:
+	if panel_style_box:
+		_local_panel_style_box = panel_style_box.duplicate()
+
+		add_theme_stylebox_override("panel", _local_panel_style_box)
+
 	_refresh()
 
 	reset_progress()
@@ -124,6 +133,9 @@ func reset_progress() -> void:
 	progress_bar.value = 0
 
 func _refresh() -> void:
+	if _local_panel_style_box:
+		_local_panel_style_box.bg_color = _get_bg_colour()
+
 	if name_label:
 		if product and product.product_name.length() > 0:
 			name_label.text = product.product_name
@@ -163,6 +175,9 @@ func set_automated() -> void:
 
 	if automate_button:
 		automate_button.disabled = true
+
+func _get_bg_colour() -> Color:
+	return product.colour if product else panel_style_box.bg_color
 
 func _get_reward() -> int:
 	if not product:
