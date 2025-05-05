@@ -27,7 +27,6 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tpf0h"]
-bg_color = Color(0.709804, 0.580392, 0, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
