@@ -32,7 +32,27 @@ var mult: float = 1.0:
 			reward_label.do_highlight()
 
 @export
+var is_unlocked := false:
+	set(value):
+		is_unlocked = value
+
+		_refresh()
+
+@export
 var is_automated := false
+
+@export
+var locked_colour: Color:
+	set(value):
+		locked_colour = value
+
+		_refresh()
+
+@onready
+var unlocked_container: Container = %UnlockedModeContainer
+
+@onready
+var locked_container: Container = %LockedModeContainer
 
 @onready
 var name_label: Label = %NameLabel
@@ -133,6 +153,12 @@ func reset_progress() -> void:
 	progress_bar.value = 0
 
 func _refresh() -> void:
+	if unlocked_container:
+		unlocked_container.visible = is_unlocked
+
+	if locked_container:
+		locked_container.visible = not is_unlocked
+
 	if _local_panel_style_box:
 		_local_panel_style_box.bg_color = _get_bg_colour()
 
@@ -177,6 +203,9 @@ func set_automated() -> void:
 		automate_button.disabled = true
 
 func _get_bg_colour() -> Color:
+	if not is_unlocked:
+		return locked_colour
+
 	return product.colour if product else panel_style_box.bg_color
 
 func _get_reward() -> int:
