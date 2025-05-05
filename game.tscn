@@ -14,7 +14,6 @@
 script = ExtResource("1_vef74")
 
 [node name="ScoreManager" parent="." node_paths=PackedStringArray("game_ui") instance=ExtResource("1_2j3m2")]
-starting_score = 1000
 game_ui = NodePath("../GameUI")
 
 [node name="ProductRouter" type="Node" parent="." node_paths=PackedStringArray("score_manager")]

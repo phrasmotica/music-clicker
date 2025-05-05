@@ -24,6 +24,13 @@ var base_time_seconds: float = 3.0
 @export
 var cost_curve: CurveType
 
+@export_range(1000, 100_000)
+var unlock_cost: int = 1000:
+    set(value):
+        unlock_cost = value
+
+        emit_changed()
+
 @export_range(100, 5000)
 var automate_cost: int = 100:
     set(value):

@@ -125,8 +125,7 @@ func get_automate_cost() -> int:
 	return product.automate_cost if product else 0
 
 func get_unlock_cost() -> int:
-	# HIGH: implement a per-product unlock cost
-	return 1000
+	return product.unlock_cost if product else 0
 
 func is_locked() -> bool:
 	return mode == MeterMode.LOCKED

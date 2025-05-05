@@ -117,6 +117,7 @@ func update() -> void:
 		automate_button.disabled = not _can_automate()
 
 	if unlock_button:
+		unlock_button.text = _get_unlock_text()
 		unlock_button.disabled = not _can_unlock()
 
 func update_score(score: int) -> void:
@@ -147,6 +148,9 @@ func _get_buy_text() -> String:
 
 func _get_automate_text() -> String:
 	return "Automated!" if meter.is_automated() else "Automate £%d" % meter.get_automate_cost()
+
+func _get_unlock_text() -> String:
+	return "Unlock £%d" % meter.get_unlock_cost()
 
 func _can_make() -> bool:
 	return meter.product != null and meter.is_unlocked() and not _is_making

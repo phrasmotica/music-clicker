@@ -156,7 +156,8 @@ size_flags_vertical = 6
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme_type_variation = &"ProductMeterUnlockButton"
-text = "Unlock £1000"
+disabled = true
+text = "Unlock £0"
 
 [connection signal="pressed" from="MarginContainer/UnlockedModeContainer/ProductionControls/MakeButton" to="UIUpdater" method="_on_make_button_pressed"]
 [connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/BuyButton" to="UIUpdater" method="_on_buy_button_pressed"]
