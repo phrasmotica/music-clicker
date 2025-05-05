@@ -1,6 +1,13 @@
 @tool
 class_name GameUI extends Node
 
+@export
+var starting_unlocked_products := 1:
+	set(value):
+		starting_unlocked_products = value
+
+		_refresh()
+
 @export_group("Dependencies")
 
 @export
@@ -40,6 +47,14 @@ func _ready() -> void:
 		product_router.bought_product.connect(_handle_bought_product)
 
 		_inject_products(product_router.products)
+
+	_refresh()
+
+func _refresh() -> void:
+	var meter_count := _product_meters.size()
+
+	for i in meter_count:
+		_product_meters[i].is_unlocked = i < starting_unlocked_products
 
 func _inject_products(products: Array[Product]) -> void:
 	var product_count := products.size()
