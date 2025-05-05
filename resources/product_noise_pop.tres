@@ -15,3 +15,4 @@ multipliers = Dictionary[int, float]({
 base_time_seconds = 6.0
 cost_curve = 0
 automate_cost = 200
+colour = Color(0.666607, 0.666606, 7.70092e-07, 1)

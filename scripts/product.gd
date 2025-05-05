@@ -30,3 +30,10 @@ var automate_cost: int = 100:
         automate_cost = value
 
         emit_changed()
+
+@export
+var colour: Color:
+    set(value):
+        colour = value
+
+        emit_changed()
