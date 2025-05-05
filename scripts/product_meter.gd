@@ -1,6 +1,8 @@
 @tool
 class_name ProductMeter extends PanelContainer
 
+enum MeterMode { LOCKED, UNLOCKED, AUTOMATED }
+
 @export
 var product: Product:
 	set(value):
@@ -24,7 +26,7 @@ var mult: float = 1.0:
 		var old := mult
 		var new := maxf(value, 0.0)
 
-		mult = maxf(value, 0.0)
+		mult = new
 
 		_refresh()
 
@@ -32,16 +34,9 @@ var mult: float = 1.0:
 			ui_updater.highlight_reward()
 
 @export
-var is_unlocked := false:
+var mode := MeterMode.LOCKED:
 	set(value):
-		is_unlocked = value
-
-		_refresh()
-
-@export
-var is_automated := false:
-	set(value):
-		is_automated = value
+		mode = value
 
 		_refresh()
 
@@ -119,6 +114,24 @@ func get_cost() -> int:
 
 func get_automate_cost() -> int:
 	return product.automate_cost if product else 0
+
+func is_locked() -> bool:
+	return mode == MeterMode.LOCKED
+
+func is_unlocked() -> bool:
+	return mode == MeterMode.UNLOCKED
+
+func is_automated() -> bool:
+	return mode == MeterMode.AUTOMATED
+
+func to_locked() -> void:
+	mode = MeterMode.LOCKED
+
+func to_unlocked() -> void:
+	mode = MeterMode.UNLOCKED
+
+func to_automated() -> void:
+	mode = MeterMode.AUTOMATED
 
 func reset_progress() -> void:
 	if ui_updater:

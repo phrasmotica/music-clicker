@@ -8,7 +8,6 @@
 [ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="4_n2ble"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhudp"]
-bg_color = Color(0.709696, 0.57952, 0.338334, 1)
 skew = Vector2(0.3, 0)
 corner_radius_top_left = 30
 corner_radius_top_right = 5
@@ -34,7 +33,6 @@ theme = ExtResource("1_ygrlx")
 theme_type_variation = &"ProductMeterPanel"
 theme_override_styles/panel = SubResource("StyleBoxFlat_rhudp")
 script = ExtResource("1_ynjkp")
-is_unlocked = true
 locked_colour = Color(0.6, 0.6, 0.6, 1)
 
 [node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("meter", "unlocked_container", "locked_container", "name_label", "amount_label", "make_button", "progress_bar", "reward_label", "buy_button", "automate_button")]
@@ -61,6 +59,7 @@ theme_override_constants/margin_bottom = 10
 
 [node name="UnlockedModeContainer" type="VBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
@@ -137,7 +136,7 @@ size_flags_horizontal = 3
 theme_type_variation = &"ProductMeterUpgradeButton"
 theme_override_font_sizes/font_size = 24
 disabled = true
-text = "Automate £0"
+text = "Automated!"
 
 [node name="Spacer" type="Control" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons"]
 custom_minimum_size = Vector2(6, 0)
@@ -145,7 +144,6 @@ layout_mode = 2
 
 [node name="LockedModeContainer" type="VBoxContainer" parent="MarginContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 

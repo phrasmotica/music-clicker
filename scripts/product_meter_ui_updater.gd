@@ -49,7 +49,7 @@ func _ready() -> void:
 		meter.add_theme_stylebox_override("panel", _local_panel_style_box)
 
 func increment(delta: float) -> bool:
-	if meter.product and (meter.is_automated or _is_making):
+	if meter.product and (meter.is_automated() or _is_making):
 		progress_bar.value += 100 * delta / meter.product.base_time_seconds
 
 	if progress_bar.value >= 100:
@@ -57,7 +57,7 @@ func increment(delta: float) -> bool:
 
 		_is_making = false
 
-		if not meter.is_automated:
+		if not meter.is_automated():
 			make_button.disabled = false
 
 		return true
@@ -84,10 +84,10 @@ func highlight_reward() -> void:
 
 func update() -> void:
 	if unlocked_container:
-		unlocked_container.visible = meter.is_unlocked
+		unlocked_container.visible = not meter.is_locked()
 
 	if locked_container:
-		locked_container.visible = not meter.is_unlocked
+		locked_container.visible = meter.is_locked()
 
 	if _local_panel_style_box:
 		_local_panel_style_box.bg_color = _get_bg_colour()
@@ -118,7 +118,7 @@ func update_score(score: int) -> void:
 	update()
 
 func _get_bg_colour() -> Color:
-	if not meter.is_unlocked:
+	if meter.is_locked():
 		return meter.locked_colour
 
 	return meter.product.colour if meter.product else panel_style_box.bg_color
@@ -139,16 +139,16 @@ func _get_buy_text() -> String:
 	return "Buy £%d" % meter.get_cost()
 
 func _get_automate_text() -> String:
-	return "Automated!" if meter.is_automated else "Automate £%d" % meter.get_automate_cost()
+	return "Automated!" if meter.is_automated() else "Automate £%d" % meter.get_automate_cost()
 
 func _can_make() -> bool:
-	return meter.product != null and not (_is_making or meter.is_automated)
+	return meter.product != null and not (_is_making or meter.is_automated())
 
 func _can_buy() -> bool:
 	return meter.product != null and _current_score >= meter.get_cost()
 
 func _can_automate() -> bool:
-	return meter.product != null and _current_score >= meter.get_automate_cost() and not meter.is_automated
+	return meter.product != null and _current_score >= meter.get_automate_cost() and not meter.is_automated()
 
 func _on_make_button_pressed() -> void:
 	if _is_making:
@@ -167,7 +167,7 @@ func _on_buy_button_pressed() -> void:
 	buy_triggered.emit()
 
 func _on_automate_button_pressed() -> void:
-	if meter.is_automated:
+	if meter.is_automated():
 		return
 
 	print("Automating production of %s..." % meter.product.product_name)

@@ -54,7 +54,10 @@ func _refresh() -> void:
 	var meter_count := _product_meters.size()
 
 	for i in meter_count:
-		_product_meters[i].is_unlocked = i < starting_unlocked_products
+		if i < starting_unlocked_products:
+			_product_meters[i].to_unlocked()
+		else:
+			_product_meters[i].to_locked()
 
 func _inject_products(products: Array[Product]) -> void:
 	var product_count := products.size()
@@ -88,4 +91,4 @@ func _handle_score_changed(score: int) -> void:
 func _handle_product_automated(product: Product) -> void:
 	for pm in _product_meters:
 		if pm.product == product:
-			pm.is_automated = true
+			pm.to_automated()
