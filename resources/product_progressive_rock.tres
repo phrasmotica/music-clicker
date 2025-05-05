@@ -8,7 +8,11 @@ id = 3
 product_name = "Progressive Rock"
 base_reward = 10
 base_cost = 4
-multipliers = Dictionary[int, float]({})
+multipliers = Dictionary[int, float]({
+5: 1.2,
+10: 1.2,
+15: 1.2
+})
 base_time_seconds = 15.0
 cost_curve = 2
 automate_cost = 500
