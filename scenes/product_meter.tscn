@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvhhta3af1hts"]
+[gd_scene load_steps=4 format=3 uid="uid://bvhhta3af1hts"]
 
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://ui_theme.tres" id="1_ygrlx"]
 [ext_resource type="Script" uid="uid://bi4d6ylh4sgrp" path="res://scripts/product_meter.gd" id="1_ynjkp"]
+[ext_resource type="PackedScene" uid="uid://c4chg6lkm2hr7" path="res://scenes/highlightable_text.tscn" id="3_yex1k"]
 
 [node name="ProductMeter" type="PanelContainer"]
 offset_right = 860.0
@@ -60,14 +61,20 @@ size_flags_vertical = 1
 theme_override_font_sizes/font_size = 24
 show_percentage = false
 
-[node name="RewardLabel" type="Label" parent="MarginContainer/VBoxContainer/ProductionControls"]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/ProductionControls"]
 custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-theme_override_font_sizes/font_size = 48
+theme_override_constants/separation = 0
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/ProductionControls/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RewardLabel" parent="MarginContainer/VBoxContainer/ProductionControls/HBoxContainer" instance=ExtResource("3_yex1k")]
+unique_name_in_owner = true
+layout_mode = 2
 text = "£0"
-horizontal_alignment = 2
+duration = 0.5
 
 [node name="UpgradeButtons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2

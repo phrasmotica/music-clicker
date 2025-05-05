@@ -21,9 +21,15 @@ var amount: int = 1:
 @export
 var mult: float = 1.0:
 	set(value):
+		var old := mult
+		var new := maxf(value, 0.0)
+
 		mult = maxf(value, 0.0)
 
 		_refresh()
+
+		if not Engine.is_editor_hint() and old != new and reward_label:
+			reward_label.do_highlight()
 
 @export
 var is_automated := false
@@ -41,7 +47,7 @@ var make_button: Button = %MakeButton
 var progress_bar: ProgressBar = %ProgressBar
 
 @onready
-var reward_label: Label = %RewardLabel
+var reward_label: HighlightableText = %RewardLabel
 
 @onready
 var buy_button: Button = %BuyButton
