@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4chg6lkm2hr7"]
+
+[ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="1_vdmtn"]
+[ext_resource type="Script" uid="uid://w1ojekgxohgk" path="res://scripts/highlightable_text.gd" id="2_c7dj7"]
+[ext_resource type="PackedScene" uid="uid://bikus30tx0q36" path="res://scenes/shader_param_updater.tscn" id="3_r8o1w"]
+[ext_resource type="PackedScene" uid="uid://vchnmr8ddv6v" path="res://scenes/shader_progressor.tscn" id="4_pbnk6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n2ble"]
+shader = ExtResource("1_vdmtn")
+shader_parameter/rect_size = Vector2(147, 67)
+shader_parameter/key_colour = Color(0, 0, 0, 1)
+shader_parameter/highlight_colour = Color(1, 0.784314, 0, 1)
+shader_parameter/tolerance = 1.0
+shader_parameter/steepness = 4.0
+shader_parameter/progress = 1.00958
+
+[node name="HighlightableText" type="Label"]
+material = SubResource("ShaderMaterial_n2ble")
+offset_right = 55.0
+offset_bottom = 67.0
+size_flags_horizontal = 0
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 48
+text = "<text>"
+horizontal_alignment = 2
+script = ExtResource("2_c7dj7")
+highlight_colour = Color(1, 0.784314, 0, 1)
+
+[node name="ShaderParamUpdater" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_r8o1w")]
+unique_name_in_owner = true
+target = NodePath("..")
+
+[node name="ShaderProgressor" parent="." node_paths=PackedStringArray("target") instance=ExtResource("4_pbnk6")]
+unique_name_in_owner = true
+target = NodePath("..")
+
+[connection signal="resized" from="." to="." method="_on_resized"]
