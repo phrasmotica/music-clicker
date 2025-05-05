@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvhhta3af1hts"]
+[gd_scene load_steps=9 format=3 uid="uid://bvhhta3af1hts"]
 
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://theme/ui_theme.tres" id="1_ygrlx"]
 [ext_resource type="Script" uid="uid://bi4d6ylh4sgrp" path="res://scripts/product_meter.gd" id="1_ynjkp"]
+[ext_resource type="StyleBox" uid="uid://ccr1mhrm5bndo" path="res://theme/panel_product_meter_panel.tres" id="2_foft7"]
+[ext_resource type="Script" uid="uid://8iqqd7ct1ydc" path="res://scripts/product_meter_ui_updater.gd" id="3_foft7"]
 [ext_resource type="PackedScene" uid="uid://c4chg6lkm2hr7" path="res://scenes/highlightable_text.tscn" id="3_yex1k"]
 [ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="4_n2ble"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2ble"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhudp"]
 bg_color = Color(0.709696, 0.57952, 0.338334, 1)
 skew = Vector2(0.3, 0)
 corner_radius_top_left = 30
@@ -30,10 +32,25 @@ offset_bottom = 137.0
 size_flags_horizontal = 3
 theme = ExtResource("1_ygrlx")
 theme_type_variation = &"ProductMeterPanel"
-theme_override_styles/panel = SubResource("StyleBoxFlat_n2ble")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rhudp")
 script = ExtResource("1_ynjkp")
 is_unlocked = true
 locked_colour = Color(0.6, 0.6, 0.6, 1)
+
+[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("meter", "unlocked_container", "locked_container", "name_label", "amount_label", "make_button", "progress_bar", "reward_label", "buy_button", "automate_button")]
+unique_name_in_owner = true
+script = ExtResource("3_foft7")
+meter = NodePath("..")
+unlocked_container = NodePath("../MarginContainer/UnlockedModeContainer")
+locked_container = NodePath("../MarginContainer/LockedModeContainer")
+name_label = NodePath("../MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer/NameLabel")
+amount_label = NodePath("../MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer/AmountLabel")
+make_button = NodePath("../MarginContainer/UnlockedModeContainer/ProductionControls/MakeButton")
+progress_bar = NodePath("../MarginContainer/UnlockedModeContainer/ProductionControls/ProgressBar")
+reward_label = NodePath("../MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer/RewardLabel")
+buy_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButtons/BuyButton")
+automate_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButtons/AutomateButton")
+panel_style_box = ExtResource("2_foft7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -140,6 +157,6 @@ text = "LOCKED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/ProductionControls/MakeButton" to="." method="_on_make_button_pressed"]
-[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/BuyButton" to="." method="_on_buy_button_pressed"]
-[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/AutomateButton" to="." method="_on_automate_button_pressed"]
+[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/ProductionControls/MakeButton" to="UIUpdater" method="_on_make_button_pressed"]
+[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/BuyButton" to="UIUpdater" method="_on_buy_button_pressed"]
+[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/AutomateButton" to="UIUpdater" method="_on_automate_button_pressed"]

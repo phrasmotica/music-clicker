@@ -28,8 +28,8 @@ var mult: float = 1.0:
 
 		_refresh()
 
-		if not Engine.is_editor_hint() and old != new and reward_label:
-			reward_label.do_highlight()
+		if not Engine.is_editor_hint() and old != new and ui_updater:
+			ui_updater.highlight_reward()
 
 @export
 var is_unlocked := false:
@@ -49,74 +49,41 @@ var locked_colour: Color:
 		_refresh()
 
 @onready
-var unlocked_container: Container = %UnlockedModeContainer
-
-@onready
-var locked_container: Container = %LockedModeContainer
-
-@onready
-var name_label: Label = %NameLabel
-
-@onready
-var amount_label: Label = %AmountLabel
-
-@onready
-var make_button: Button = %MakeButton
-
-@onready
-var progress_bar: ProgressBar = %ProgressBar
-
-@onready
-var reward_label: HighlightableText = %RewardLabel
-
-@onready
-var buy_button: Button = %BuyButton
-
-@onready
-var automate_button: Button = %AutomateButton
-
-@onready
-var panel_style_box: StyleBoxFlat = preload("res://theme/panel_product_meter_panel.tres")
-
-var _is_making := false
-var _local_panel_style_box: StyleBoxFlat
+var ui_updater: ProductMeterUIUpdater = %UIUpdater
 
 signal buy_product(product: Product, cost: int)
 signal made_product(reward: int)
 signal automate_product(product: Product)
 
 func _ready() -> void:
-	if panel_style_box:
-		_local_panel_style_box = panel_style_box.duplicate()
-
-		add_theme_stylebox_override("panel", _local_panel_style_box)
+	if ui_updater:
+		ui_updater.buy_triggered.connect(buy)
+		ui_updater.automate_triggered.connect(automate)
 
 	_refresh()
 
 	reset_progress()
 
 func _process(delta: float) -> void:
-	if product and (is_automated or _is_making):
-		progress_bar.value += 100 * delta / product.base_time_seconds
+	if Engine.is_editor_hint():
+		return
 
-	if progress_bar.value >= 100:
-		reset_progress()
+	if ui_updater:
+		var did_make := ui_updater.increment(delta)
 
-		_is_making = false
-
-		if not is_automated:
-			make_button.disabled = false
-
-		made_product.emit(_get_reward())
+		if did_make:
+			made_product.emit(get_reward())
 
 func buy() -> void:
 	if not product:
 		return
 
-	var cost := _get_cost()
+	# BUG: buying a product while it's being made causes the Make button to
+	# be re-enabled and the product to be un-automated
+	var cost := get_cost()
 	buy_product.emit(product, cost)
 
-func _get_cost() -> int:
+func get_cost() -> int:
 	if not product:
 		return 0
 
@@ -133,16 +100,6 @@ func _get_cost() -> int:
 
 	return int(product.base_cost * amount)
 
-func _get_automate_cost() -> int:
-	return product.automate_cost if product else 0
-
-func make() -> void:
-	if not product:
-		return
-
-	reset_progress()
-	_is_making = true
-
 func automate() -> void:
 	if not product:
 		return
@@ -150,89 +107,25 @@ func automate() -> void:
 	automate_product.emit(product)
 
 func reset_progress() -> void:
-	progress_bar.value = 0
+	if ui_updater:
+		ui_updater.reset_progress()
 
 func _refresh() -> void:
-	if unlocked_container:
-		unlocked_container.visible = is_unlocked
+	if ui_updater:
+		ui_updater.update()
 
-	if locked_container:
-		locked_container.visible = not is_unlocked
-
-	if _local_panel_style_box:
-		_local_panel_style_box.bg_color = _get_bg_colour()
-
-	if name_label:
-		if product and product.product_name.length() > 0:
-			name_label.text = product.product_name
-		else:
-			name_label.text = "<product_name>"
-
-	if amount_label:
-		amount_label.text = "x%d" % (amount if product else 0)
-
-	if reward_label:
-		reward_label.text = "£%d" % _get_reward()
-
-	if make_button:
-		make_button.disabled = product == null
-
-	if buy_button:
-		var c := _get_cost()
-		buy_button.text = "Buy £%d" % c
-		buy_button.disabled = product == null
-
-	if automate_button:
-		automate_button.text = "Automate £%d" % _get_automate_cost()
-		automate_button.disabled = product == null
-
-func refresh_buttons(score: int):
-	if buy_button:
-		buy_button.disabled = score < _get_cost()
-
-	if automate_button:
-		automate_button.disabled = is_automated or score < _get_automate_cost()
+func refresh_buttons(score: int) -> void:
+	if ui_updater:
+		ui_updater.update_buttons(score)
 
 func set_automated() -> void:
 	is_automated = true
 
-	if make_button:
-		make_button.disabled = true
+	if ui_updater:
+		ui_updater.set_automated()
 
-	if automate_button:
-		automate_button.disabled = true
-
-func _get_bg_colour() -> Color:
-	if not is_unlocked:
-		return locked_colour
-
-	return product.colour if product else panel_style_box.bg_color
-
-func _get_reward() -> int:
+func get_reward() -> int:
 	if not product:
 		return 0
 
 	return int(mult * amount * maxi(product.base_reward, 1))
-
-func _on_buy_button_pressed() -> void:
-	print("Buying a product...")
-
-	buy()
-
-func _on_make_button_pressed() -> void:
-	print("Making a product...")
-
-	make_button.disabled = true
-
-	make()
-
-func _on_automate_button_pressed() -> void:
-	if is_automated:
-		return
-
-	print("Automating " + product.product_name + "...")
-
-	automate_button.disabled = true
-	automate_button.text = "Automated!"
-
-	automate()
