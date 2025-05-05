@@ -116,48 +116,40 @@ columns = 2
 [node name="ProductMeter0" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u001w")
+mode = 1
 
 [node name="ProductMeter1" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u2dgd")
-is_unlocked = false
 
 [node name="ProductMeter2" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bt76a")
-is_unlocked = false
 
 [node name="ProductMeter3" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_djwj0")
-is_unlocked = false
 
 [node name="ProductMeter4" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e0pfi")
-is_unlocked = false
 
 [node name="ProductMeter5" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o3bws")
-is_unlocked = false
 
 [node name="ProductMeter6" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3huio")
-is_unlocked = false
 
 [node name="ProductMeter7" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sjwyb")
-is_unlocked = false
 
 [node name="ProductMeter8" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5kh4o")
-is_unlocked = false
 
 [node name="ProductMeter9" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_s2npe")
-is_unlocked = false

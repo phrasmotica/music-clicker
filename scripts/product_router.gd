@@ -21,10 +21,12 @@ var amounts: Dictionary[Product, int] = {}
 var score_manager: ScoreManager
 
 signal products_changed(products: Array[Product])
+signal unlocked_product(product: Product, amount: int)
 signal bought_product(product: Product, amount: int, mult: float)
 
 func _ready() -> void:
 	if score_manager:
+		score_manager.product_unlocked.connect(_handle_product_unlocked)
 		score_manager.product_bought.connect(_handle_product_bought)
 
 	_emit_changed()
@@ -36,6 +38,13 @@ func add_product(product: Product, amount: int) -> int:
 		amounts[product] = amount
 
 	return amounts[product]
+
+func _handle_product_unlocked(product: Product) -> void:
+	var new_amount := 1
+
+	amounts[product] = new_amount
+
+	unlocked_product.emit(product, new_amount)
 
 func _handle_product_bought(product: Product) -> void:
 	var new_amount := add_product(product, 1)

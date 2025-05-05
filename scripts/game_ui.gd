@@ -24,6 +24,7 @@ var score_label: Label = %ScoreLabel
 
 var _product_meters: Array[ProductMeter] = []
 
+signal unlock_product(product: Product, cost: int)
 signal buy_product(product: Product, cost: int)
 signal made_product(reward: int)
 signal automate_product(product: Product)
@@ -38,12 +39,14 @@ func _ready() -> void:
 		_product_meters.append(meter)
 
 	for pm in _product_meters:
+		pm.unlock_product.connect(unlock_product.emit)
 		pm.buy_product.connect(buy_product.emit)
 		pm.made_product.connect(made_product.emit)
 		pm.automate_product.connect(automate_product.emit)
 
 	if product_router:
 		product_router.products_changed.connect(_inject_products)
+		product_router.unlocked_product.connect(_handle_unlocked_product)
 		product_router.bought_product.connect(_handle_bought_product)
 
 		_inject_products(product_router.products)
@@ -72,6 +75,14 @@ func _inject_products(products: Array[Product]) -> void:
 		else:
 			meter.product = null
 			meter.hide()
+
+func _handle_unlocked_product(product: Product, amount: int) -> void:
+	for pm in _product_meters:
+		if pm.product == product:
+			print("%s unlocked" % product.product_name)
+
+			pm.to_unlocked()
+			pm.amount = amount
 
 func _handle_bought_product(product: Product, amount: int, mult: float) -> void:
 	for pm in _product_meters:

@@ -32,6 +32,9 @@ var buy_button: Button
 var automate_button: Button
 
 @export
+var unlock_button: Button
+
+@export
 var panel_style_box: StyleBoxFlat
 
 var _local_panel_style_box: StyleBoxFlat
@@ -39,6 +42,7 @@ var _local_panel_style_box: StyleBoxFlat
 var _is_making := false
 var _current_score := 0
 
+signal unlock_triggered
 signal buy_triggered
 signal automate_triggered
 
@@ -112,6 +116,9 @@ func update() -> void:
 		automate_button.text = _get_automate_text()
 		automate_button.disabled = not _can_automate()
 
+	if unlock_button:
+		unlock_button.disabled = not _can_unlock()
+
 func update_score(score: int) -> void:
 	_current_score = score
 
@@ -142,13 +149,16 @@ func _get_automate_text() -> String:
 	return "Automated!" if meter.is_automated() else "Automate £%d" % meter.get_automate_cost()
 
 func _can_make() -> bool:
-	return meter.product != null and not (_is_making or meter.is_automated())
+	return meter.product != null and meter.is_unlocked() and not _is_making
 
 func _can_buy() -> bool:
-	return meter.product != null and _current_score >= meter.get_cost()
+	return meter.product != null and meter.is_unlocked() and _current_score >= meter.get_cost()
 
 func _can_automate() -> bool:
-	return meter.product != null and _current_score >= meter.get_automate_cost() and not meter.is_automated()
+	return meter.product != null and meter.is_unlocked() and _current_score >= meter.get_automate_cost()
+
+func _can_unlock() -> bool:
+	return meter.product != null and meter.is_locked() and _current_score >= meter.get_unlock_cost()
 
 func _on_make_button_pressed() -> void:
 	if _is_making:
@@ -173,3 +183,11 @@ func _on_automate_button_pressed() -> void:
 	print("Automating production of %s..." % meter.product.product_name)
 
 	automate_triggered.emit()
+
+func _on_unlock_button_pressed() -> void:
+	if meter.is_unlocked():
+		return
+
+	print("Unlocking %s..." % meter.product.product_name)
+
+	unlock_triggered.emit()

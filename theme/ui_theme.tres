@@ -1,10 +1,10 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dkomyb52bvbhj"]
+[gd_resource type="Theme" load_steps=13 format=3 uid="uid://dkomyb52bvbhj"]
 
 [ext_resource type="StyleBox" uid="uid://ccr1mhrm5bndo" path="res://theme/panel_product_meter_panel.tres" id="1_2pn01"]
 [ext_resource type="SystemFont" uid="uid://b701jelvk7xtj" path="res://theme/ui_font.tres" id="1_touxu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5kxjo"]
-bg_color = Color(0.6, 0.6, 0.6, 0.498039)
+bg_color = Color(0.532604, 0.433176, 0, 0.498039)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -27,6 +27,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tpf0h"]
+bg_color = Color(0.709804, 0.580392, 0, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -38,6 +39,28 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5y56j"]
 bg_color = Color(0.43134, 0.43134, 0.43134, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uusv"]
+bg_color = Color(0.870019, 0.713497, 1.54018e-06, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8aw70"]
+bg_color = Color(0.473803, 0.384325, 0, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -104,6 +127,12 @@ ProductMeterMakeButton/styles/normal = SubResource("StyleBoxFlat_tpf0h")
 ProductMeterMakeButton/styles/pressed = SubResource("StyleBoxFlat_5y56j")
 ProductMeterPanel/base_type = &"PanelContainer"
 ProductMeterPanel/styles/panel = ExtResource("1_2pn01")
+ProductMeterUnlockButton/base_type = &"Button"
+ProductMeterUnlockButton/font_sizes/font_size = 32
+ProductMeterUnlockButton/styles/disabled = SubResource("StyleBoxFlat_5kxjo")
+ProductMeterUnlockButton/styles/hover = SubResource("StyleBoxFlat_7uusv")
+ProductMeterUnlockButton/styles/normal = SubResource("StyleBoxFlat_tpf0h")
+ProductMeterUnlockButton/styles/pressed = SubResource("StyleBoxFlat_8aw70")
 ProductMeterUpgradeButton/base_type = &"Button"
 ProductMeterUpgradeButton/styles/disabled = SubResource("StyleBoxFlat_2pn01")
 ProductMeterUpgradeButton/styles/hover = SubResource("StyleBoxFlat_tbeor")

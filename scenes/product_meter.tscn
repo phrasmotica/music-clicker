@@ -35,7 +35,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rhudp")
 script = ExtResource("1_ynjkp")
 locked_colour = Color(0.6, 0.6, 0.6, 1)
 
-[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("meter", "unlocked_container", "locked_container", "name_label", "amount_label", "make_button", "progress_bar", "reward_label", "buy_button", "automate_button")]
+[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("meter", "unlocked_container", "locked_container", "name_label", "amount_label", "make_button", "progress_bar", "reward_label", "buy_button", "automate_button", "unlock_button")]
 unique_name_in_owner = true
 script = ExtResource("3_foft7")
 meter = NodePath("..")
@@ -48,6 +48,7 @@ progress_bar = NodePath("../MarginContainer/UnlockedModeContainer/ProductionCont
 reward_label = NodePath("../MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer/RewardLabel")
 buy_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButtons/BuyButton")
 automate_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButtons/AutomateButton")
+unlock_button = NodePath("../MarginContainer/LockedModeContainer/UnlockButton")
 panel_style_box = ExtResource("2_foft7")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -58,7 +59,6 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
 [node name="UnlockedModeContainer" type="VBoxContainer" parent="MarginContainer"]
-unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
@@ -73,19 +73,16 @@ layout_mode = 2
 theme_override_constants/separation = 0
 
 [node name="NameLabel" type="Label" parent="MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "<product_name>"
 
 [node name="AmountLabel" type="Label" parent="MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "x0"
 
 [node name="MakeButton" type="Button" parent="MarginContainer/UnlockedModeContainer/ProductionControls"]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_type_variation = &"ProductMeterMakeButton"
@@ -94,7 +91,6 @@ disabled = true
 text = "Make"
 
 [node name="ProgressBar" type="ProgressBar" parent="MarginContainer/UnlockedModeContainer/ProductionControls"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -111,7 +107,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="RewardLabel" parent="MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer" instance=ExtResource("3_yex1k")]
-unique_name_in_owner = true
 material = SubResource("ShaderMaterial_foft7")
 layout_mode = 2
 text = "£0"
@@ -121,7 +116,6 @@ duration = 0.5
 layout_mode = 2
 
 [node name="BuyButton" type="Button" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"ProductMeterUpgradeButton"
@@ -130,24 +124,23 @@ disabled = true
 text = "Buy £0"
 
 [node name="AutomateButton" type="Button" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons"]
-unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"ProductMeterUpgradeButton"
 theme_override_font_sizes/font_size = 24
 disabled = true
-text = "Automated!"
+text = "Automate £0"
 
 [node name="Spacer" type="Control" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons"]
 custom_minimum_size = Vector2(6, 0)
 layout_mode = 2
 
 [node name="LockedModeContainer" type="VBoxContainer" parent="MarginContainer"]
-unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="LockedLabel" type="Label" parent="MarginContainer/LockedModeContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 86
@@ -155,6 +148,17 @@ text = "LOCKED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="UnlockButton" type="Button" parent="MarginContainer/LockedModeContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"ProductMeterUnlockButton"
+text = "Unlock £1000"
+
 [connection signal="pressed" from="MarginContainer/UnlockedModeContainer/ProductionControls/MakeButton" to="UIUpdater" method="_on_make_button_pressed"]
 [connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/BuyButton" to="UIUpdater" method="_on_buy_button_pressed"]
 [connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/AutomateButton" to="UIUpdater" method="_on_automate_button_pressed"]
+[connection signal="pressed" from="MarginContainer/LockedModeContainer/UnlockButton" to="UIUpdater" method="_on_unlock_button_pressed"]

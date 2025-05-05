@@ -14,17 +14,14 @@
 script = ExtResource("1_vef74")
 
 [node name="ScoreManager" parent="." node_paths=PackedStringArray("game_ui") instance=ExtResource("1_2j3m2")]
-starting_score = 500
+starting_score = 1000
 game_ui = NodePath("../GameUI")
 
 [node name="ProductRouter" type="Node" parent="." node_paths=PackedStringArray("score_manager")]
 script = ExtResource("3_khcq3")
 products = Array[ExtResource("4_vef74")]([ExtResource("5_hve3p"), ExtResource("6_mfdv2"), ExtResource("7_iotsf"), ExtResource("8_lc2xo")])
 amounts = Dictionary[ExtResource("4_vef74"), int]({
-ExtResource("5_hve3p"): 1,
-ExtResource("6_mfdv2"): 1,
-ExtResource("7_iotsf"): 1,
-ExtResource("8_lc2xo"): 1
+ExtResource("5_hve3p"): 1
 })
 score_manager = NodePath("../ScoreManager")
 

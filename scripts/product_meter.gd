@@ -50,12 +50,14 @@ var locked_colour: Color:
 @onready
 var ui_updater: ProductMeterUIUpdater = %UIUpdater
 
+signal unlock_product(product: Product, cost: int)
 signal buy_product(product: Product, cost: int)
 signal made_product(reward: int)
 signal automate_product(product: Product)
 
 func _ready() -> void:
 	if ui_updater:
+		ui_updater.unlock_triggered.connect(_unlock)
 		ui_updater.buy_triggered.connect(_buy)
 		ui_updater.automate_triggered.connect(_automate)
 
@@ -72,6 +74,13 @@ func _process(delta: float) -> void:
 
 		if did_make:
 			made_product.emit(get_reward())
+
+func _unlock() -> void:
+	if not product:
+		return
+
+	var cost := get_unlock_cost()
+	unlock_product.emit(product, cost)
 
 func _buy() -> void:
 	if not product:
@@ -114,6 +123,10 @@ func get_cost() -> int:
 
 func get_automate_cost() -> int:
 	return product.automate_cost if product else 0
+
+func get_unlock_cost() -> int:
+	# HIGH: implement a per-product unlock cost
+	return 1000
 
 func is_locked() -> bool:
 	return mode == MeterMode.LOCKED
