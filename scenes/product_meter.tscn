@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://theme/ui_theme.tres" id="1_ygrlx"]
 [ext_resource type="Script" uid="uid://bi4d6ylh4sgrp" path="res://scripts/product_meter.gd" id="1_ynjkp"]
 [ext_resource type="StyleBox" uid="uid://ccr1mhrm5bndo" path="res://theme/panel_product_meter_panel.tres" id="2_foft7"]
-[ext_resource type="Script" uid="uid://8iqqd7ct1ydc" path="res://scripts/product_meter_ui_updater.gd" id="3_foft7"]
+[ext_resource type="Script" path="res://scripts/product_meter_ui_updater.gd" id="3_foft7"]
 [ext_resource type="PackedScene" uid="uid://c4chg6lkm2hr7" path="res://scenes/highlightable_text.tscn" id="3_yex1k"]
 [ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="4_n2ble"]
 
@@ -17,7 +17,7 @@ corner_radius_bottom_left = 5
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_foft7"]
 resource_local_to_scene = true
 shader = ExtResource("4_n2ble")
-shader_parameter/rect_size = Vector2(52, 65)
+shader_parameter/rect_size = Vector2(54, 49)
 shader_parameter/key_colour = Color(0, 0, 0, 1)
 shader_parameter/highlight_colour = Color(1, 0.784314, 0, 1)
 shader_parameter/tolerance = 1.0
@@ -25,9 +25,9 @@ shader_parameter/steepness = 4.0
 shader_parameter/progress = 1.00958
 
 [node name="ProductMeter" type="PanelContainer"]
-custom_minimum_size = Vector2(860, 137)
+custom_minimum_size = Vector2(860, 109)
 offset_right = 860.0
-offset_bottom = 137.0
+offset_bottom = 109.0
 size_flags_horizontal = 3
 theme = ExtResource("1_ygrlx")
 theme_type_variation = &"ProductMeterPanel"
