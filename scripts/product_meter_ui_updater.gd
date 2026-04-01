@@ -156,7 +156,7 @@ func _can_make() -> bool:
 	return meter.product != null and meter.is_unlocked() and not _is_making
 
 func _can_buy() -> bool:
-	return meter.product != null and meter.is_unlocked() and _current_score >= meter.get_cost()
+	return meter.product != null and not meter.is_locked() and _current_score >= meter.get_cost()
 
 func _can_automate() -> bool:
 	return meter.product != null and meter.is_unlocked() and _current_score >= meter.get_automate_cost()
