@@ -8,8 +8,8 @@ var product: Product:
 	set(value):
 		product = value
 
-		if product and not product.changed.is_connected(_refresh):
-			product.changed.connect(_refresh)
+		if product:
+			SignalHelper.persist(product.changed, _refresh)
 
 		_refresh()
 
@@ -57,9 +57,17 @@ signal automate_product(product: Product)
 
 func _ready() -> void:
 	if ui_updater:
-		ui_updater.unlock_triggered.connect(_unlock)
-		ui_updater.buy_triggered.connect(_buy)
-		ui_updater.automate_triggered.connect(_automate)
+		SignalHelper.persist(
+			ui_updater.unlock_triggered,
+			_unlock)
+
+		SignalHelper.persist(
+			ui_updater.buy_triggered,
+			_buy)
+
+		SignalHelper.persist(
+			ui_updater.automate_triggered,
+			_automate)
 
 	_refresh()
 

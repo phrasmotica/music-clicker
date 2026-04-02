@@ -7,8 +7,8 @@ var products: Array[Product] = []:
 		products = value
 
 		for p in products:
-			if p and not p.changed.is_connected(_emit_changed):
-				p.changed.connect(_emit_changed)
+			if p:
+				SignalHelper.persist(p.changed, _emit_changed)
 
 		_emit_changed()
 
@@ -26,8 +26,13 @@ signal bought_product(product: Product, amount: int, mult: float)
 
 func _ready() -> void:
 	if score_manager:
-		score_manager.product_unlocked.connect(_handle_product_unlocked)
-		score_manager.product_bought.connect(_handle_product_bought)
+		SignalHelper.persist(
+			score_manager.product_unlocked,
+			_handle_product_unlocked)
+
+		SignalHelper.persist(
+			score_manager.product_bought,
+			_handle_product_bought)
 
 	_emit_changed()
 

@@ -31,23 +31,48 @@ signal automate_product(product: Product)
 
 func _ready() -> void:
 	if score_manager:
-		score_manager.score_changed.connect(_handle_score_changed)
-		score_manager.product_automated.connect(_handle_product_automated)
+		SignalHelper.persist(
+			score_manager.score_changed,
+			_handle_score_changed)
+
+		SignalHelper.persist(
+			score_manager.product_automated,
+			_handle_product_automated)
+
 
 	for i in product_meter_parent.get_child_count():
 		var meter: ProductMeter = product_meter_parent.get_child(i)
 		_product_meters.append(meter)
 
 	for pm in _product_meters:
-		pm.unlock_product.connect(unlock_product.emit)
-		pm.buy_product.connect(buy_product.emit)
-		pm.made_product.connect(made_product.emit)
-		pm.automate_product.connect(automate_product.emit)
+		SignalHelper.chain(
+			pm.unlock_product,
+			unlock_product)
+
+		SignalHelper.chain(
+			pm.buy_product,
+			buy_product)
+
+		SignalHelper.chain(
+			pm.made_product,
+			made_product)
+
+		SignalHelper.chain(
+			pm.automate_product,
+			automate_product)
 
 	if product_router:
-		product_router.products_changed.connect(_inject_products)
-		product_router.unlocked_product.connect(_handle_unlocked_product)
-		product_router.bought_product.connect(_handle_bought_product)
+		SignalHelper.persist(
+			product_router.products_changed,
+			_inject_products)
+
+		SignalHelper.persist(
+			product_router.unlocked_product,
+			_handle_unlocked_product)
+
+		SignalHelper.persist(
+			product_router.bought_product,
+			_handle_bought_product)
 
 		_inject_products(product_router.products)
 

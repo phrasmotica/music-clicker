@@ -26,7 +26,9 @@ var progressor: ShaderProgressor = %ShaderProgressor
 
 func _ready() -> void:
 	if progressor:
-		progressor.progress_finished.connect(_handle_finished)
+		SignalHelper.persist(
+			progressor.progress_finished,
+			_handle_finished)
 
 	_refresh()
 

@@ -12,7 +12,9 @@ func _ready() -> void:
 
 	_material = target.material as ShaderMaterial
 
-	target.resized.connect(_handle_resized)
+	SignalHelper.persist(
+		target.resized,
+		_handle_resized)
 
 func update(param: StringName, value: Variant) -> void:
 	if _material:

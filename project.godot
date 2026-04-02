@@ -32,6 +32,10 @@ run/main_scene="res://game.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SignalHelper="*uid://d1wy4pemf0ncv"
+
 [display]
 
 window/size/viewport_width=1920

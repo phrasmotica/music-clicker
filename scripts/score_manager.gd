@@ -25,10 +25,21 @@ signal product_automated(product: Product)
 
 func _ready() -> void:
 	if game_ui:
-		game_ui.unlock_product.connect(_handle_unlock_product)
-		game_ui.buy_product.connect(_handle_buy_product)
-		game_ui.made_product.connect(_handle_made_product)
-		game_ui.automate_product.connect(_handle_automate_product)
+		SignalHelper.persist(
+			game_ui.unlock_product,
+			_handle_unlock_product)
+
+		SignalHelper.persist(
+			game_ui.buy_product,
+			_handle_buy_product)
+
+		SignalHelper.persist(
+			game_ui.made_product,
+			_handle_made_product)
+
+		SignalHelper.persist(
+			game_ui.automate_product,
+			_handle_automate_product)
 
 func _on_game_ready() -> void:
 	_score = starting_score
