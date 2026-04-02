@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://vchnmr8ddv6v"]
+[gd_scene format=3 uid="uid://vchnmr8ddv6v"]
 
 [ext_resource type="Script" uid="uid://crf1tq181b4ap" path="res://scripts/shader_progressor.gd" id="1_raeo2"]
 
-[node name="ShaderProgressor" type="Node"]
+[node name="ShaderProgressor" type="Node" unique_id=938670675]
 script = ExtResource("1_raeo2")

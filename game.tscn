@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsho3man5rnyv"]
+[gd_scene format=3 uid="uid://bsho3man5rnyv"]
 
 [ext_resource type="PackedScene" uid="uid://c1e4wtqckp844" path="res://scenes/score_manager.tscn" id="1_2j3m2"]
 [ext_resource type="Script" uid="uid://cn0snp6hbku0f" path="res://scripts/game.gd" id="1_vef74"]
@@ -10,13 +10,13 @@
 [ext_resource type="Resource" uid="uid://c6t4cqq3uv8oq" path="res://resources/product_space_ambient.tres" id="7_iotsf"]
 [ext_resource type="Resource" uid="uid://fas0axhy8l1j" path="res://resources/product_progressive_rock.tres" id="8_lc2xo"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node2D" unique_id=958154176]
 script = ExtResource("1_vef74")
 
-[node name="ScoreManager" parent="." node_paths=PackedStringArray("game_ui") instance=ExtResource("1_2j3m2")]
+[node name="ScoreManager" parent="." unique_id=541759728 node_paths=PackedStringArray("game_ui") instance=ExtResource("1_2j3m2")]
 game_ui = NodePath("../GameUI")
 
-[node name="ProductRouter" type="Node" parent="." node_paths=PackedStringArray("score_manager")]
+[node name="ProductRouter" type="Node" parent="." unique_id=484492949 node_paths=PackedStringArray("score_manager")]
 script = ExtResource("3_khcq3")
 products = Array[ExtResource("4_vef74")]([ExtResource("5_hve3p"), ExtResource("6_mfdv2"), ExtResource("7_iotsf"), ExtResource("8_lc2xo")])
 amounts = Dictionary[ExtResource("4_vef74"), int]({
@@ -24,7 +24,7 @@ ExtResource("5_hve3p"): 1
 })
 score_manager = NodePath("../ScoreManager")
 
-[node name="GameUI" parent="." node_paths=PackedStringArray("score_manager", "product_router") instance=ExtResource("4_fc0e3")]
+[node name="GameUI" parent="." unique_id=1581034653 node_paths=PackedStringArray("score_manager", "product_router") instance=ExtResource("4_fc0e3")]
 score_manager = NodePath("../ScoreManager")
 product_router = NodePath("../ProductRouter")
 

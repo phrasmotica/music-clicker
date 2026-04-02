@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cyoqo21jvvf6k"]
+[gd_scene format=3 uid="uid://cyoqo21jvvf6k"]
 
 [ext_resource type="Script" uid="uid://blxqq5715fx2x" path="res://scripts/game_ui.gd" id="1_djwj0"]
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://theme/ui_theme.tres" id="1_e0pfi"]
@@ -75,7 +75,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 5
 
-[node name="GameUI" type="MarginContainer"]
+[node name="GameUI" type="MarginContainer" unique_id=897170752]
 custom_minimum_size = Vector2(1920, 1080)
 offset_right = 1920.0
 offset_bottom = 1080.0
@@ -86,70 +86,70 @@ theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 20
 script = ExtResource("1_djwj0")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1062233987]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer" unique_id=139493986]
 layout_mode = 2
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=1567823129]
 layout_mode = 2
 theme_override_font_sizes/font_size = 64
 text = "Music Clicker"
 horizontal_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="VBoxContainer/VBoxContainer"]
+[node name="ScoreLabel" type="Label" parent="VBoxContainer/VBoxContainer" unique_id=378580653]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "£100"
 horizontal_alignment = 1
 
-[node name="ProductMeterParent" type="GridContainer" parent="VBoxContainer"]
+[node name="ProductMeterParent" type="GridContainer" parent="VBoxContainer" unique_id=334357668]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 2
 
-[node name="ProductMeter0" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter0" parent="VBoxContainer/ProductMeterParent" unique_id=1371430908 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u001w")
 mode = 1
 
-[node name="ProductMeter1" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter1" parent="VBoxContainer/ProductMeterParent" unique_id=1584801063 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_u2dgd")
 
-[node name="ProductMeter2" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter2" parent="VBoxContainer/ProductMeterParent" unique_id=127877928 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bt76a")
 
-[node name="ProductMeter3" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter3" parent="VBoxContainer/ProductMeterParent" unique_id=1030527602 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_djwj0")
 
-[node name="ProductMeter4" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter4" parent="VBoxContainer/ProductMeterParent" unique_id=949835357 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_e0pfi")
 
-[node name="ProductMeter5" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter5" parent="VBoxContainer/ProductMeterParent" unique_id=1431829435 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o3bws")
 
-[node name="ProductMeter6" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter6" parent="VBoxContainer/ProductMeterParent" unique_id=1995329592 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3huio")
 
-[node name="ProductMeter7" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter7" parent="VBoxContainer/ProductMeterParent" unique_id=325891387 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sjwyb")
 
-[node name="ProductMeter8" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter8" parent="VBoxContainer/ProductMeterParent" unique_id=1779887922 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5kh4o")
 
-[node name="ProductMeter9" parent="VBoxContainer/ProductMeterParent" instance=ExtResource("2_e0pfi")]
+[node name="ProductMeter9" parent="VBoxContainer/ProductMeterParent" unique_id=933833009 instance=ExtResource("2_e0pfi")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_s2npe")

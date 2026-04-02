@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bvhhta3af1hts"]
+[gd_scene format=3 uid="uid://bvhhta3af1hts"]
 
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://theme/ui_theme.tres" id="1_ygrlx"]
 [ext_resource type="Script" uid="uid://bi4d6ylh4sgrp" path="res://scripts/product_meter.gd" id="1_ynjkp"]
 [ext_resource type="StyleBox" uid="uid://ccr1mhrm5bndo" path="res://theme/panel_product_meter_panel.tres" id="2_foft7"]
-[ext_resource type="Script" path="res://scripts/product_meter_ui_updater.gd" id="3_foft7"]
+[ext_resource type="Script" uid="uid://8iqqd7ct1ydc" path="res://scripts/product_meter_ui_updater.gd" id="3_foft7"]
 [ext_resource type="PackedScene" uid="uid://c4chg6lkm2hr7" path="res://scenes/highlightable_text.tscn" id="3_yex1k"]
 [ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="4_n2ble"]
 
@@ -14,7 +14,7 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_foft7"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_87o61"]
 resource_local_to_scene = true
 shader = ExtResource("4_n2ble")
 shader_parameter/rect_size = Vector2(54, 49)
@@ -24,7 +24,7 @@ shader_parameter/tolerance = 1.0
 shader_parameter/steepness = 4.0
 shader_parameter/progress = 1.00958
 
-[node name="ProductMeter" type="PanelContainer"]
+[node name="ProductMeter" type="PanelContainer" unique_id=226758484]
 custom_minimum_size = Vector2(860, 109)
 offset_right = 860.0
 offset_bottom = 109.0
@@ -35,7 +35,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_rhudp")
 script = ExtResource("1_ynjkp")
 locked_colour = Color(0.6, 0.6, 0.6, 1)
 
-[node name="UIUpdater" type="Node" parent="." node_paths=PackedStringArray("meter", "unlocked_container", "locked_container", "name_label", "amount_label", "make_button", "progress_bar", "reward_label", "buy_button", "automate_button", "unlock_button")]
+[node name="UIUpdater" type="Node" parent="." unique_id=623711486 node_paths=PackedStringArray("meter", "unlocked_container", "locked_container", "name_label", "amount_label", "make_button", "progress_bar", "reward_label", "buy_button", "automate_button", "unlock_button")]
 unique_name_in_owner = true
 script = ExtResource("3_foft7")
 meter = NodePath("..")
@@ -51,38 +51,38 @@ automate_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButt
 unlock_button = NodePath("../MarginContainer/LockedModeContainer/UnlockButton")
 panel_style_box = ExtResource("2_foft7")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1627391628]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="UnlockedModeContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="UnlockedModeContainer" type="VBoxContainer" parent="MarginContainer" unique_id=886721875]
 visible = false
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ProductionControls" type="HBoxContainer" parent="MarginContainer/UnlockedModeContainer"]
+[node name="ProductionControls" type="HBoxContainer" parent="MarginContainer/UnlockedModeContainer" unique_id=183675100]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/UnlockedModeContainer/ProductionControls"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/UnlockedModeContainer/ProductionControls" unique_id=1828131588]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="NameLabel" type="Label" parent="MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer" unique_id=1045010519]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "<product_name>"
 
-[node name="AmountLabel" type="Label" parent="MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer"]
+[node name="AmountLabel" type="Label" parent="MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer" unique_id=354566677]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "x0"
 
-[node name="MakeButton" type="Button" parent="MarginContainer/UnlockedModeContainer/ProductionControls"]
+[node name="MakeButton" type="Button" parent="MarginContainer/UnlockedModeContainer/ProductionControls" unique_id=142879392]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_type_variation = &"ProductMeterMakeButton"
@@ -90,32 +90,32 @@ theme_override_font_sizes/font_size = 24
 disabled = true
 text = "Make"
 
-[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/UnlockedModeContainer/ProductionControls"]
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/UnlockedModeContainer/ProductionControls" unique_id=1215279118]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme_override_font_sizes/font_size = 24
 show_percentage = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/UnlockedModeContainer/ProductionControls"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/UnlockedModeContainer/ProductionControls" unique_id=2057568549]
 custom_minimum_size = Vector2(190, 0)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Spacer" type="Control" parent="MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer"]
+[node name="Spacer" type="Control" parent="MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer" unique_id=268337433]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="RewardLabel" parent="MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer" instance=ExtResource("3_yex1k")]
-material = SubResource("ShaderMaterial_foft7")
+[node name="RewardLabel" parent="MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer" unique_id=1481492821 instance=ExtResource("3_yex1k")]
+material = SubResource("ShaderMaterial_87o61")
 layout_mode = 2
 text = "£0"
 duration = 0.5
 
-[node name="UpgradeButtons" type="HBoxContainer" parent="MarginContainer/UnlockedModeContainer"]
+[node name="UpgradeButtons" type="HBoxContainer" parent="MarginContainer/UnlockedModeContainer" unique_id=2131483160]
 layout_mode = 2
 
-[node name="BuyButton" type="Button" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons"]
+[node name="BuyButton" type="Button" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons" unique_id=1982590588]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"ProductMeterUpgradeButton"
@@ -123,7 +123,7 @@ theme_override_font_sizes/font_size = 24
 disabled = true
 text = "Buy £0"
 
-[node name="AutomateButton" type="Button" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons"]
+[node name="AutomateButton" type="Button" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons" unique_id=1398741672]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"ProductMeterUpgradeButton"
@@ -131,15 +131,15 @@ theme_override_font_sizes/font_size = 24
 disabled = true
 text = "Automate £0"
 
-[node name="Spacer" type="Control" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons"]
+[node name="Spacer" type="Control" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons" unique_id=33614852]
 custom_minimum_size = Vector2(6, 0)
 layout_mode = 2
 
-[node name="LockedModeContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="LockedModeContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1601935732]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="LockedLabel" type="Label" parent="MarginContainer/LockedModeContainer"]
+[node name="LockedLabel" type="Label" parent="MarginContainer/LockedModeContainer" unique_id=504648361]
 visible = false
 layout_mode = 2
 size_flags_vertical = 3
@@ -148,7 +148,7 @@ text = "LOCKED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="UnlockButton" type="Button" parent="MarginContainer/LockedModeContainer"]
+[node name="UnlockButton" type="Button" parent="MarginContainer/LockedModeContainer" unique_id=1689294900]
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
