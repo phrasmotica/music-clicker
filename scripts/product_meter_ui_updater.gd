@@ -47,6 +47,30 @@ signal buy_triggered
 signal automate_triggered
 
 func _ready() -> void:
+	if make_button:
+		SignalHelper.persist(
+			make_button.pressed,
+			_on_make_button_pressed
+		)
+
+	if buy_button:
+		SignalHelper.persist(
+			buy_button.pressed,
+			_on_buy_button_pressed
+		)
+
+	if automate_button:
+		SignalHelper.persist(
+			automate_button.pressed,
+			_on_automate_button_pressed
+		)
+
+	if unlock_button:
+		SignalHelper.persist(
+			unlock_button.pressed,
+			_on_unlock_button_pressed
+		)
+
 	if panel_style_box:
 		_local_panel_style_box = panel_style_box.duplicate()
 

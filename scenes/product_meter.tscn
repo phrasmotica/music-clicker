@@ -8,6 +8,7 @@
 [ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="4_n2ble"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhudp"]
+bg_color = Color(0.709696, 0.57952, 0.338334, 1)
 skew = Vector2(0.3, 0)
 corner_radius_top_left = 30
 corner_radius_top_right = 5
@@ -158,8 +159,3 @@ mouse_default_cursor_shape = 2
 theme_type_variation = &"ProductMeterUnlockButton"
 disabled = true
 text = "Unlock £0"
-
-[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/ProductionControls/MakeButton" to="UIUpdater" method="_on_make_button_pressed"]
-[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/BuyButton" to="UIUpdater" method="_on_buy_button_pressed"]
-[connection signal="pressed" from="MarginContainer/UnlockedModeContainer/UpgradeButtons/AutomateButton" to="UIUpdater" method="_on_automate_button_pressed"]
-[connection signal="pressed" from="MarginContainer/LockedModeContainer/UnlockButton" to="UIUpdater" method="_on_unlock_button_pressed"]

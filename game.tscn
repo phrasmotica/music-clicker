@@ -27,5 +27,3 @@ score_manager = NodePath("../ScoreManager")
 [node name="GameUI" parent="." unique_id=1581034653 node_paths=PackedStringArray("score_manager", "product_router") instance=ExtResource("4_fc0e3")]
 score_manager = NodePath("../ScoreManager")
 product_router = NodePath("../ProductRouter")
-
-[connection signal="ready" from="." to="ScoreManager" method="_on_game_ready"]

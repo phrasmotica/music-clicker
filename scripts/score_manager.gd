@@ -38,7 +38,9 @@ func _ready() -> void:
 			game_ui.automate_product,
 			_handle_automate_product)
 
-func _on_game_ready() -> void:
+	SignalHelper.once_next_frame(_setup_score)
+
+func _setup_score() -> void:
 	_score = starting_score
 
 	score_changed.emit(_score)
