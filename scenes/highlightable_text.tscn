@@ -34,5 +34,3 @@ target = NodePath("..")
 [node name="ShaderProgressor" parent="." unique_id=1113947659 node_paths=PackedStringArray("target") instance=ExtResource("4_pbnk6")]
 unique_name_in_owner = true
 target = NodePath("..")
-
-[connection signal="resized" from="." to="." method="_on_resized"]
