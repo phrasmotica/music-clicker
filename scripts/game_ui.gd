@@ -36,7 +36,7 @@ func _ready() -> void:
 			_handle_score_changed)
 
 		SignalHelper.persist(
-			score_manager.product_automated,
+			GameEvents.product_automated,
 			_handle_product_automated)
 
 

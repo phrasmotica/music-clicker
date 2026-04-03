@@ -35,6 +35,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SignalHelper="*uid://d1wy4pemf0ncv"
+GameEvents="*uid://ce4vqua6ibmk6"
 
 [display]
 

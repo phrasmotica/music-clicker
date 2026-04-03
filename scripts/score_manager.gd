@@ -19,9 +19,6 @@ var game_ui: GameUI
 var _score: int = 0
 
 signal score_changed(score: int)
-signal product_unlocked(product: Product)
-signal product_bought(product: Product)
-signal product_automated(product: Product)
 
 func _ready() -> void:
 	if game_ui:
@@ -52,7 +49,7 @@ func _handle_unlock_product(product: Product, cost: int) -> void:
 
 	_score -= cost
 
-	product_unlocked.emit(product)
+	GameEvents.emit_product_unlocked(product)
 	score_changed.emit(_score)
 
 func _handle_buy_product(product: Product, cost: int) -> void:
@@ -61,7 +58,7 @@ func _handle_buy_product(product: Product, cost: int) -> void:
 
 	_score -= cost
 
-	product_bought.emit(product)
+	GameEvents.emit_product_bought(product)
 	score_changed.emit(_score)
 
 func _handle_made_product(reward:int) -> void:
@@ -75,4 +72,4 @@ func _handle_automate_product(product: Product) -> void:
 	_score -= product.automate_cost
 
 	score_changed.emit(_score)
-	product_automated.emit(product)
+	GameEvents.emit_product_automated(product)

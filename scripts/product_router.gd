@@ -27,11 +27,11 @@ signal bought_product(product: Product, amount: int, mult: float)
 func _ready() -> void:
 	if score_manager:
 		SignalHelper.persist(
-			score_manager.product_unlocked,
+			GameEvents.product_unlocked,
 			_handle_product_unlocked)
 
 		SignalHelper.persist(
-			score_manager.product_bought,
+			GameEvents.product_bought,
 			_handle_product_bought)
 
 	_emit_changed()
