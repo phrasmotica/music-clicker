@@ -25,7 +25,7 @@ signal unlocked_product(product: Product, amount: int)
 signal bought_product(product: Product, amount: int, mult: float)
 
 func _ready() -> void:
-	if score_manager:
+	if not Engine.is_editor_hint():
 		SignalHelper.persist(
 			GameEvents.product_unlocked,
 			_handle_product_unlocked)
