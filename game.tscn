@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c1e4wtqckp844" path="res://scenes/score_manager.tscn" id="1_2j3m2"]
 [ext_resource type="Script" uid="uid://cn0snp6hbku0f" path="res://scripts/game.gd" id="1_vef74"]
+[ext_resource type="PackedScene" uid="uid://c8fbl686cigy4" path="res://scenes/game_settings.tscn" id="2_hve3p"]
 [ext_resource type="Script" uid="uid://dk7g2nn2chkel" path="res://scripts/product_router.gd" id="3_khcq3"]
 [ext_resource type="PackedScene" uid="uid://cyoqo21jvvf6k" path="res://scenes/game_ui.tscn" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://0mt732luhuce" path="res://scripts/product.gd" id="4_vef74"]
@@ -13,6 +14,9 @@
 [node name="Game" type="Node2D" unique_id=958154176]
 script = ExtResource("1_vef74")
 
+[node name="GameSettings" parent="." unique_id=797035836 node_paths=PackedStringArray("score_manager") instance=ExtResource("2_hve3p")]
+score_manager = NodePath("../ScoreManager")
+
 [node name="ScoreManager" parent="." unique_id=541759728 instance=ExtResource("1_2j3m2")]
 
 [node name="ProductRouter" type="Node" parent="." unique_id=484492949]
@@ -22,6 +26,6 @@ amounts = Dictionary[ExtResource("4_vef74"), int]({
 ExtResource("5_hve3p"): 1
 })
 
-[node name="GameUI" parent="." unique_id=1581034653 node_paths=PackedStringArray("score_manager", "product_router") instance=ExtResource("4_fc0e3")]
-score_manager = NodePath("../ScoreManager")
+[node name="GameUI" parent="." unique_id=1581034653 node_paths=PackedStringArray("game_settings", "product_router") instance=ExtResource("4_fc0e3")]
+game_settings = NodePath("../GameSettings")
 product_router = NodePath("../ProductRouter")

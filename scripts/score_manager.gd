@@ -1,19 +1,7 @@
 @tool
 class_name ScoreManager extends Node
 
-@export
-var starting_score: int = 0:
-	set(value):
-		starting_score = maxi(value, 0)
-
-		if Engine.is_editor_hint():
-			_score = starting_score
-
-			score_changed.emit(_score)
-
 var _score: int = 0
-
-signal score_changed(score: int)
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
@@ -33,9 +21,7 @@ func _ready() -> void:
 			GameEvents.product_made,
 			_handle_product_made)
 
-		SignalHelper.once_next_frame(_setup_score)
-
-func _setup_score() -> void:
+func set_starting_score(starting_score: int) -> void:
 	_adjust_score(starting_score)
 
 func _handle_unlock_product_requested(product: Product, cost: int) -> void:

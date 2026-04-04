@@ -11,7 +11,7 @@ var starting_unlocked_products := 1:
 @export_group("Dependencies")
 
 @export
-var score_manager: ScoreManager
+var game_settings: GameSettings
 
 @export
 var product_router: ProductRouter
@@ -25,9 +25,9 @@ var score_label: Label = %ScoreLabel
 var _product_meters: Array[ProductMeter] = []
 
 func _ready() -> void:
-	if score_manager:
+	if game_settings:
 		SignalHelper.persist(
-			score_manager.score_changed,
+			game_settings.starting_score_changed,
 			_handle_score_changed)
 
 	if not Engine.is_editor_hint():
