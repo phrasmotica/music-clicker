@@ -104,7 +104,7 @@ func _handle_score_changed(score: int) -> void:
 		score_label.text = "£" + str(score)
 
 	for pm in _product_meters:
-		pm.update_score(score)
+		pm.update()
 
 func _handle_product_automated(product: Product) -> void:
 	for pm in _product_meters:

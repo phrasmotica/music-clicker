@@ -148,6 +148,5 @@ func _refresh() -> void:
 	if ui_updater:
 		ui_updater.update()
 
-func update_score(score: int) -> void:
-	if ui_updater:
-		ui_updater.update_score(score)
+func update() -> void:
+	_refresh()

@@ -40,7 +40,6 @@ var panel_style_box: StyleBoxFlat
 var _local_panel_style_box: StyleBoxFlat
 
 var _is_making := false
-var _current_score := 0
 
 signal unlock_triggered
 signal buy_triggered
@@ -144,11 +143,6 @@ func update() -> void:
 		unlock_button.text = _get_unlock_text()
 		unlock_button.disabled = not _can_unlock()
 
-func update_score(score: int) -> void:
-	_current_score = score
-
-	update()
-
 func _get_bg_colour() -> Color:
 	if meter.is_locked():
 		return meter.locked_colour
@@ -180,13 +174,13 @@ func _can_make() -> bool:
 	return meter.product != null and meter.is_unlocked() and not _is_making
 
 func _can_buy() -> bool:
-	return meter.product != null and not meter.is_locked() and _current_score >= meter.get_cost()
+	return meter.product != null and not meter.is_locked() and ScoreManager.can_afford(meter.get_cost())
 
 func _can_automate() -> bool:
-	return meter.product != null and meter.is_unlocked() and _current_score >= meter.get_automate_cost()
+	return meter.product != null and meter.is_unlocked() and ScoreManager.can_afford(meter.get_automate_cost())
 
 func _can_unlock() -> bool:
-	return meter.product != null and meter.is_locked() and _current_score >= meter.get_unlock_cost()
+	return meter.product != null and meter.is_locked() and ScoreManager.can_afford(meter.get_unlock_cost())
 
 func _on_make_button_pressed() -> void:
 	if _is_making:

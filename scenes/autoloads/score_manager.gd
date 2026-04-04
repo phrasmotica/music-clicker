@@ -23,28 +23,25 @@ func set_starting_score(starting_score: int) -> void:
 	_adjust_score(starting_score)
 
 func _handle_unlock_product_requested(product: Product, cost: int) -> void:
-	if _score < cost:
-		return
+	if can_afford(cost):
+		_adjust_score(_score - cost)
 
-	_adjust_score(_score - cost)
-
-	GameEvents.emit_product_unlocked(product)
+		GameEvents.emit_product_unlocked(product)
 
 func _handle_buy_product_requested(product: Product, cost: int) -> void:
-	if _score < cost:
-		return
+	if can_afford(cost):
+		_adjust_score(_score - cost)
 
-	_adjust_score(_score - cost)
-
-	GameEvents.emit_product_bought(product)
+		GameEvents.emit_product_bought(product)
 
 func _handle_automate_product_requested(product: Product) -> void:
-	if not product or _score < product.automate_cost:
+	if not product:
 		return
 
-	_adjust_score(_score - product.automate_cost)
+	if can_afford(product.automate_cost):
+		_adjust_score(_score - product.automate_cost)
 
-	GameEvents.emit_product_automated(product)
+		GameEvents.emit_product_automated(product)
 
 func _handle_product_made(reward: int) -> void:
 	_adjust_score(_score + reward)
@@ -53,3 +50,6 @@ func _adjust_score(new_score: int) -> void:
 	_score = new_score
 
 	GameEvents.emit_score_changed(_score)
+
+func can_afford(cost: int) -> bool:
+	return _score >= cost
