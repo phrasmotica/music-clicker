@@ -14,9 +14,6 @@ var starting_unlocked_products := 1:
 @export
 var game_settings: GameSettings
 
-@export
-var product_router: ProductRouter
-
 @onready
 var product_meter_parent: Control = %ProductMeterParent
 
@@ -31,33 +28,34 @@ func _ready() -> void:
 			game_settings.starting_score_changed,
 			_handle_score_changed)
 
+		SignalHelper.persist(
+			game_settings.products_changed,
+			_inject_products)
+
 	if not Engine.is_editor_hint():
 		SignalHelper.persist(
 			GameEvents.score_changed,
 			_handle_score_changed)
 
 		SignalHelper.persist(
+			GameEvents.products_changed,
+			_inject_products)
+
+		SignalHelper.persist(
 			GameEvents.product_automated,
 			_handle_product_automated)
+
+		SignalHelper.persist(
+			ProductRouter.unlocked_product,
+			_handle_unlocked_product)
+
+		SignalHelper.persist(
+			ProductRouter.bought_product,
+			_handle_bought_product)
 
 	for i in product_meter_parent.get_child_count():
 		var meter: ProductMeter = product_meter_parent.get_child(i)
 		_product_meters.append(meter)
-
-	if product_router:
-		SignalHelper.persist(
-			product_router.products_changed,
-			_inject_products)
-
-		SignalHelper.persist(
-			product_router.unlocked_product,
-			_handle_unlocked_product)
-
-		SignalHelper.persist(
-			product_router.bought_product,
-			_handle_bought_product)
-
-		_inject_products(product_router.products)
 
 	_refresh()
 
@@ -79,6 +77,8 @@ func _inject_products(products: Array[ProductCounter]) -> void:
 
 		if product_count > i:
 			meter.product = products[i].product
+			meter.amount = products[i].amount
+			meter.mult = products[i].mult
 			meter.show()
 		else:
 			meter.product = null

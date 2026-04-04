@@ -174,13 +174,20 @@ func _can_make() -> bool:
 	return meter.product != null and meter.is_unlocked() and not _is_making
 
 func _can_buy() -> bool:
-	return meter.product != null and not meter.is_locked() and ScoreManager.can_afford(meter.get_cost())
+	return meter.product != null and not meter.is_locked() and _can_afford(meter.get_cost())
 
 func _can_automate() -> bool:
-	return meter.product != null and meter.is_unlocked() and ScoreManager.can_afford(meter.get_automate_cost())
+	return meter.product != null and meter.is_unlocked() and _can_afford(meter.get_automate_cost())
 
 func _can_unlock() -> bool:
-	return meter.product != null and meter.is_locked() and ScoreManager.can_afford(meter.get_unlock_cost())
+	return meter.product != null and meter.is_locked() and _can_afford(meter.get_unlock_cost())
+
+func _can_afford(cost: int) -> bool:
+	if Engine.is_editor_hint():
+		# TODO: maybe check against the starting score?
+		return true
+
+	return ScoreManager.can_afford(cost)
 
 func _on_make_button_pressed() -> void:
 	if _is_making:

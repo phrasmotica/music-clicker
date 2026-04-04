@@ -38,6 +38,7 @@ SignalHelper="*uid://d1wy4pemf0ncv"
 GameEvents="*uid://ce4vqua6ibmk6"
 SignalLens="*uid://85rkx60vm7a7"
 ScoreManager="*uid://cn2cxoctut5uy"
+ProductRouter="*uid://dk7g2nn2chkel"
 
 [display]
 

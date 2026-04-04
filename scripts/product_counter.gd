@@ -15,14 +15,14 @@ var product: Product:
 @export
 var amount: int = 0:
 	set(value):
-		amount = value
+		amount = maxi(value, 0)
 
 		emit_changed()
 
 @export
 var mult: float = 1.0:
 	set(value):
-		mult = value
+		mult = maxf(value, 1.0)
 
 		emit_changed()
 

@@ -1,6 +1,7 @@
 extends Node
 
 signal score_changed(score: int)
+signal products_changed(products: Array[ProductCounter])
 
 signal buy_product_requested(product: Product, cost: int)
 signal unlock_product_requested(product: Product, cost: int)
@@ -13,6 +14,9 @@ signal product_automated(product: Product)
 
 func emit_score_changed(score: int) -> void:
 	score_changed.emit(score)
+
+func emit_products_changed(products: Array[ProductCounter]) -> void:
+	products_changed.emit(products)
 
 func emit_buy_product_requested(product: Product, cost: int) -> void:
 	buy_product_requested.emit(product, cost)

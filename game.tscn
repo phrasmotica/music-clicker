@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cn0snp6hbku0f" path="res://scripts/game.gd" id="1_vef74"]
 [ext_resource type="PackedScene" uid="uid://c8fbl686cigy4" path="res://scenes/game_settings.tscn" id="2_hve3p"]
-[ext_resource type="Script" uid="uid://dk7g2nn2chkel" path="res://scripts/product_router.gd" id="3_khcq3"]
 [ext_resource type="PackedScene" uid="uid://cyoqo21jvvf6k" path="res://scenes/game_ui.tscn" id="4_fc0e3"]
 [ext_resource type="Script" uid="uid://bcvavtemnue5e" path="res://scripts/product_counter.gd" id="4_vef74"]
 [ext_resource type="Resource" uid="uid://cr3tni3ss8vvs" path="res://resources/product_doom_metal.tres" id="5_hve3p"]
@@ -13,32 +12,32 @@
 [sub_resource type="Resource" id="Resource_hve3p"]
 script = ExtResource("4_vef74")
 product = ExtResource("5_hve3p")
+amount = 1
 metadata/_custom_type_script = "uid://bcvavtemnue5e"
 
 [sub_resource type="Resource" id="Resource_mfdv2"]
 script = ExtResource("4_vef74")
 product = ExtResource("6_mfdv2")
+amount = 1
 metadata/_custom_type_script = "uid://bcvavtemnue5e"
 
 [sub_resource type="Resource" id="Resource_iotsf"]
 script = ExtResource("4_vef74")
 product = ExtResource("7_iotsf")
+amount = 1
 metadata/_custom_type_script = "uid://bcvavtemnue5e"
 
 [sub_resource type="Resource" id="Resource_lc2xo"]
 script = ExtResource("4_vef74")
 product = ExtResource("8_lc2xo")
+amount = 1
 metadata/_custom_type_script = "uid://bcvavtemnue5e"
 
 [node name="Game" type="Node2D" unique_id=958154176]
 script = ExtResource("1_vef74")
 
 [node name="GameSettings" parent="." unique_id=797035836 instance=ExtResource("2_hve3p")]
-
-[node name="ProductRouter" type="Node" parent="." unique_id=484492949]
-script = ExtResource("3_khcq3")
 products = Array[ExtResource("4_vef74")]([SubResource("Resource_hve3p"), SubResource("Resource_mfdv2"), SubResource("Resource_iotsf"), SubResource("Resource_lc2xo")])
 
-[node name="GameUI" parent="." unique_id=1581034653 node_paths=PackedStringArray("game_settings", "product_router") instance=ExtResource("4_fc0e3")]
+[node name="GameUI" parent="." unique_id=1581034653 node_paths=PackedStringArray("game_settings") instance=ExtResource("4_fc0e3")]
 game_settings = NodePath("../GameSettings")
-product_router = NodePath("../ProductRouter")
