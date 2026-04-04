@@ -50,24 +50,19 @@ var locked_colour: Color:
 @onready
 var ui_updater: ProductMeterUIUpdater = %UIUpdater
 
-signal unlock_product(product: Product, cost: int)
-signal buy_product(product: Product, cost: int)
-signal made_product(reward: int)
-signal automate_product(product: Product)
-
 func _ready() -> void:
 	if ui_updater:
 		SignalHelper.persist(
 			ui_updater.unlock_triggered,
-			_unlock)
+			_handle_unlock_triggered)
 
 		SignalHelper.persist(
 			ui_updater.buy_triggered,
-			_buy)
+			_handle_buy_triggered)
 
 		SignalHelper.persist(
 			ui_updater.automate_triggered,
-			_automate)
+			_handle_automate_triggered)
 
 	_refresh()
 
@@ -81,27 +76,19 @@ func _process(delta: float) -> void:
 		var did_make := ui_updater.increment(delta)
 
 		if did_make:
-			made_product.emit(get_reward())
+			GameEvents.emit_product_made(get_reward())
 
-func _unlock() -> void:
-	if not product:
-		return
+func _handle_unlock_triggered() -> void:
+	if product:
+		GameEvents.emit_unlock_product_requested(product, get_unlock_cost())
 
-	var cost := get_unlock_cost()
-	unlock_product.emit(product, cost)
+func _handle_buy_triggered() -> void:
+	if product:
+		GameEvents.emit_buy_product_requested(product, get_cost())
 
-func _buy() -> void:
-	if not product:
-		return
-
-	var cost := get_cost()
-	buy_product.emit(product, cost)
-
-func _automate() -> void:
-	if not product:
-		return
-
-	automate_product.emit(product)
+func _handle_automate_triggered() -> void:
+	if product:
+		GameEvents.emit_automate_product_requested(product)
 
 func get_amount() -> int:
 	return amount if product else 0

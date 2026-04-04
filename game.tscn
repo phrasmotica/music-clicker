@@ -13,8 +13,7 @@
 [node name="Game" type="Node2D" unique_id=958154176]
 script = ExtResource("1_vef74")
 
-[node name="ScoreManager" parent="." unique_id=541759728 node_paths=PackedStringArray("game_ui") instance=ExtResource("1_2j3m2")]
-game_ui = NodePath("../GameUI")
+[node name="ScoreManager" parent="." unique_id=541759728 instance=ExtResource("1_2j3m2")]
 
 [node name="ProductRouter" type="Node" parent="." unique_id=484492949 node_paths=PackedStringArray("score_manager")]
 script = ExtResource("3_khcq3")

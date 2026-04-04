@@ -24,11 +24,6 @@ var score_label: Label = %ScoreLabel
 
 var _product_meters: Array[ProductMeter] = []
 
-signal unlock_product(product: Product, cost: int)
-signal buy_product(product: Product, cost: int)
-signal made_product(reward: int)
-signal automate_product(product: Product)
-
 func _ready() -> void:
 	if score_manager:
 		SignalHelper.persist(
@@ -47,23 +42,6 @@ func _ready() -> void:
 	for i in product_meter_parent.get_child_count():
 		var meter: ProductMeter = product_meter_parent.get_child(i)
 		_product_meters.append(meter)
-
-	for pm in _product_meters:
-		SignalHelper.chain(
-			pm.unlock_product,
-			unlock_product)
-
-		SignalHelper.chain(
-			pm.buy_product,
-			buy_product)
-
-		SignalHelper.chain(
-			pm.made_product,
-			made_product)
-
-		SignalHelper.chain(
-			pm.automate_product,
-			automate_product)
 
 	if product_router:
 		SignalHelper.persist(
