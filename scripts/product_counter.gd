@@ -19,6 +19,26 @@ var amount: int = 0:
 
 		emit_changed()
 
-func add(count: int) -> int:
+@export
+var mult: float = 1.0:
+	set(value):
+		mult = value
+
+		emit_changed()
+
+func add(count: int) -> void:
 	amount += count
-	return amount
+
+	# TODO: we should keep track of the product's current multiplier,
+	# and only recompute it when necessary
+	var new_mult := 1.0
+
+	for k in product.multipliers.keys():
+		var m := product.multipliers[k]
+
+		if k <= amount:
+			new_mult *= m
+		else:
+			break
+
+	mult = new_mult

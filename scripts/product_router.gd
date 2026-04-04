@@ -29,13 +29,6 @@ func _ready() -> void:
 
 	_emit_changed()
 
-func add_product(product: Product, amount: int) -> int:
-	for c in products:
-		if c.product == product:
-			return c.add(amount)
-
-	return 0
-
 func _handle_product_unlocked(product: Product) -> void:
 	for c in products:
 		if c.product == product:
@@ -44,21 +37,11 @@ func _handle_product_unlocked(product: Product) -> void:
 			unlocked_product.emit(product, 1)
 
 func _handle_product_bought(product: Product) -> void:
-	var new_amount := add_product(product, 1)
-
-	# TODO: we should keep track of the product's current multiplier,
-	# and only recompute it when necessary
-	var mult := 1.0
-
-	for k in product.multipliers.keys():
-		var m := product.multipliers[k]
-
-		if k <= new_amount:
-			mult *= m
-		else:
-			break
-
-	bought_product.emit(product, new_amount, mult)
+	for c in products:
+		if c.product == product:
+			c.add(1)
+			bought_product.emit(product, c.amount, c.mult)
+			return
 
 func _emit_changed() -> void:
 	products_changed.emit(products)
