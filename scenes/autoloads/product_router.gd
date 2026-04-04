@@ -20,9 +20,9 @@ func set_products(products: Array[ProductCounter]) -> void:
 func _handle_product_unlocked(product: Product) -> void:
 	for c in _products:
 		if c.product == product:
-			c.add(1)
-
+			c.unlock()
 			unlocked_product.emit(product, 1)
+			return
 
 func _handle_product_bought(product: Product) -> void:
 	for c in _products:

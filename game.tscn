@@ -12,6 +12,7 @@
 [sub_resource type="Resource" id="Resource_hve3p"]
 script = ExtResource("4_vef74")
 product = ExtResource("5_hve3p")
+is_unlocked = true
 amount = 1
 metadata/_custom_type_script = "uid://bcvavtemnue5e"
 

@@ -13,6 +13,13 @@ var product: Product:
 		emit_changed()
 
 @export
+var is_unlocked := false:
+	set(value):
+		is_unlocked = value
+
+		emit_changed()
+
+@export
 var amount: int = 0:
 	set(value):
 		amount = maxi(value, 0)
@@ -42,3 +49,6 @@ func add(count: int) -> void:
 			break
 
 	mult = new_mult
+
+func unlock() -> void:
+	is_unlocked = true

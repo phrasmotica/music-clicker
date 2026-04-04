@@ -1,16 +1,6 @@
 @tool
 class_name GameUI extends Node
 
-# TODO: move this to GameSettings
-@export
-var starting_unlocked_products := 1:
-	set(value):
-		starting_unlocked_products = value
-
-		_refresh()
-
-@export_group("Dependencies")
-
 @export
 var game_settings: GameSettings
 
@@ -57,17 +47,6 @@ func _ready() -> void:
 		var meter: ProductMeter = product_meter_parent.get_child(i)
 		_product_meters.append(meter)
 
-	_refresh()
-
-func _refresh() -> void:
-	var meter_count := _product_meters.size()
-
-	for i in meter_count:
-		if i < starting_unlocked_products:
-			_product_meters[i].to_unlocked()
-		else:
-			_product_meters[i].to_locked()
-
 func _inject_products(products: Array[ProductCounter]) -> void:
 	var product_count := products.size()
 	var meter_count := _product_meters.size()
@@ -80,9 +59,20 @@ func _inject_products(products: Array[ProductCounter]) -> void:
 			meter.amount = products[i].amount
 			meter.mult = products[i].mult
 			meter.show()
+
+			# BUG: we don't really want to do this in the actual game. This causes
+			# an automated meter to revert to unlocked when a copy of its product
+			# is bought. Maybe create a new signal specifically for when the
+			# is_unlocked flag changes? Maybe we should generalise that to an enum
+			# with locked/unlocked/automated...
+			if products[i].is_unlocked:
+				meter.to_unlocked()
+			else:
+				meter.to_locked()
 		else:
 			meter.product = null
 			meter.hide()
+			meter.to_locked()
 
 func _handle_unlocked_product(product: Product, amount: int) -> void:
 	for pm in _product_meters:
