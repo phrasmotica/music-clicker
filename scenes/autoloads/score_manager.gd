@@ -1,25 +1,23 @@
-@tool
-class_name ScoreManager extends Node
+extends Node
 
 var _score: int = 0
 
 func _ready() -> void:
-	if not Engine.is_editor_hint():
-		SignalHelper.persist(
-			GameEvents.unlock_product_requested,
-			_handle_unlock_product_requested)
+	SignalHelper.persist(
+		GameEvents.unlock_product_requested,
+		_handle_unlock_product_requested)
 
-		SignalHelper.persist(
-			GameEvents.buy_product_requested,
-			_handle_buy_product_requested)
+	SignalHelper.persist(
+		GameEvents.buy_product_requested,
+		_handle_buy_product_requested)
 
-		SignalHelper.persist(
-			GameEvents.automate_product_requested,
-			_handle_automate_product_requested)
+	SignalHelper.persist(
+		GameEvents.automate_product_requested,
+		_handle_automate_product_requested)
 
-		SignalHelper.persist(
-			GameEvents.product_made,
-			_handle_product_made)
+	SignalHelper.persist(
+		GameEvents.product_made,
+		_handle_product_made)
 
 func set_starting_score(starting_score: int) -> void:
 	_adjust_score(starting_score)
