@@ -1,8 +1,13 @@
 extends Node
 
+signal score_changed(score: int)
+
 signal product_bought(product: Product)
 signal product_unlocked(product: Product)
 signal product_automated(product: Product)
+
+func emit_score_changed(score: int) -> void:
+	score_changed.emit(score)
 
 func emit_product_bought(product: Product) -> void:
 	product_bought.emit(product)

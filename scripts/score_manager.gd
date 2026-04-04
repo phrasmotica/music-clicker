@@ -38,40 +38,40 @@ func _ready() -> void:
 			game_ui.automate_product,
 			_handle_automate_product)
 
-	SignalHelper.once_next_frame(_setup_score)
+	if not Engine.is_editor_hint():
+		SignalHelper.once_next_frame(_setup_score)
 
 func _setup_score() -> void:
-	_score = starting_score
-
-	score_changed.emit(_score)
+	_adjust_score(starting_score)
 
 func _handle_unlock_product(product: Product, cost: int) -> void:
 	if _score < cost:
 		return
 
-	_score -= cost
+	_adjust_score(_score - cost)
 
 	GameEvents.emit_product_unlocked(product)
-	score_changed.emit(_score)
 
 func _handle_buy_product(product: Product, cost: int) -> void:
 	if _score < cost:
 		return
 
-	_score -= cost
+	_adjust_score(_score - cost)
 
 	GameEvents.emit_product_bought(product)
-	score_changed.emit(_score)
 
-func _handle_made_product(reward:int) -> void:
-	_score += reward
-	score_changed.emit(_score)
+func _handle_made_product(reward: int) -> void:
+	_adjust_score(_score + reward)
 
 func _handle_automate_product(product: Product) -> void:
 	if not product or _score < product.automate_cost:
 		return
 
-	_score -= product.automate_cost
+	_adjust_score(_score - product.automate_cost)
 
-	score_changed.emit(_score)
 	GameEvents.emit_product_automated(product)
+
+func _adjust_score(new_score: int) -> void:
+	_score = new_score
+
+	GameEvents.emit_score_changed(_score)

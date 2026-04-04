@@ -35,10 +35,14 @@ func _ready() -> void:
 			score_manager.score_changed,
 			_handle_score_changed)
 
+	if not Engine.is_editor_hint():
+		SignalHelper.persist(
+			GameEvents.score_changed,
+			_handle_score_changed)
+
 		SignalHelper.persist(
 			GameEvents.product_automated,
 			_handle_product_automated)
-
 
 	for i in product_meter_parent.get_child_count():
 		var meter: ProductMeter = product_meter_parent.get_child(i)
