@@ -36,6 +36,7 @@ config/icon="res://icon.svg"
 
 SignalHelper="*uid://d1wy4pemf0ncv"
 GameEvents="*uid://ce4vqua6ibmk6"
+SignalLens="*uid://85rkx60vm7a7"
 
 [display]
 
@@ -45,4 +46,4 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg")
+enabled=PackedStringArray("res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/signal_lens/plugin.cfg")
