@@ -2,7 +2,7 @@
 class_name ProductRouter extends Node
 
 @export
-var products: Array[Product] = []:
+var products: Array[ProductCounter] = []:
 	set(value):
 		products = value
 
@@ -12,10 +12,7 @@ var products: Array[Product] = []:
 
 		_emit_changed()
 
-@export
-var amounts: Dictionary[Product, int] = {}
-
-signal products_changed(products: Array[Product])
+signal products_changed(products: Array[ProductCounter])
 signal unlocked_product(product: Product, amount: int)
 signal bought_product(product: Product, amount: int, mult: float)
 
@@ -32,19 +29,18 @@ func _ready() -> void:
 	_emit_changed()
 
 func add_product(product: Product, amount: int) -> int:
-	if amounts.has(product):
-		amounts[product] += amount
-	else:
-		amounts[product] = amount
+	for c in products:
+		if c.product == product:
+			return c.add(amount)
 
-	return amounts[product]
+	return 0
 
 func _handle_product_unlocked(product: Product) -> void:
-	var new_amount := 1
+	for c in products:
+		if c.product == product:
+			c.add(1)
 
-	amounts[product] = new_amount
-
-	unlocked_product.emit(product, new_amount)
+			unlocked_product.emit(product, 1)
 
 func _handle_product_bought(product: Product) -> void:
 	var new_amount := add_product(product, 1)

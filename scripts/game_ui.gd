@@ -69,7 +69,7 @@ func _refresh() -> void:
 		else:
 			_product_meters[i].to_locked()
 
-func _inject_products(products: Array[Product]) -> void:
+func _inject_products(products: Array[ProductCounter]) -> void:
 	var product_count := products.size()
 	var meter_count := _product_meters.size()
 
@@ -77,7 +77,7 @@ func _inject_products(products: Array[Product]) -> void:
 		var meter := _product_meters[i]
 
 		if product_count > i:
-			meter.product = products[i]
+			meter.product = products[i].product
 			meter.show()
 		else:
 			meter.product = null
