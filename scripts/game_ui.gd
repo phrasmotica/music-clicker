@@ -1,6 +1,7 @@
 @tool
 class_name GameUI extends Node
 
+# TODO: move this to GameSettings
 @export
 var starting_unlocked_products := 1:
 	set(value):

@@ -1,6 +1,7 @@
 @tool
 class_name ProductRouter extends Node
 
+# TODO: specify the initial list of products in GameSettings
 @export
 var products: Array[ProductCounter] = []:
 	set(value):
