@@ -15,13 +15,12 @@ script = ExtResource("1_vef74")
 
 [node name="ScoreManager" parent="." unique_id=541759728 instance=ExtResource("1_2j3m2")]
 
-[node name="ProductRouter" type="Node" parent="." unique_id=484492949 node_paths=PackedStringArray("score_manager")]
+[node name="ProductRouter" type="Node" parent="." unique_id=484492949]
 script = ExtResource("3_khcq3")
 products = Array[ExtResource("4_vef74")]([ExtResource("5_hve3p"), ExtResource("6_mfdv2"), ExtResource("7_iotsf"), ExtResource("8_lc2xo")])
 amounts = Dictionary[ExtResource("4_vef74"), int]({
 ExtResource("5_hve3p"): 1
 })
-score_manager = NodePath("../ScoreManager")
 
 [node name="GameUI" parent="." unique_id=1581034653 node_paths=PackedStringArray("score_manager", "product_router") instance=ExtResource("4_fc0e3")]
 score_manager = NodePath("../ScoreManager")

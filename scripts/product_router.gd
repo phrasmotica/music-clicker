@@ -15,11 +15,6 @@ var products: Array[Product] = []:
 @export
 var amounts: Dictionary[Product, int] = {}
 
-@export_group("Dependencies")
-
-@export
-var score_manager: ScoreManager
-
 signal products_changed(products: Array[Product])
 signal unlocked_product(product: Product, amount: int)
 signal bought_product(product: Product, amount: int, mult: float)
