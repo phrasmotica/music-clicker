@@ -60,11 +60,6 @@ func _inject_products(products: Array[ProductCounter]) -> void:
 			meter.mult = products[i].mult
 			meter.show()
 
-			# BUG: we don't really want to do this in the actual game. This causes
-			# an automated meter to revert to unlocked when a copy of its product
-			# is bought. Maybe create a new signal specifically for when the
-			# is_unlocked flag changes? Maybe we should generalise that to an enum
-			# with locked/unlocked/automated...
 			if products[i].is_unlocked:
 				meter.to_unlocked()
 			else:

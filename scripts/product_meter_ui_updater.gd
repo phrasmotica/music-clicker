@@ -110,6 +110,11 @@ func highlight_reward() -> void:
 		reward_label.do_highlight()
 
 func update() -> void:
+	# BUG: this causes an automated meter to revert to unlocked when a copy of
+	# its product is bought. Maybe create a new signal specifically for when the
+	# is_unlocked flag changes? Maybe we should generalise that to an enum
+	# with locked/unlocked/automated...
+
 	if unlocked_container:
 		unlocked_container.visible = not meter.is_locked()
 
