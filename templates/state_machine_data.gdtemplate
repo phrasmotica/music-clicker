@@ -1,0 +1,4 @@
+class_name %%ClassName%%StateData
+
+static func build() -> %%ClassName%%StateData:
+	return %%ClassName%%StateData.new()

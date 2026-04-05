@@ -1,0 +1,12 @@
+class_name %%ClassName%%StateFactory
+
+var states: Dictionary
+
+func _init() -> void:
+	states = {
+%%StatesLines%%
+	}
+
+func get_fresh_state(state: %%ClassName%%.State) -> %%ClassName%%State:
+	assert(states.has(state), "State is missing!")
+	return states.get(state).new()
