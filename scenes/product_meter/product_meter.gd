@@ -1,5 +1,8 @@
 @tool
-class_name ProductMeter extends PanelContainer
+class_name ProductMeter
+extends PanelContainer
+
+enum State { LOCKED, UNLOCKED, AUTOMATED }
 
 enum MeterMode { LOCKED, UNLOCKED, AUTOMATED }
 
@@ -50,7 +53,17 @@ var locked_colour: Color:
 @onready
 var ui_updater: ProductMeterUIUpdater = %UIUpdater
 
+var _state_factory := ProductMeterStateFactory.new()
+var _current_state: ProductMeterState = null
+
 func _ready() -> void:
+	_refresh()
+
+	if Engine.is_editor_hint():
+		return
+
+	switch_state(State.LOCKED)
+
 	if ui_updater:
 		SignalHelper.persist(
 			ui_updater.unlock_triggered,
@@ -67,6 +80,21 @@ func _ready() -> void:
 	_refresh()
 
 	reset_progress()
+
+func switch_state(state: State, state_data := ProductMeterStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "ProductMeterStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
