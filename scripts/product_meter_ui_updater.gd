@@ -95,7 +95,7 @@ func lock() -> void:
 		unlock_button.text = _get_unlock_text()
 		unlock_button.disabled = not _can_unlock()
 
-	update()
+	update_labels()
 	_reset_progress()
 
 func unlock() -> void:
@@ -169,12 +169,7 @@ func highlight_reward() -> void:
 	if reward_label:
 		reward_label.do_highlight()
 
-func update() -> void:
-	# BUG: this causes an automated meter to revert to unlocked when a copy of
-	# its product is bought. Maybe create a new signal specifically for when the
-	# is_unlocked flag changes? Maybe we should generalise that to an enum
-	# with locked/unlocked/automated...
-
+func update_labels() -> void:
 	if name_label:
 		name_label.text = _get_name_text()
 
@@ -240,7 +235,7 @@ func _on_make_button_pressed() -> void:
 	_is_making = true
 
 	_reset_progress()
-	update()
+	update_labels()
 
 func _on_buy_button_pressed() -> void:
 	print("Buying a %s..." % meter.product.product_name)

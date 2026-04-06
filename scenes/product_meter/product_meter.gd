@@ -132,7 +132,7 @@ func is_automated() -> bool:
 
 func _refresh() -> void:
 	if ui_updater:
-		ui_updater.update()
+		ui_updater.update_labels()
 		ui_updater.update_buttons()
 
 func update() -> void:
