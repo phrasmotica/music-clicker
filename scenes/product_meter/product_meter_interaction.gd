@@ -15,7 +15,7 @@ var unlock_button: Button
 
 signal unlock_triggered
 signal make_triggered
-signal buy_triggered
+signal buy_triggered(amount: int)
 signal automate_triggered
 
 func _ready() -> void:
@@ -23,7 +23,7 @@ func _ready() -> void:
 		SignalHelper.chain(make_button.pressed, make_triggered)
 
 	if buy_button:
-		SignalHelper.chain(buy_button.pressed, buy_triggered)
+		SignalHelper.chain(buy_button.buy_triggered, buy_triggered)
 
 	if automate_button:
 		SignalHelper.chain(automate_button.pressed, automate_triggered)

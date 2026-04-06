@@ -58,7 +58,7 @@ func lock() -> void:
 		make_button.disabled = true
 
 	if buy_button:
-		buy_button.disabled = true
+		buy_button.disable()
 
 	if automate_button:
 		automate_button.disabled = true
@@ -81,7 +81,11 @@ func unlock() -> void:
 
 	if buy_button:
 		buy_button.text = _get_buy_text()
-		buy_button.disabled = not buyer.can_buy()
+
+		if not buyer.can_buy():
+			buy_button.disable()
+		else:
+			buy_button.enable()
 
 	if automate_button:
 		automate_button.text = _get_automate_text()
@@ -101,7 +105,11 @@ func automate() -> void:
 
 	if buy_button:
 		buy_button.text = _get_buy_text()
-		buy_button.disabled = not meter.can_buy()
+
+		if not buyer.can_buy():
+			buy_button.disable()
+		else:
+			buy_button.enable()
 
 	if automate_button:
 		automate_button.text = _get_automate_text()
@@ -143,7 +151,11 @@ func update_buttons() -> void:
 
 	if buy_button:
 		buy_button.text = _get_buy_text()
-		buy_button.disabled = not meter.can_buy()
+
+		if not buyer.can_buy():
+			buy_button.disable()
+		else:
+			buy_button.enable()
 
 	if automate_button:
 		automate_button.text = _get_automate_text()

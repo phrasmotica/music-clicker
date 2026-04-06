@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dag1kr4b0yhmk" path="res://scenes/buy_button/buy_button.gd" id="1_g5doa"]
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://theme/ui_theme.tres" id="1_uciha"]
+[ext_resource type="Script" uid="uid://ccdkwlwhivpsn" path="res://scenes/buy_button/buy_button_appearance.gd" id="3_26kdt"]
 
 [node name="BuyButton" type="Button" unique_id=573550037]
 custom_minimum_size = Vector2(150, 0)
@@ -10,5 +11,10 @@ theme = ExtResource("1_uciha")
 theme_type_variation = &"ProductMeterUpgradeButton"
 theme_override_font_sizes/font_size = 24
 disabled = true
-text = "Buy £0"
+text = "Buy x1 £0"
 script = ExtResource("1_g5doa")
+
+[node name="Appearance" type="Node" parent="." unique_id=1293425818 node_paths=PackedStringArray("buy_button")]
+unique_name_in_owner = true
+script = ExtResource("3_26kdt")
+buy_button = NodePath("..")

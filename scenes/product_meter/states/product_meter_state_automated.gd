@@ -18,11 +18,11 @@ func _process(delta: float) -> void:
 	if did_make:
 		GameEvents.emit_product_made(_buyer.get_reward())
 
-func _handle_buy_triggered() -> void:
+func _handle_buy_triggered(amount: int) -> void:
 	var product = _maker.get_product()
 
 	if product:
-		print("Buying a %s..." % product.product_name)
+		print("Buying %d of %s..." % [amount, product.product_name])
 
 		var cost := _buyer.get_cost()
 		GameEvents.emit_buy_product_requested(product, cost)

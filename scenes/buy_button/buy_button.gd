@@ -4,8 +4,20 @@ extends Button
 
 enum State { DISABLED, ENABLED }
 
+@export
+var buy_amount := 1:
+	set(value):
+		buy_amount = maxi(value, 1)
+
+		_refresh()
+
+@onready
+var appearance: BuyButtonAppearance = %Appearance
+
 var _state_factory := BuyButtonStateFactory.new()
 var _current_state: BuyButtonState = null
+
+signal buy_triggered(amount: int)
 
 func _ready() -> void:
 	_refresh()
@@ -30,5 +42,17 @@ func switch_state(state: State, state_data := BuyButtonStateData.new()) -> void:
 
 	call_deferred("add_child", _current_state)
 
+func emit_buy_triggered() -> void:
+	buy_triggered.emit(buy_amount)
+
 func _refresh() -> void:
-	pass
+	if appearance:
+		appearance.refresh()
+
+func enable() -> void:
+	if _current_state:
+		_current_state.enable()
+
+func disable() -> void:
+	if _current_state:
+		_current_state.disable()
