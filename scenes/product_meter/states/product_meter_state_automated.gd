@@ -4,7 +4,7 @@ extends ProductMeterState
 func _enter_tree() -> void:
 	CustomLogger.debug("%s is now automated" % _product_meter.name)
 
-	_ui_updater.unlock()
+	_ui_updater.automate()
 
 	SignalHelper.persist(
 		_interaction.buy_triggered,
