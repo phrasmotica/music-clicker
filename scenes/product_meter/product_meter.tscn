@@ -10,17 +10,17 @@
 [ext_resource type="Script" uid="uid://dow2abdfm7wdk" path="res://scenes/product_meter/product_meter_interaction.gd" id="5_87o61"]
 [ext_resource type="Script" uid="uid://bxfwth02vmai0" path="res://scenes/product_meter/product_buyer.gd" id="6_2bire"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hwq6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vn55i"]
 skew = Vector2(0.3, 0)
 corner_radius_top_left = 30
 corner_radius_top_right = 5
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s6k24"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cydn4"]
 resource_local_to_scene = true
 shader = ExtResource("4_n2ble")
-shader_parameter/rect_size = Vector2(54, 49)
+shader_parameter/rect_size = Vector2(52, 65)
 shader_parameter/key_colour = Color(0, 0, 0, 1)
 shader_parameter/highlight_colour = Color(1, 0.784314, 0, 1)
 shader_parameter/tolerance = 1.0
@@ -34,7 +34,7 @@ offset_bottom = 109.0
 size_flags_horizontal = 3
 theme = ExtResource("1_ygrlx")
 theme_type_variation = &"ProductMeterPanel"
-theme_override_styles/panel = SubResource("StyleBoxFlat_6hwq6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_vn55i")
 script = ExtResource("1_ynjkp")
 locked_colour = Color(0.6, 0.6, 0.6, 1)
 
@@ -72,6 +72,7 @@ unique_name_in_owner = true
 script = ExtResource("3_7tvvw")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1627391628]
+custom_minimum_size = Vector2(860, 133)
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
@@ -127,7 +128,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="RewardLabel" parent="MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer" unique_id=1481492821 instance=ExtResource("3_yex1k")]
-material = SubResource("ShaderMaterial_s6k24")
+material = SubResource("ShaderMaterial_cydn4")
 layout_mode = 2
 text = "£0"
 duration = 0.5
