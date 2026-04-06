@@ -11,35 +11,6 @@ func get_product() -> Product:
 func set_product(product: Product) -> void:
 	_product = product
 
-func get_reward(existing_amount: int, mult: float) -> int:
-	if not _product:
-		return 0
-
-	return int(mult * existing_amount * maxi(_product.base_reward, 1))
-
-func get_cost(existing_amount: int) -> int:
-	if not _product:
-		return 0
-
-	# https://www.desmos.com/calculator/w1vzpghz7i
-	match _product.cost_curve:
-		Product.CurveType.LINEAR:
-			return int(_product.base_cost * existing_amount)
-
-		Product.CurveType.LOGARITHMIC:
-			return int(_product.base_cost * pow(existing_amount, 0.7))
-
-		Product.CurveType.EXPONENTIAL:
-			return int(_product.base_cost * pow(existing_amount, 1.2))
-
-	return int(_product.base_cost * existing_amount)
-
-func get_automate_cost() -> int:
-	return _product.automate_cost if _product else 0
-
-func get_unlock_cost() -> int:
-	return _product.unlock_cost if _product else 0
-
 func is_making() -> bool:
 	return _is_making
 

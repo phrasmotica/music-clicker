@@ -48,3 +48,15 @@ func is_unlocked() -> bool:
 
 func is_automated() -> bool:
 	return false
+
+func can_unlock() -> bool:
+	return false
+
+func can_make() -> bool:
+	return false
+
+func can_buy() -> bool:
+	return false
+
+func can_automate() -> bool:
+	return false

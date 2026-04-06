@@ -21,3 +21,12 @@ func unlock() -> void:
 
 func is_locked() -> bool:
 	return true
+
+func can_unlock() -> bool:
+	return _product_meter.product != null and _can_afford(_product_meter.get_unlock_cost())
+
+func _can_afford(cost: int) -> bool:
+	if Engine.is_editor_hint():
+		return true
+
+	return ScoreManager.can_afford(cost)

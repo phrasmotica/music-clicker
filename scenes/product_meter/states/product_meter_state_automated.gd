@@ -31,3 +31,12 @@ func is_making() -> bool:
 
 func is_automated() -> bool:
 	return true
+
+func can_buy() -> bool:
+	return _product_meter.product != null and _can_afford(_product_meter.get_cost())
+
+func _can_afford(cost: int) -> bool:
+	if Engine.is_editor_hint():
+		return true
+
+	return ScoreManager.can_afford(cost)

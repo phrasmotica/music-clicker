@@ -87,16 +87,16 @@ func get_amount() -> int:
 	return amount if product else 0
 
 func get_reward() -> int:
-	return maker.get_reward(amount, mult)
+	return ProductInfo.get_reward(product, amount, mult)
 
 func get_cost() -> int:
-	return maker.get_cost(amount)
+	return ProductInfo.get_cost(product, amount)
 
 func get_automate_cost() -> int:
-	return maker.get_automate_cost()
+	return ProductInfo.get_automate_cost(product)
 
 func get_unlock_cost() -> int:
-	return maker.get_unlock_cost()
+	return ProductInfo.get_unlock_cost(product)
 
 func lock() -> void:
 	if Engine.is_editor_hint():
@@ -127,6 +127,18 @@ func is_unlocked() -> bool:
 
 func is_automated() -> bool:
 	return _current_state and _current_state.is_automated()
+
+func can_make() -> bool:
+	return _current_state and _current_state.can_make()
+
+func can_buy() -> bool:
+	return _current_state and _current_state.can_buy()
+
+func can_automate() -> bool:
+	return _current_state and _current_state.can_automate()
+
+func can_unlock() -> bool:
+	return _current_state and _current_state.can_unlock()
 
 func _refresh() -> void:
 	if ui_updater:

@@ -60,7 +60,7 @@ func lock() -> void:
 
 	if unlock_button:
 		unlock_button.text = _get_unlock_text()
-		unlock_button.disabled = not _can_unlock()
+		unlock_button.disabled = not meter.can_unlock()
 
 	update_labels()
 	_reset_progress()
@@ -76,15 +76,15 @@ func unlock() -> void:
 			_local_panel_style_box.bg_color = panel_style_box.bg_color
 
 	if make_button:
-		make_button.disabled = not _can_make()
+		make_button.disabled = not meter.can_make()
 
 	if buy_button:
 		buy_button.text = _get_buy_text()
-		buy_button.disabled = not _can_buy()
+		buy_button.disabled = not meter.can_buy()
 
 	if automate_button:
 		automate_button.text = _get_automate_text()
-		automate_button.disabled = not _can_automate()
+		automate_button.disabled = not meter.can_automate()
 
 	if unlock_button:
 		unlock_button.disabled = true
@@ -100,11 +100,11 @@ func automate() -> void:
 			_local_panel_style_box.bg_color = panel_style_box.bg_color
 
 	if make_button:
-		make_button.disabled = not _can_make()
+		make_button.disabled = not meter.can_make()
 
 	if buy_button:
 		buy_button.text = _get_buy_text()
-		buy_button.disabled = not _can_buy()
+		buy_button.disabled = not meter.can_buy()
 
 	if automate_button:
 		automate_button.text = _get_automate_text()
@@ -125,7 +125,10 @@ func highlight_reward() -> void:
 
 func update_background() -> void:
 	if _local_panel_style_box:
-		_local_panel_style_box.bg_color = meter.locked_colour
+		if meter.product and not meter.is_locked():
+			_local_panel_style_box.bg_color = meter.product.colour
+		else:
+			_local_panel_style_box.bg_color = meter.locked_colour
 
 func update_labels() -> void:
 	if name_label:
@@ -139,19 +142,19 @@ func update_labels() -> void:
 
 func update_buttons() -> void:
 	if make_button:
-		make_button.disabled = not _can_make()
+		make_button.disabled = not meter.can_make()
 
 	if buy_button:
 		buy_button.text = _get_buy_text()
-		buy_button.disabled = not _can_buy()
+		buy_button.disabled = not meter.can_buy()
 
 	if automate_button:
 		automate_button.text = _get_automate_text()
-		automate_button.disabled = not _can_automate()
+		automate_button.disabled = not meter.can_automate()
 
 	if unlock_button:
 		unlock_button.text = _get_unlock_text()
-		unlock_button.disabled = not _can_unlock()
+		unlock_button.disabled = not meter.can_unlock()
 
 func _get_name_text() -> String:
 	if meter.product and meter.product.product_name.length() > 0:
@@ -167,22 +170,3 @@ func _get_automate_text() -> String:
 
 func _get_unlock_text() -> String:
 	return "Unlock £%d" % meter.get_unlock_cost()
-
-func _can_make() -> bool:
-	return meter.product != null and meter.is_unlocked() and not meter.is_making()
-
-func _can_buy() -> bool:
-	return meter.product != null and not meter.is_locked() and _can_afford(meter.get_cost())
-
-func _can_automate() -> bool:
-	return meter.product != null and meter.is_unlocked() and _can_afford(meter.get_automate_cost())
-
-func _can_unlock() -> bool:
-	return meter.product != null and meter.is_locked() and _can_afford(meter.get_unlock_cost())
-
-func _can_afford(cost: int) -> bool:
-	if Engine.is_editor_hint():
-		# TODO: maybe check against the starting score?
-		return true
-
-	return ScoreManager.can_afford(cost)
