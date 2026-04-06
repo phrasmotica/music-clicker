@@ -4,8 +4,6 @@ extends PanelContainer
 
 enum State { LOCKED, UNLOCKED, AUTOMATED }
 
-enum MeterMode { LOCKED, UNLOCKED, AUTOMATED }
-
 @export
 var product: Product:
 	set(value):
@@ -37,13 +35,6 @@ var mult: float = 1.0:
 			ui_updater.highlight_reward()
 
 @export
-var mode := MeterMode.LOCKED:
-	set(value):
-		mode = value
-
-		_refresh()
-
-@export
 var locked_colour: Color:
 	set(value):
 		locked_colour = value
@@ -64,23 +55,6 @@ func _ready() -> void:
 
 	switch_state(State.LOCKED)
 
-	if ui_updater:
-		SignalHelper.persist(
-			ui_updater.unlock_triggered,
-			_handle_unlock_triggered)
-
-		SignalHelper.persist(
-			ui_updater.buy_triggered,
-			_handle_buy_triggered)
-
-		SignalHelper.persist(
-			ui_updater.automate_triggered,
-			_handle_automate_triggered)
-
-	_refresh()
-
-	reset_progress()
-
 func switch_state(state: State, state_data := ProductMeterStateData.new()) -> void:
 	if _current_state != null:
 		_current_state.queue_free()
@@ -89,34 +63,13 @@ func switch_state(state: State, state_data := ProductMeterStateData.new()) -> vo
 
 	_current_state.setup(
 		self,
-		state_data)
+		state_data,
+		ui_updater)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "ProductMeterStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func _process(delta: float) -> void:
-	if Engine.is_editor_hint():
-		return
-
-	if ui_updater:
-		var did_make := ui_updater.increment(delta)
-
-		if did_make:
-			GameEvents.emit_product_made(get_reward())
-
-func _handle_unlock_triggered() -> void:
-	if product:
-		GameEvents.emit_unlock_product_requested(product, get_unlock_cost())
-
-func _handle_buy_triggered() -> void:
-	if product:
-		GameEvents.emit_buy_product_requested(product, get_cost())
-
-func _handle_automate_triggered() -> void:
-	if product:
-		GameEvents.emit_automate_product_requested(product)
 
 func get_amount() -> int:
 	return amount if product else 0
@@ -150,31 +103,37 @@ func get_automate_cost() -> int:
 func get_unlock_cost() -> int:
 	return product.unlock_cost if product else 0
 
+func lock() -> void:
+	if Engine.is_editor_hint():
+		ui_updater.lock()
+	elif _current_state:
+		_current_state.lock()
+
+func unlock() -> void:
+	if Engine.is_editor_hint():
+		ui_updater.unlock()
+	elif _current_state:
+		_current_state.unlock()
+
+func automate() -> void:
+	if Engine.is_editor_hint():
+		ui_updater.automate()
+	elif _current_state:
+		_current_state.automate()
+
 func is_locked() -> bool:
-	return mode == MeterMode.LOCKED
+	return _current_state and _current_state.is_locked()
 
 func is_unlocked() -> bool:
-	return mode == MeterMode.UNLOCKED
+	return _current_state and _current_state.is_unlocked()
 
 func is_automated() -> bool:
-	return mode == MeterMode.AUTOMATED
-
-func to_locked() -> void:
-	mode = MeterMode.LOCKED
-
-func to_unlocked() -> void:
-	mode = MeterMode.UNLOCKED
-
-func to_automated() -> void:
-	mode = MeterMode.AUTOMATED
-
-func reset_progress() -> void:
-	if ui_updater:
-		ui_updater.reset_progress()
+	return _current_state and _current_state.is_automated()
 
 func _refresh() -> void:
 	if ui_updater:
 		ui_updater.update()
+		ui_updater.update_buttons()
 
 func update() -> void:
 	_refresh()

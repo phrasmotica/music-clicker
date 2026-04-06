@@ -75,63 +75,38 @@ func _ready() -> void:
 
 		meter.add_theme_stylebox_override("panel", _local_panel_style_box)
 
-func increment(delta: float) -> bool:
-	if meter.product and (meter.is_automated() or _is_making):
-		progress_bar.value += 100 * delta / meter.product.base_time_seconds
+func lock() -> void:
+	locked_container.show()
+	unlocked_container.hide()
 
-	if progress_bar.value >= 100:
-		reset_progress()
+	if _local_panel_style_box:
+		_local_panel_style_box.bg_color = meter.locked_colour
 
-		_is_making = false
-
-		if not meter.is_automated():
-			make_button.disabled = false
-
-		return true
-
-	return false
-
-func reset_progress() -> void:
-	progress_bar.value = 0
-
-func set_automated() -> void:
 	if make_button:
 		make_button.disabled = true
+
+	if buy_button:
+		buy_button.disabled = true
 
 	if automate_button:
 		automate_button.disabled = true
 
-func disable_make_button() -> void:
-	if make_button:
-		make_button.disabled = true
+	if unlock_button:
+		unlock_button.text = _get_unlock_text()
+		unlock_button.disabled = not _can_unlock()
 
-func highlight_reward() -> void:
-	if reward_label:
-		reward_label.do_highlight()
+	update()
+	_reset_progress()
 
-func update() -> void:
-	# BUG: this causes an automated meter to revert to unlocked when a copy of
-	# its product is bought. Maybe create a new signal specifically for when the
-	# is_unlocked flag changes? Maybe we should generalise that to an enum
-	# with locked/unlocked/automated...
-
-	if unlocked_container:
-		unlocked_container.visible = not meter.is_locked()
-
-	if locked_container:
-		locked_container.visible = meter.is_locked()
+func unlock() -> void:
+	locked_container.hide()
+	unlocked_container.show()
 
 	if _local_panel_style_box:
-		_local_panel_style_box.bg_color = _get_bg_colour()
-
-	if name_label:
-		name_label.text = _get_name_text()
-
-	if amount_label:
-		amount_label.text = _get_amount_text()
-
-	if reward_label:
-		reward_label.text = _get_reward_text()
+		if meter.product:
+			_local_panel_style_box.bg_color = meter.product.colour
+		else:
+			_local_panel_style_box.bg_color = panel_style_box.bg_color
 
 	if make_button:
 		make_button.disabled = not _can_make()
@@ -145,26 +120,88 @@ func update() -> void:
 		automate_button.disabled = not _can_automate()
 
 	if unlock_button:
+		unlock_button.disabled = true
+
+func automate() -> void:
+	locked_container.hide()
+	unlocked_container.show()
+
+	if _local_panel_style_box:
+		if meter.product:
+			_local_panel_style_box.bg_color = meter.product.colour
+		else:
+			_local_panel_style_box.bg_color = panel_style_box.bg_color
+
+	if make_button:
+		make_button.disabled = not _can_make()
+
+	if buy_button:
+		buy_button.text = _get_buy_text()
+		buy_button.disabled = not _can_buy()
+
+	if automate_button:
+		automate_button.text = _get_automate_text()
+		automate_button.disabled = true
+
+	if unlock_button:
+		unlock_button.disabled = true
+
+func increment(delta: float) -> bool:
+	if meter.product and (meter.is_automated() or _is_making):
+		progress_bar.value += 100 * delta / meter.product.base_time_seconds
+
+	if progress_bar.value >= 100:
+		_reset_progress()
+
+		_is_making = false
+
+		if not meter.is_automated():
+			make_button.disabled = false
+
+		return true
+
+	return false
+
+func _reset_progress() -> void:
+	progress_bar.value = 0
+
+func highlight_reward() -> void:
+	if reward_label:
+		reward_label.do_highlight()
+
+func update() -> void:
+	# BUG: this causes an automated meter to revert to unlocked when a copy of
+	# its product is bought. Maybe create a new signal specifically for when the
+	# is_unlocked flag changes? Maybe we should generalise that to an enum
+	# with locked/unlocked/automated...
+
+	if name_label:
+		name_label.text = _get_name_text()
+
+	if amount_label:
+		amount_label.text = "x%d" % meter.get_amount()
+
+	if reward_label:
+		reward_label.text = "£%d" % meter.get_reward()
+
+func update_buttons() -> void:
+	if buy_button:
+		buy_button.text = _get_buy_text()
+		buy_button.disabled = not _can_buy()
+
+	if automate_button:
+		automate_button.text = _get_automate_text()
+		automate_button.disabled = not _can_automate()
+
+	if unlock_button:
 		unlock_button.text = _get_unlock_text()
 		unlock_button.disabled = not _can_unlock()
-
-func _get_bg_colour() -> Color:
-	if meter.is_locked():
-		return meter.locked_colour
-
-	return meter.product.colour if meter.product else panel_style_box.bg_color
 
 func _get_name_text() -> String:
 	if meter.product and meter.product.product_name.length() > 0:
 		return meter.product.product_name
 
 	return "<product_name>"
-
-func _get_amount_text() -> String:
-	return "x%d" % meter.get_amount()
-
-func _get_reward_text() -> String:
-	return "£%d" % meter.get_reward()
 
 func _get_buy_text() -> String:
 	return "Buy £%d" % meter.get_cost()
@@ -202,7 +239,7 @@ func _on_make_button_pressed() -> void:
 
 	_is_making = true
 
-	reset_progress()
+	_reset_progress()
 	update()
 
 func _on_buy_button_pressed() -> void:
