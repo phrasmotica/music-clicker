@@ -7,6 +7,7 @@ var _product_meter: ProductMeter = null
 var _state_data: ProductMeterStateData = null
 var _ui_updater: ProductMeterUIUpdater = null
 var _interaction: ProductMeterInteraction = null
+var _buyer: ProductBuyer = null
 var _maker: ProductMaker = null
 
 func setup(
@@ -14,12 +15,14 @@ func setup(
 	state_data: ProductMeterStateData,
 	ui_updater: ProductMeterUIUpdater,
 	interaction: ProductMeterInteraction,
+	buyer: ProductBuyer,
 	maker: ProductMaker,
 ) -> void:
 	_product_meter = product_meter
 	_state_data = state_data
 	_ui_updater = ui_updater
 	_interaction = interaction
+	_buyer = buyer
 	_maker = maker
 
 func transition_state(

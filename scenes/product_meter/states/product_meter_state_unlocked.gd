@@ -27,7 +27,8 @@ func _process(delta: float) -> void:
 		_ui_updater.set_progress(_maker.get_progress())
 
 		if did_make:
-			GameEvents.emit_product_made(_product_meter.get_reward())
+			var reward := _buyer.get_reward(_product_meter.amount, _product_meter.mult)
+			GameEvents.emit_product_made(reward)
 
 			_should_make = false
 			_ui_updater.update_buttons()
@@ -43,7 +44,8 @@ func _handle_buy_triggered() -> void:
 	if product:
 		print("Buying a %s..." % product.product_name)
 
-		GameEvents.emit_buy_product_requested(product, _product_meter.get_cost())
+		var cost := _buyer.get_cost(_product_meter.amount)
+		GameEvents.emit_buy_product_requested(product, cost)
 
 func _handle_automate_triggered() -> void:
 	var product = _maker.get_product()
@@ -63,13 +65,13 @@ func is_unlocked() -> bool:
 	return true
 
 func can_make() -> bool:
-	return _product_meter.product != null and not is_making()
+	return _maker.get_product() != null and not _should_make
 
 func can_buy() -> bool:
-	return _product_meter.product != null and _can_afford(_product_meter.get_cost())
+	return _buyer.can_buy(_product_meter.amount)
 
 func can_automate() -> bool:
-	return _product_meter.product != null and _can_afford(_product_meter.get_automate_cost())
+	return _buyer.can_automate()
 
 func _can_afford(cost: int) -> bool:
 	if Engine.is_editor_hint():

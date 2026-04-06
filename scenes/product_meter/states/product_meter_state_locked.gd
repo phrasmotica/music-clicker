@@ -14,7 +14,8 @@ func _handle_unlock_triggered() -> void:
 	if _product_meter.product:
 		print("Unlocking %s..." % _product_meter.product.product_name)
 
-		GameEvents.emit_unlock_product_requested(_product_meter.product, _product_meter.get_unlock_cost())
+		var cost := _buyer.get_unlock_cost()
+		GameEvents.emit_unlock_product_requested(_product_meter.product, cost)
 
 func unlock() -> void:
 	transition_state(ProductMeter.State.UNLOCKED)
@@ -23,7 +24,7 @@ func is_locked() -> bool:
 	return true
 
 func can_unlock() -> bool:
-	return _product_meter.product != null and _can_afford(_product_meter.get_unlock_cost())
+	return _buyer.can_unlock()
 
 func _can_afford(cost: int) -> bool:
 	if Engine.is_editor_hint():
