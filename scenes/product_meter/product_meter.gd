@@ -26,6 +26,9 @@ var amount: int = 1:
 	set(value):
 		amount = maxi(value, 0)
 
+		if buyer:
+			buyer.set_amount(amount)
+
 		_refresh()
 
 @export
@@ -108,14 +111,8 @@ func automate() -> void:
 	elif _current_state:
 		_current_state.automate()
 
-func is_making() -> bool:
-	return _current_state and _current_state.is_making()
-
 func is_locked() -> bool:
 	return _current_state and _current_state.is_locked()
-
-func is_unlocked() -> bool:
-	return _current_state and _current_state.is_unlocked()
 
 func is_automated() -> bool:
 	return _current_state and _current_state.is_automated()
@@ -131,9 +128,6 @@ func can_automate() -> bool:
 
 func can_unlock() -> bool:
 	return _current_state and _current_state.can_unlock()
-
-func get_amount() -> int:
-	return amount if product else 0
 
 func update() -> void:
 	_refresh()

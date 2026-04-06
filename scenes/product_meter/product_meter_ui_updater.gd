@@ -83,11 +83,11 @@ func unlock() -> void:
 
 	if buy_button:
 		buy_button.text = _get_buy_text()
-		buy_button.disabled = not meter.can_buy()
+		buy_button.disabled = not buyer.can_buy()
 
 	if automate_button:
 		automate_button.text = _get_automate_text()
-		automate_button.disabled = not meter.can_automate()
+		automate_button.disabled = not buyer.can_automate()
 
 	if unlock_button:
 		unlock_button.disabled = true
@@ -138,10 +138,10 @@ func update_labels() -> void:
 		name_label.text = _get_name_text()
 
 	if amount_label:
-		amount_label.text = "x%d" % meter.get_amount()
+		amount_label.text = "x%d" % buyer.get_amount()
 
 	if reward_label:
-		reward_label.text = "£%d" % buyer.get_reward(meter.get_amount(), meter.mult)
+		reward_label.text = "£%d" % buyer.get_reward(meter.mult)
 
 func update_buttons() -> void:
 	if make_button:
@@ -166,7 +166,7 @@ func _get_name_text() -> String:
 	return "<product_name>"
 
 func _get_buy_text() -> String:
-	return "Buy £%d" % buyer.get_cost(meter.get_amount())
+	return "Buy £%d" % buyer.get_cost()
 
 func _get_automate_text() -> String:
 	return "Automated!" if meter.is_automated() else "Automate £%d" % buyer.get_automate_cost()

@@ -40,13 +40,7 @@ func unlock() -> void:
 func automate() -> void:
 	pass
 
-func is_making() -> bool:
-	return false
-
 func is_locked() -> bool:
-	return false
-
-func is_unlocked() -> bool:
 	return false
 
 func is_automated() -> bool:

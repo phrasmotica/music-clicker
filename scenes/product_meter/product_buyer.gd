@@ -3,9 +3,16 @@ class_name ProductBuyer
 extends Node
 
 var _product: Product = null
+var _amount := 0
 
 func set_product(product: Product) -> void:
 	_product = product
+
+func set_amount(amount: int) -> void:
+	_amount = amount
+
+func get_amount() -> int:
+	return _amount if _product else 0
 
 func can_unlock() -> bool:
 	if not _product:
@@ -13,11 +20,11 @@ func can_unlock() -> bool:
 
 	return _can_afford(get_unlock_cost())
 
-func can_buy(existing_amount: int) -> bool:
+func can_buy() -> bool:
 	if not _product:
 		return false
 
-	return _can_afford(get_cost(existing_amount))
+	return _can_afford(get_cost())
 
 func can_automate() -> bool:
 	if not _product:
@@ -25,11 +32,11 @@ func can_automate() -> bool:
 
 	return _can_afford(get_automate_cost())
 
-func get_reward(existing_amount: int, mult: float) -> int:
-	return ProductInfo.get_reward(_product, existing_amount, mult)
+func get_reward(mult: float) -> int:
+	return ProductInfo.get_reward(_product, _amount, mult)
 
-func get_cost(existing_amount: int) -> int:
-	return ProductInfo.get_cost(_product, existing_amount)
+func get_cost() -> int:
+	return ProductInfo.get_cost(_product, _amount)
 
 func get_automate_cost() -> int:
 	return ProductInfo.get_automate_cost(_product)
