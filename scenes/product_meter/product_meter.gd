@@ -4,6 +4,18 @@ extends PanelContainer
 
 enum State { LOCKED, UNLOCKED, AUTOMATED }
 
+@export_group("Preview")
+
+@export
+var preview_state := State.LOCKED:
+	set(value):
+		if not Engine.is_editor_hint():
+			return
+
+		preview_state = value
+
+		_refresh_preview()
+
 @export
 var product: Product:
 	set(value):
@@ -98,26 +110,32 @@ func switch_state(state: State, state_data := ProductMeterStateData.new()) -> vo
 
 func lock() -> void:
 	if Engine.is_editor_hint():
-		ui_updater.lock()
+		preview_state = State.LOCKED
 	elif _current_state:
 		_current_state.lock()
 
 func unlock() -> void:
 	if Engine.is_editor_hint():
-		ui_updater.unlock()
+		preview_state = State.UNLOCKED
 	elif _current_state:
 		_current_state.unlock()
 
 func automate() -> void:
 	if Engine.is_editor_hint():
-		ui_updater.automate()
+		preview_state = State.AUTOMATED
 	elif _current_state:
 		_current_state.automate()
 
 func is_locked() -> bool:
+	if Engine.is_editor_hint():
+		return preview_state == State.LOCKED
+
 	return _current_state and _current_state.is_locked()
 
 func is_automated() -> bool:
+	if Engine.is_editor_hint():
+		return preview_state == State.AUTOMATED
+
 	return _current_state and _current_state.is_automated()
 
 func can_make() -> bool:
@@ -140,3 +158,14 @@ func _refresh() -> void:
 		ui_updater.update_background()
 		ui_updater.update_labels()
 		ui_updater.update_buttons()
+
+func _refresh_preview() -> void:
+	if ui_updater:
+		if preview_state == State.LOCKED:
+			ui_updater.lock()
+
+		if preview_state == State.UNLOCKED:
+			ui_updater.unlock()
+
+		if preview_state == State.AUTOMATED:
+			ui_updater.automate()

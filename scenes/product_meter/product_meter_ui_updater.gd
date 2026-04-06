@@ -52,6 +52,8 @@ func lock() -> void:
 	locked_container.show()
 	unlocked_container.hide()
 
+	update_background()
+
 	if make_button:
 		make_button.disabled = true
 
@@ -72,11 +74,7 @@ func unlock() -> void:
 	locked_container.hide()
 	unlocked_container.show()
 
-	if _local_panel_style_box:
-		if meter.product:
-			_local_panel_style_box.bg_color = meter.product.colour
-		else:
-			_local_panel_style_box.bg_color = panel_style_box.bg_color
+	update_background()
 
 	if make_button:
 		make_button.disabled = not meter.can_make()
@@ -96,11 +94,7 @@ func automate() -> void:
 	locked_container.hide()
 	unlocked_container.show()
 
-	if _local_panel_style_box:
-		if meter.product:
-			_local_panel_style_box.bg_color = meter.product.colour
-		else:
-			_local_panel_style_box.bg_color = panel_style_box.bg_color
+	update_background()
 
 	if make_button:
 		make_button.disabled = not meter.can_make()
