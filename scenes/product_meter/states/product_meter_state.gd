@@ -6,15 +6,21 @@ signal state_transition_requested(new_state: ProductMeter.State, state_data: Pro
 var _product_meter: ProductMeter = null
 var _state_data: ProductMeterStateData = null
 var _ui_updater: ProductMeterUIUpdater = null
+var _interaction: ProductMeterInteraction = null
+var _maker: ProductMaker = null
 
 func setup(
 	product_meter: ProductMeter,
 	state_data: ProductMeterStateData,
 	ui_updater: ProductMeterUIUpdater,
+	interaction: ProductMeterInteraction,
+	maker: ProductMaker,
 ) -> void:
 	_product_meter = product_meter
 	_state_data = state_data
 	_ui_updater = ui_updater
+	_interaction = interaction
+	_maker = maker
 
 func transition_state(
 	new_state: ProductMeter.State,
@@ -30,6 +36,9 @@ func unlock() -> void:
 
 func automate() -> void:
 	pass
+
+func is_making() -> bool:
+	return false
 
 func is_locked() -> bool:
 	return false

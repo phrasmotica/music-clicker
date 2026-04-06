@@ -7,18 +7,27 @@ func _enter_tree() -> void:
 	_ui_updater.unlock()
 
 	SignalHelper.persist(
-		_ui_updater.buy_triggered,
+		_interaction.buy_triggered,
 		_handle_buy_triggered)
 
 func _process(delta: float) -> void:
-	var did_make := _ui_updater.increment(delta)
+	var did_make := _maker.increment(delta)
+
+	_ui_updater.set_progress(_maker.get_progress())
 
 	if did_make:
 		GameEvents.emit_product_made(_product_meter.get_reward())
 
 func _handle_buy_triggered() -> void:
-	if _product_meter.product:
-		GameEvents.emit_buy_product_requested(_product_meter.product, _product_meter.get_cost())
+	var product = _maker.get_product()
+
+	if product:
+		print("Buying a %s..." % product.product_name)
+
+		GameEvents.emit_buy_product_requested(product, _product_meter.get_cost())
+
+func is_making() -> bool:
+	return true
 
 func is_automated() -> bool:
 	return true

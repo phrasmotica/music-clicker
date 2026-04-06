@@ -39,37 +39,7 @@ var panel_style_box: StyleBoxFlat
 
 var _local_panel_style_box: StyleBoxFlat
 
-var _is_making := false
-
-signal unlock_triggered
-signal buy_triggered
-signal automate_triggered
-
 func _ready() -> void:
-	if make_button:
-		SignalHelper.persist(
-			make_button.pressed,
-			_on_make_button_pressed
-		)
-
-	if buy_button:
-		SignalHelper.persist(
-			buy_button.pressed,
-			_on_buy_button_pressed
-		)
-
-	if automate_button:
-		SignalHelper.persist(
-			automate_button.pressed,
-			_on_automate_button_pressed
-		)
-
-	if unlock_button:
-		SignalHelper.persist(
-			unlock_button.pressed,
-			_on_unlock_button_pressed
-		)
-
 	if panel_style_box:
 		_local_panel_style_box = panel_style_box.duplicate()
 
@@ -78,9 +48,6 @@ func _ready() -> void:
 func lock() -> void:
 	locked_container.show()
 	unlocked_container.hide()
-
-	if _local_panel_style_box:
-		_local_panel_style_box.bg_color = meter.locked_colour
 
 	if make_button:
 		make_button.disabled = true
@@ -146,28 +113,19 @@ func automate() -> void:
 	if unlock_button:
 		unlock_button.disabled = true
 
-func increment(delta: float) -> bool:
-	if meter.product and (meter.is_automated() or _is_making):
-		progress_bar.value += 100 * delta / meter.product.base_time_seconds
-
-	if progress_bar.value >= 100:
-		_reset_progress()
-
-		_is_making = false
-
-		if not meter.is_automated():
-			make_button.disabled = false
-
-		return true
-
-	return false
+func set_progress(progress: float) -> void:
+	progress_bar.value = 100 * progress
 
 func _reset_progress() -> void:
-	progress_bar.value = 0
+	progress_bar.value = 0.0
 
 func highlight_reward() -> void:
 	if reward_label:
 		reward_label.do_highlight()
+
+func update_background() -> void:
+	if _local_panel_style_box:
+		_local_panel_style_box.bg_color = meter.locked_colour
 
 func update_labels() -> void:
 	if name_label:
@@ -180,6 +138,9 @@ func update_labels() -> void:
 		reward_label.text = "£%d" % meter.get_reward()
 
 func update_buttons() -> void:
+	if make_button:
+		make_button.disabled = not _can_make()
+
 	if buy_button:
 		buy_button.text = _get_buy_text()
 		buy_button.disabled = not _can_buy()
@@ -208,7 +169,7 @@ func _get_unlock_text() -> String:
 	return "Unlock £%d" % meter.get_unlock_cost()
 
 func _can_make() -> bool:
-	return meter.product != null and meter.is_unlocked() and not _is_making
+	return meter.product != null and meter.is_unlocked() and not meter.is_making()
 
 func _can_buy() -> bool:
 	return meter.product != null and not meter.is_locked() and _can_afford(meter.get_cost())
@@ -225,35 +186,3 @@ func _can_afford(cost: int) -> bool:
 		return true
 
 	return ScoreManager.can_afford(cost)
-
-func _on_make_button_pressed() -> void:
-	if _is_making:
-		return
-
-	print("Making a %s..." % meter.product.product_name)
-
-	_is_making = true
-
-	_reset_progress()
-	update_labels()
-
-func _on_buy_button_pressed() -> void:
-	print("Buying a %s..." % meter.product.product_name)
-
-	buy_triggered.emit()
-
-func _on_automate_button_pressed() -> void:
-	if meter.is_automated():
-		return
-
-	print("Automating production of %s..." % meter.product.product_name)
-
-	automate_triggered.emit()
-
-func _on_unlock_button_pressed() -> void:
-	if meter.is_unlocked():
-		return
-
-	print("Unlocking %s..." % meter.product.product_name)
-
-	unlock_triggered.emit()
