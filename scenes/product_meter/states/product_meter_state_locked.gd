@@ -11,11 +11,13 @@ func _enter_tree() -> void:
 		_handle_unlock_triggered)
 
 func _handle_unlock_triggered() -> void:
-	if _product_meter.product:
-		print("Unlocking %s..." % _product_meter.product.product_name)
+	var product := _maker.get_product()
+
+	if product:
+		print("Unlocking %s..." % product.product_name)
 
 		var cost := _buyer.get_unlock_cost()
-		GameEvents.emit_unlock_product_requested(_product_meter.product, cost)
+		GameEvents.emit_unlock_product_requested(product, cost)
 
 func unlock() -> void:
 	transition_state(ProductMeter.State.UNLOCKED)
