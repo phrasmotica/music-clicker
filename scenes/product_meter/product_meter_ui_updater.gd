@@ -141,7 +141,7 @@ func update_labels() -> void:
 		amount_label.text = "x%d" % buyer.get_amount()
 
 	if reward_label:
-		reward_label.text = "£%d" % buyer.get_reward(meter.mult)
+		reward_label.text = "£%d" % buyer.get_reward()
 
 func update_buttons() -> void:
 	if make_button:

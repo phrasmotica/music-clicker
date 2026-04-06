@@ -16,8 +16,7 @@ func _process(delta: float) -> void:
 	_ui_updater.set_progress(_maker.get_progress())
 
 	if did_make:
-		var reward := _buyer.get_reward(_product_meter.mult)
-		GameEvents.emit_product_made(reward)
+		GameEvents.emit_product_made(_buyer.get_reward())
 
 func _handle_buy_triggered() -> void:
 	var product = _maker.get_product()

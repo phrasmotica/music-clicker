@@ -4,12 +4,16 @@ extends Node
 
 var _product: Product = null
 var _amount := 0
+var _mult := 0.0
 
 func set_product(product: Product) -> void:
 	_product = product
 
 func set_amount(amount: int) -> void:
 	_amount = amount
+
+func set_mult(mult: float) -> void:
+	_mult = mult
 
 func get_amount() -> int:
 	return _amount if _product else 0
@@ -32,8 +36,8 @@ func can_automate() -> bool:
 
 	return _can_afford(get_automate_cost())
 
-func get_reward(mult: float) -> int:
-	return ProductInfo.get_reward(_product, _amount, mult)
+func get_reward() -> int:
+	return ProductInfo.get_reward(_product, _amount, _mult)
 
 func get_cost() -> int:
 	return ProductInfo.get_cost(_product, _amount)

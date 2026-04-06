@@ -39,6 +39,9 @@ var mult: float = 1.0:
 
 		mult = new
 
+		if buyer:
+			buyer.set_mult(mult)
+
 		_refresh()
 
 		if not Engine.is_editor_hint() and old != new and ui_updater:
