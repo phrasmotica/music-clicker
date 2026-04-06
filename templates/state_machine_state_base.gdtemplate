@@ -1,0 +1,20 @@
+class_name %%ClassName%%State
+extends Node
+
+signal state_transition_requested(new_state: %%ClassName%%.State, state_data: %%ClassName%%StateData)
+
+var _%%FieldName%%: %%ClassName%% = null
+var _state_data: %%ClassName%%StateData = null
+
+func setup(
+	%%FieldName%%: %%ClassName%%,
+	state_data: %%ClassName%%StateData,
+) -> void:
+	_%%FieldName%% = %%FieldName%%
+	_state_data = state_data
+
+func transition_state(
+	new_state: %%ClassName%%.State,
+	state_data := %%ClassName%%StateData.new(),
+) -> void:
+	state_transition_requested.emit(new_state, state_data)

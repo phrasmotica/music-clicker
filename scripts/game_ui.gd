@@ -61,20 +61,20 @@ func _inject_products(products: Array[ProductCounter]) -> void:
 			meter.show()
 
 			if products[i].is_unlocked:
-				meter.to_unlocked()
+				meter.unlock()
 			else:
-				meter.to_locked()
+				meter.lock()
 		else:
 			meter.product = null
 			meter.hide()
-			meter.to_locked()
+			meter.lock()
 
 func _handle_unlocked_product(product: Product, amount: int) -> void:
 	for pm in _product_meters:
 		if pm.product == product:
 			print("%s unlocked" % product.product_name)
 
-			pm.to_unlocked()
+			pm.unlock()
 			pm.amount = amount
 
 func _handle_bought_product(product: Product, amount: int, mult: float) -> void:
@@ -95,4 +95,4 @@ func _handle_score_changed(score: int) -> void:
 func _handle_product_automated(product: Product) -> void:
 	for pm in _product_meters:
 		if pm.product == product:
-			pm.to_automated()
+			pm.automate()

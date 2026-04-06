@@ -1,21 +1,23 @@
 [gd_scene format=3 uid="uid://bvhhta3af1hts"]
 
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://theme/ui_theme.tres" id="1_ygrlx"]
-[ext_resource type="Script" uid="uid://bi4d6ylh4sgrp" path="res://scripts/product_meter.gd" id="1_ynjkp"]
+[ext_resource type="Script" uid="uid://bi4d6ylh4sgrp" path="res://scenes/product_meter/product_meter.gd" id="1_ynjkp"]
 [ext_resource type="StyleBox" uid="uid://ccr1mhrm5bndo" path="res://theme/panel_product_meter_panel.tres" id="2_foft7"]
-[ext_resource type="Script" uid="uid://8iqqd7ct1ydc" path="res://scripts/product_meter_ui_updater.gd" id="3_foft7"]
+[ext_resource type="Script" uid="uid://bmnj0q22plql0" path="res://scenes/product_meter/product_maker.gd" id="3_7tvvw"]
+[ext_resource type="Script" uid="uid://8iqqd7ct1ydc" path="res://scenes/product_meter/product_meter_ui_updater.gd" id="3_foft7"]
 [ext_resource type="PackedScene" uid="uid://c4chg6lkm2hr7" path="res://scenes/highlightable_text.tscn" id="3_yex1k"]
 [ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="4_n2ble"]
+[ext_resource type="Script" uid="uid://dow2abdfm7wdk" path="res://scenes/product_meter/product_meter_interaction.gd" id="5_87o61"]
+[ext_resource type="Script" uid="uid://bxfwth02vmai0" path="res://scenes/product_meter/product_buyer.gd" id="6_2bire"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rhudp"]
-bg_color = Color(0.709696, 0.57952, 0.338334, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6hwq6"]
 skew = Vector2(0.3, 0)
 corner_radius_top_left = 30
 corner_radius_top_right = 5
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_87o61"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s6k24"]
 resource_local_to_scene = true
 shader = ExtResource("4_n2ble")
 shader_parameter/rect_size = Vector2(54, 49)
@@ -32,14 +34,15 @@ offset_bottom = 109.0
 size_flags_horizontal = 3
 theme = ExtResource("1_ygrlx")
 theme_type_variation = &"ProductMeterPanel"
-theme_override_styles/panel = SubResource("StyleBoxFlat_rhudp")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6hwq6")
 script = ExtResource("1_ynjkp")
 locked_colour = Color(0.6, 0.6, 0.6, 1)
 
-[node name="UIUpdater" type="Node" parent="." unique_id=623711486 node_paths=PackedStringArray("meter", "unlocked_container", "locked_container", "name_label", "amount_label", "make_button", "progress_bar", "reward_label", "buy_button", "automate_button", "unlock_button")]
+[node name="UIUpdater" type="Node" parent="." unique_id=623711486 node_paths=PackedStringArray("meter", "buyer", "unlocked_container", "locked_container", "name_label", "amount_label", "make_button", "progress_bar", "reward_label", "buy_button", "automate_button", "unlock_button")]
 unique_name_in_owner = true
 script = ExtResource("3_foft7")
 meter = NodePath("..")
+buyer = NodePath("../Buyer")
 unlocked_container = NodePath("../MarginContainer/UnlockedModeContainer")
 locked_container = NodePath("../MarginContainer/LockedModeContainer")
 name_label = NodePath("../MarginContainer/UnlockedModeContainer/ProductionControls/VBoxContainer/NameLabel")
@@ -51,6 +54,22 @@ buy_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButtons/B
 automate_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButtons/AutomateButton")
 unlock_button = NodePath("../MarginContainer/LockedModeContainer/UnlockButton")
 panel_style_box = ExtResource("2_foft7")
+
+[node name="Interaction" type="Node" parent="." unique_id=1496385250 node_paths=PackedStringArray("make_button", "buy_button", "automate_button", "unlock_button")]
+unique_name_in_owner = true
+script = ExtResource("5_87o61")
+make_button = NodePath("../MarginContainer/UnlockedModeContainer/ProductionControls/MakeButton")
+buy_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButtons/BuyButton")
+automate_button = NodePath("../MarginContainer/UnlockedModeContainer/UpgradeButtons/AutomateButton")
+unlock_button = NodePath("../MarginContainer/LockedModeContainer/UnlockButton")
+
+[node name="Buyer" type="Node" parent="." unique_id=960804148]
+unique_name_in_owner = true
+script = ExtResource("6_2bire")
+
+[node name="Maker" type="Node" parent="." unique_id=300395351]
+unique_name_in_owner = true
+script = ExtResource("3_7tvvw")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1627391628]
 layout_mode = 2
@@ -108,7 +127,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="RewardLabel" parent="MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer" unique_id=1481492821 instance=ExtResource("3_yex1k")]
-material = SubResource("ShaderMaterial_87o61")
+material = SubResource("ShaderMaterial_s6k24")
 layout_mode = 2
 text = "£0"
 duration = 0.5
