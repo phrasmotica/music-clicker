@@ -1,9 +1,8 @@
+@tool
 class_name ProductBuyer
+extends Node
 
 var _product: Product = null
-
-func _init(product: Product) -> void:
-	_product = product
 
 func set_product(product: Product) -> void:
 	_product = product

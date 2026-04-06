@@ -12,8 +12,8 @@ var product: Product:
 		if product:
 			SignalHelper.persist(product.changed, _refresh)
 
-		if _buyer:
-			_buyer.set_product(product)
+		if buyer:
+			buyer.set_product(product)
 
 		# TODO: move this into one of the states?
 		if maker and not Engine.is_editor_hint():
@@ -55,12 +55,13 @@ var ui_updater: ProductMeterUIUpdater = %UIUpdater
 var interaction: ProductMeterInteraction = %Interaction
 
 @onready
+var buyer: ProductBuyer = %Buyer
+
+@onready
 var maker: ProductMaker = %Maker
 
 var _state_factory := ProductMeterStateFactory.new()
 var _current_state: ProductMeterState = null
-
-var _buyer := ProductBuyer.new(product)
 
 func _ready() -> void:
 	_refresh()
@@ -81,7 +82,7 @@ func switch_state(state: State, state_data := ProductMeterStateData.new()) -> vo
 		state_data,
 		ui_updater,
 		interaction,
-		_buyer,
+		buyer,
 		maker)
 
 	_current_state.state_transition_requested.connect(switch_state)
@@ -133,18 +134,6 @@ func can_unlock() -> bool:
 
 func get_amount() -> int:
 	return amount if product else 0
-
-func get_reward() -> int:
-	return _buyer.get_reward(amount, mult)
-
-func get_cost() -> int:
-	return _buyer.get_cost(amount)
-
-func get_automate_cost() -> int:
-	return _buyer.get_automate_cost()
-
-func get_unlock_cost() -> int:
-	return _buyer.get_unlock_cost()
 
 func update() -> void:
 	_refresh()

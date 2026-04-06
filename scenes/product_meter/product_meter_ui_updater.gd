@@ -5,6 +5,9 @@ class_name ProductMeterUIUpdater extends Node
 var meter: ProductMeter
 
 @export
+var buyer: ProductBuyer
+
+@export
 var unlocked_container: Container
 
 @export
@@ -138,7 +141,7 @@ func update_labels() -> void:
 		amount_label.text = "x%d" % meter.get_amount()
 
 	if reward_label:
-		reward_label.text = "£%d" % meter.get_reward()
+		reward_label.text = "£%d" % buyer.get_reward(meter.get_amount(), meter.mult)
 
 func update_buttons() -> void:
 	if make_button:
@@ -163,10 +166,10 @@ func _get_name_text() -> String:
 	return "<product_name>"
 
 func _get_buy_text() -> String:
-	return "Buy £%d" % meter.get_cost()
+	return "Buy £%d" % buyer.get_cost(meter.get_amount())
 
 func _get_automate_text() -> String:
-	return "Automated!" if meter.is_automated() else "Automate £%d" % meter.get_automate_cost()
+	return "Automated!" if meter.is_automated() else "Automate £%d" % buyer.get_automate_cost()
 
 func _get_unlock_text() -> String:
-	return "Unlock £%d" % meter.get_unlock_cost()
+	return "Unlock £%d" % buyer.get_unlock_cost()
