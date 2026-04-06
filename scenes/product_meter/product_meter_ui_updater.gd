@@ -29,7 +29,7 @@ var progress_bar: ProgressBar
 var reward_label: HighlightableText
 
 @export
-var buy_button: Button
+var buy_button: BuyButton
 
 @export
 var automate_button: Button

@@ -5,7 +5,7 @@ extends Node
 var make_button: Button
 
 @export
-var buy_button: Button
+var buy_button: BuyButton
 
 @export
 var automate_button: Button

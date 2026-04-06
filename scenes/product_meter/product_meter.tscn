@@ -9,15 +9,16 @@
 [ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="4_n2ble"]
 [ext_resource type="Script" uid="uid://dow2abdfm7wdk" path="res://scenes/product_meter/product_meter_interaction.gd" id="5_87o61"]
 [ext_resource type="Script" uid="uid://bxfwth02vmai0" path="res://scenes/product_meter/product_buyer.gd" id="6_2bire"]
+[ext_resource type="PackedScene" uid="uid://sarpavolq2pp" path="res://scenes/buy_button/buy_button.tscn" id="10_cydn4"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vn55i"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cydn4"]
 skew = Vector2(0.3, 0)
 corner_radius_top_left = 30
 corner_radius_top_right = 5
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 5
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cydn4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_frt6w"]
 resource_local_to_scene = true
 shader = ExtResource("4_n2ble")
 shader_parameter/rect_size = Vector2(52, 65)
@@ -34,7 +35,7 @@ offset_bottom = 109.0
 size_flags_horizontal = 3
 theme = ExtResource("1_ygrlx")
 theme_type_variation = &"ProductMeterPanel"
-theme_override_styles/panel = SubResource("StyleBoxFlat_vn55i")
+theme_override_styles/panel = SubResource("StyleBoxFlat_cydn4")
 script = ExtResource("1_ynjkp")
 locked_colour = Color(0.6, 0.6, 0.6, 1)
 
@@ -128,7 +129,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="RewardLabel" parent="MarginContainer/UnlockedModeContainer/ProductionControls/HBoxContainer" unique_id=1481492821 instance=ExtResource("3_yex1k")]
-material = SubResource("ShaderMaterial_cydn4")
+material = SubResource("ShaderMaterial_frt6w")
 layout_mode = 2
 text = "£0"
 duration = 0.5
@@ -136,13 +137,8 @@ duration = 0.5
 [node name="UpgradeButtons" type="HBoxContainer" parent="MarginContainer/UnlockedModeContainer" unique_id=2131483160]
 layout_mode = 2
 
-[node name="BuyButton" type="Button" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons" unique_id=1982590588]
+[node name="BuyButton" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons" unique_id=573550037 instance=ExtResource("10_cydn4")]
 layout_mode = 2
-size_flags_horizontal = 3
-theme_type_variation = &"ProductMeterUpgradeButton"
-theme_override_font_sizes/font_size = 24
-disabled = true
-text = "Buy £0"
 
 [node name="AutomateButton" type="Button" parent="MarginContainer/UnlockedModeContainer/UpgradeButtons" unique_id=1398741672]
 layout_mode = 2
