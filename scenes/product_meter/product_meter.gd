@@ -83,21 +83,6 @@ func switch_state(state: State, state_data := ProductMeterStateData.new()) -> vo
 
 	call_deferred("add_child", _current_state)
 
-func get_amount() -> int:
-	return amount if product else 0
-
-func get_reward() -> int:
-	return ProductInfo.get_reward(product, amount, mult)
-
-func get_cost() -> int:
-	return ProductInfo.get_cost(product, amount)
-
-func get_automate_cost() -> int:
-	return ProductInfo.get_automate_cost(product)
-
-func get_unlock_cost() -> int:
-	return ProductInfo.get_unlock_cost(product)
-
 func lock() -> void:
 	if Engine.is_editor_hint():
 		ui_updater.lock()
@@ -140,11 +125,26 @@ func can_automate() -> bool:
 func can_unlock() -> bool:
 	return _current_state and _current_state.can_unlock()
 
+func get_amount() -> int:
+	return amount if product else 0
+
+func get_reward() -> int:
+	return ProductInfo.get_reward(product, amount, mult)
+
+func get_cost() -> int:
+	return ProductInfo.get_cost(product, amount)
+
+func get_automate_cost() -> int:
+	return ProductInfo.get_automate_cost(product)
+
+func get_unlock_cost() -> int:
+	return ProductInfo.get_unlock_cost(product)
+
+func update() -> void:
+	_refresh()
+
 func _refresh() -> void:
 	if ui_updater:
 		ui_updater.update_background()
 		ui_updater.update_labels()
 		ui_updater.update_buttons()
-
-func update() -> void:
-	_refresh()
