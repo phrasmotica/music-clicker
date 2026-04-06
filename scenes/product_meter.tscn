@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://dkomyb52bvbhj" path="res://theme/ui_theme.tres" id="1_ygrlx"]
 [ext_resource type="Script" uid="uid://bi4d6ylh4sgrp" path="res://scenes/product_meter/product_meter.gd" id="1_ynjkp"]
 [ext_resource type="StyleBox" uid="uid://ccr1mhrm5bndo" path="res://theme/panel_product_meter_panel.tres" id="2_foft7"]
-[ext_resource type="Script" uid="uid://8iqqd7ct1ydc" path="res://scripts/product_meter_ui_updater.gd" id="3_foft7"]
+[ext_resource type="Script" uid="uid://8iqqd7ct1ydc" path="res://scenes/product_meter/product_meter_ui_updater.gd" id="3_foft7"]
 [ext_resource type="PackedScene" uid="uid://c4chg6lkm2hr7" path="res://scenes/highlightable_text.tscn" id="3_yex1k"]
 [ext_resource type="Shader" uid="uid://d023wmok0gahg" path="res://shaders/text_outline_sweep_h.gdshader" id="4_n2ble"]
 
